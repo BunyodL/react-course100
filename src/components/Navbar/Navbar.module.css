@@ -1,0 +1,30 @@
+.navbar {
+  grid-area: n;
+  background-color: rgb(83, 185, 139);
+  border: 3px solid rgb(83, 185, 139);;
+}
+
+.nav {
+  margin-bottom: 40px;
+}
+
+.nav a {
+  display: grid;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.nav a:hover {
+  cursor: pointer;
+  background-color: #a38b8b;
+}
+
+.item {
+  font-size: 20px;
+  color: white;
+  padding: 10px 0;
+}
+
+.active > .item {
+  color: gold;
+}
