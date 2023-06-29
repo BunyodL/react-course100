@@ -1,6 +1,6 @@
 import React from 'react';
 import st from './../../Dialogs.module.css';
-import { addMessageActionCreator, updateNewMessageTextActionCreator } from '../../../../redux/state';
+import { addMessageActionCreator, updateNewMessageTextActionCreator } from '../../../../redux/dialogs-reducer';
 
 let newMessageElement = React.createRef();
 
