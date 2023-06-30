@@ -1,15 +1,14 @@
-import React from "react";
-import st from "./Sidebar.module.css";
-import Friend from "../Friend/Friend";
-
+import React from 'react';
+import st from './Sidebar.module.css';
+import Friend from '../Friend/Friend';
 
 const Sidebar = props => {
-  const myFriends = props.friends.map(f => <Friend name={f.name} image={f.image} />)
+  const myFriends = props.friends.map(f => <Friend name={f.name} image={f.image} />);
 
   return (
     <div className={st.bar}>
       <div className={st.title}>Friends</div>
-      <div className={st.friends} >{myFriends}</div>
+      <div className={st.friends}>{myFriends}</div>
     </div>
   );
 };
