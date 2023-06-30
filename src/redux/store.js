@@ -2,7 +2,6 @@ import dialogsReducer from "./dialogs-reducer";
 import profileReducer from "./profile-reducer";
 import sidebarReducer from "./sidebar-reducer";
 
-
 let store = {
   _state: {
     profilePage: {
@@ -55,8 +54,6 @@ let store = {
     this._callobserver(this._state);
   }
 };
-
-
 
 export default store;
 window.store = store;
