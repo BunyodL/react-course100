@@ -52,7 +52,7 @@ let store = {
     sidebarReducer();
 
     this._callobserver(this._state);
-  }
+  },
 };
 
 export default store;

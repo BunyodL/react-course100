@@ -2,11 +2,13 @@ import React from 'react';
 import st from './Dialogs.module.css';
 import Dialog from './Dialog/Dialog';
 import Messages from './Messages/Messages';
-import AddMessage from './Messages/Message/AddMessage';
+import AddMessageContainer from './Messages/Message/AddMessageContainer';
 
 const Dialogs = props => {
-  const dialogs = props.dialogsPage.dialogsData.map(d => <Dialog name={d.name} image={d.image} />);
-  const messages = props.dialogsPage.messagesData.map(m => <Messages message={m.message} />);
+  let state = props.store.getState().dialogsPage;
+
+  const dialogs = state.dialogsData.map(d => <Dialog name={d.name} image={d.image} />);
+  const messages = state.messagesData.map(m => <Messages message={m.message} />);
 
   return (
     <div className={st.dialogs}>
@@ -17,7 +19,7 @@ const Dialogs = props => {
       <div className={st.messages}>
         <div className={st.message}>{messages}</div>
         <div className={st.newMessage}>
-          <AddMessage newMessageText={props.dialogsPage.newMessageText} dispatch={props.dispatch} />
+          <AddMessageContainer />
         </div>
       </div>
     </div>
