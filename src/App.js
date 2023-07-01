@@ -10,15 +10,16 @@ import Music from './components/Music/Music';
 import Settings from './components/Settings/Settings';
 
 const App = props => {
-
+  let state = props.store.getState();
+  
   return (
     <div className="app-wrapper">
       <Header />
-      <Navbar friends={props.state.sidebar.friends} />
+      <Navbar friends={state.sidebar.friends} />
       <div className="app-wrapper-content">
         <Routes>
           <Route path="/profile" element={<Profile />} />
-          <Route path="/dialogs" element={<Dialogs store={props.store}/>} />
+          <Route path="/dialogs" element={<Dialogs store={props.store} />} />
           <Route path="/news" element={<News />} />
           <Route path="/music" element={<Music />} />
           <Route path="/settings" element={<Settings />} />
