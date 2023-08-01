@@ -7,8 +7,8 @@ import AddMessageContainer from './Messages/Message/AddMessageContainer';
 const Dialogs = props => {
   let state = props.store.getState().dialogsPage;
 
-  const dialogs = state.dialogsData.map(d => <Dialog name={d.name} image={d.image} />);
-  const messages = state.messagesData.map(m => <Messages message={m.message} />);
+  const dialogs = state.dialogsData.map(d => <Dialog name={d.name} image={d.image} key={d.id} />);
+  const messages = state.messagesData.map(m => <Messages message={m.message} key={m.id} />);
 
   return (
     <div className={st.dialogs}>

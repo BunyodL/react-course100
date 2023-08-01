@@ -15,7 +15,8 @@ const mapDispatchToProps = dispatch => {
       dispatch(addPostActionCreator());
     },
     updateNewPostText: text => {
-      dispatch(updateNewPostTextActionCreator(text));
+      let action = updateNewPostTextActionCreator(text);
+      dispatch(action);
     },
   };
 };

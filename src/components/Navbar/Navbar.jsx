@@ -1,9 +1,9 @@
-import React from "react";
-import st from "./Navbar.module.css";
-import { NavLink } from "react-router-dom";
-import Sidebar from "./Sidebar/Sidebar";
+import React from 'react';
+import st from './Navbar.module.css';
+import { NavLink } from 'react-router-dom';
+import Sidebar from './Sidebar/Sidebar';
 
-const setActive = ({ isActive }) => (isActive ? st.active : "");
+const setActive = ({ isActive }) => (isActive ? st.active : '');
 
 const Navbar = props => {
   return (
@@ -20,6 +20,9 @@ const Navbar = props => {
         </NavLink>
         <NavLink to="/music" className={setActive}>
           <div className={st.item}>Music</div>
+        </NavLink>
+        <NavLink to="/users" className={setActive}>
+          <div className={st.item}>Users</div>
         </NavLink>
         <NavLink to="/settings" className={setActive}>
           <div className={st.item}>Settings</div>
