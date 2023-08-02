@@ -23,8 +23,8 @@ const User = props => {
           </div>
         </div>
         <div className={st.location}>
-          <div className={st.country}>{`Country: ${props.location.country}`}</div>
-          <div className={st.city}>{`City: ${props.location.city}`}</div>
+          <div className={st.country}>{`Country: ${'props.location.country'}`}</div>
+          <div className={st.city}>{`City: ${'props.location.city'}`}</div>
         </div>
       </div>
     </div>

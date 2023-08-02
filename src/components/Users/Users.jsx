@@ -1,59 +1,77 @@
 import React from 'react';
 import User from './User/User';
 import st from './Users.module.css';
+import axios from 'axios';
 
-const Users = props => {
-  if (props.users.length === 0) {
-    props.setUsers([
-      {
-        id: 1,
-        fullname: 'Dmitry',
-        imageUrl: 'https://bogdo.studio/assets/images/resources/69/medium/biznes_portret_neformalny_muhchina_v-studii_na_temnom_fone.jpg',
-        followed: true,
-        status: 'Lorem ipsum dolor sit amet consectetur.',
-        location: { country: 'Belarus', city: 'Minsk' },
-      },
-      {
-        id: 2,
-        imageUrl: 'https://bogdo.studio/assets/images/resources/69/medium/delovaya_fotosessia_biznesman_na_fone_biznescentra.jpg',
-        fullname: 'Georgiy',
-        followed: true,
-        status: 'Lorem ipsum dolor sit  consectetur.',
-        location: { country: 'Russia', city: 'Ulyanovsk' },
-      },
-      {
-        id: 3,
-        imageUrl: 'https://bogdo.studio/assets/images/resources/69/medium/biznes_fotosessia_devushka_v_ofise.jpg',
-        fullname: 'Valentina',
-        followed: true,
-        status: 'Lorem ipsum dolor sit amet consectetur amet.',
-        location: { country: 'Ukraine', city: 'Kiev' },
-      },
-      {
-        id: 4,
-        imageUrl: 'https://bogdo.studio/assets/images/resources/69/medium/502.jpg',
-        fullname: 'Nikita',
-        followed: false,
-        status: 'Lorem ipsum dolor sit amet consectetur.',
-        location: { country: 'USA', city: 'New York' },
-      },
-    ]);
+class Users extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log('вызов метода constructor');
+    this.defaultPhoto = 'https://static.thenounproject.com/png/5034901-200.png';
   }
 
-  const userElement = props.users.map(u => (
-    <User
-      name={u.fullname}
-      status={u.status}
-      image={u.imageUrl}
-      followed={u.followed}
-      location={u.location}
-      follow={props.follow}
-      unfollow={props.unfollow}
-      id={u.id}
-    />
-  ));
+  componentDidMount() {
+    console.log('вызов метода componentDidMount');
+    axios
+      .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+      .then(response => {
+        this.props.setUsers(response.data.items);
+        this.props.setTotalCount(Math.floor(Number(response.data.totalCount) / 200));
+      });
+  }
 
-  return <div className={st.users}>{userElement}</div>;
-};
+  userElement() {
+    return this.props.users.map(u => {
+      let photo = u.photos.small != null ? u.photos.small : this.defaultPhoto;
+
+      return (
+        <User
+          name={u.name}
+          status={u.status}
+          image={photo}
+          followed={u.followed}
+          location={'u.location'}
+          follow={this.props.follow}
+          unfollow={this.props.unfollow}
+          id={u.id}
+          key={u.id}
+        />
+      );
+    });
+  }
+
+  setPage = pageNum => {
+    this.props.setCurrentPage(pageNum);
+    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`).then(response => {
+      this.props.setUsers(response.data.items);
+    });
+  };
+
+  render() {
+    console.log('вызов метода render');
+
+    let pagesCount = Math.ceil(this.props.totalPagesCount / this.props.pageSize);
+
+    let pages = [];
+
+    for (let i = 1; i <= pagesCount; i++) {
+      pages.push(i);
+    }
+
+    return (
+      <div className={st.users}>
+        <div className={st.pages}>
+          {pages.map(p => (
+            <span className={this.props.currentPage === p && st.selectedPage} onClick={() => this.setPage(p)}>
+              {p}
+            </span>
+          ))}
+        </div>
+
+        {this.userElement()}
+      </div>
+    );
+  }
+}
 
 export default Users;
