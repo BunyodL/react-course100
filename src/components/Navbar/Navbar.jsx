@@ -15,14 +15,14 @@ const Navbar = props => {
         <NavLink to="/dialogs" className={setActive}>
           <div className={st.item}>Messages</div>
         </NavLink>
+        <NavLink to="/users" className={setActive}>
+          <div className={st.item}>Users</div>
+        </NavLink>
         <NavLink to="/news/" className={setActive}>
           <div className={st.item}>News</div>
         </NavLink>
         <NavLink to="/music" className={setActive}>
           <div className={st.item}>Music</div>
-        </NavLink>
-        <NavLink to="/users" className={setActive}>
-          <div className={st.item}>Users</div>
         </NavLink>
         <NavLink to="/settings" className={setActive}>
           <div className={st.item}>Settings</div>

@@ -1,12 +1,15 @@
 import React from 'react';
 import st from './../Users.module.css';
+import { NavLink } from 'react-router-dom';
 
 const User = props => {
   return (
     <div className={st.user}>
       <div className={st.profile}>
         <div className={st.ava}>
-          <img src={props.image} alt="Profile avatar" />
+          <NavLink to={`/profile/${props.id}`}>
+            <img src={props.image} alt="Profile avatar" />
+          </NavLink>
         </div>
         <div className={st.button}>
           {props.followed

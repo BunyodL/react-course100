@@ -1,5 +1,5 @@
 import React from 'react';
-import st from './Sidebar.module.css';
+import st from '../Navbar.module.css';
 import Friend from '../Friend/Friend';
 
 const Sidebar = props => {

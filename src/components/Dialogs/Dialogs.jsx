@@ -5,10 +5,8 @@ import Messages from './Messages/Messages';
 import AddMessageContainer from './Messages/Message/AddMessageContainer';
 
 const Dialogs = props => {
-  let state = props.store.getState().dialogsPage;
-
-  const dialogs = state.dialogsData.map(d => <Dialog name={d.name} image={d.image} key={d.id} />);
-  const messages = state.messagesData.map(m => <Messages message={m.message} key={m.id} />);
+  const dialogs = props.dialogsData.map(d => <Dialog name={d.name} image={d.image} key={d.id} />);
+  const messages = props.messagesData.map(m => <Messages message={m.message} key={m.id} />);
 
   return (
     <div className={st.dialogs}>
@@ -16,12 +14,15 @@ const Dialogs = props => {
         <div className={st.title}>Dialogs</div>
         {dialogs}
       </div>
-      <div className={st.messages}>
-        <div className={st.message}>{messages}</div>
-        <div className={st.newMessage}>
-          <AddMessageContainer />
+      <div className={st.messagesContainer}>
+        <div className={st.mainMessages}>
+          <div className={st.messages}>
+            <div className={st.message}>{messages}</div>
+            <AddMessageContainer />
+          </div>
         </div>
       </div>
+      {/* messagesContainer */}
     </div>
   );
 };

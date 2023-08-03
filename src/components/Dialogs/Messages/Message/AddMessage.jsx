@@ -6,7 +6,7 @@ const AddMessage = props => {
 
   let onMessageChange = e => {
     let text = e.target.value;
-    return props.changeMessage(text);
+    return props.updateNewMessageText(text);
   };
 
   return (
