@@ -1,10 +1,29 @@
 .header {
+  display: flex;
   grid-area: h;
   background-color: green;
-  padding: 5px;
-  cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
+}
+
+.header a {
+  width: 50%;
 }
 
 .header img {
   height: 100%;
+  cursor: pointer;
+}
+
+.loginBlock {
+  text-align: center;
+  cursor: pointer;
+  width: 10%;
+  color: white;
+}
+
+.loginBlock a {
+  color: white;
+  text-decoration: none;
 }

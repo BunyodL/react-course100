@@ -1,29 +1,43 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { follow, setUsers, unfollow, setCurrentPage, setTotalCount, toggleIsFetching } from '../../redux/users-reducer';
-import axios from 'axios';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
+import { usersAPI } from '../../api/api';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
     console.log('вызов метода componentDidMount');
     this.props.toggleIsFetching(true);
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-      .then(response => {
-        this.props.toggleIsFetching(false);
-        this.props.setUsers(response.data.items);
-        this.props.setTotalCount(Math.floor(Number(response.data.totalCount) / 200));
-      });
+    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+      this.props.toggleIsFetching(false);
+      this.props.setUsers(data.items);
+      this.props.setTotalCount(Math.floor(Number(data.totalCount) / 200));
+    });
   }
 
-  setPage = pageNum => {
-    this.props.setCurrentPage(pageNum);
+  setPage = pageNumber => {
+    this.props.setCurrentPage(pageNumber);
     this.props.toggleIsFetching(true);
-    axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNum}&count=${this.props.pageSize}`).then(response => {
+    usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
       this.props.toggleIsFetching(false);
-      this.props.setUsers(response.data.items);
+      this.props.setUsers(data.items);
+    });
+  };
+
+  unfollowUser = id => {
+    usersAPI.unfollowUserAPI(id).then(data => {
+      if (data.resultCode === 0) {
+        this.props.unfollow(id);
+      }
+    });
+  };
+
+  followUser = id => {
+    usersAPI.followUserAPI(id).then(data => {
+      if (data.resultCode === 0) {
+        this.props.follow(id);
+      }
     });
   };
 
@@ -36,8 +50,8 @@ class UsersContainer extends React.Component {
           pageSize={this.props.pageSize}
           totalPagesCount={this.props.totalPagesCount}
           currentPage={this.props.currentPage}
-          follow={this.props.follow}
-          unfollow={this.props.unfollow}
+          follow={this.followUser}
+          unfollow={this.unfollowUser}
           setPage={this.setPage}
           key={this.props.users.id}
         />

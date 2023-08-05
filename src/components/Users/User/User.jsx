@@ -3,6 +3,9 @@ import st from './../Users.module.css';
 import { NavLink } from 'react-router-dom';
 
 const User = props => {
+  const unfollow = () => props.unfollow(props.id);
+  const follow = () => props.follow(props.id);
+
   return (
     <div className={st.user}>
       <div className={st.profile}>
@@ -12,10 +15,7 @@ const User = props => {
           </NavLink>
         </div>
         <div className={st.button}>
-          {props.followed
-            ? <button onClick={() =>  props.unfollow(props.id) }>Unfollow</button>
-            : <button onClick={() =>  props.follow(props.id) }>Follow</button>
-          }
+          {props.followed ? <button onClick={unfollow}>Unfollow</button> : <button onClick={follow}>Follow</button>}
         </div>
       </div>
       <div className={st.biography}>
