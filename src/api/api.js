@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const instanse = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -10,15 +10,18 @@ const instanse = axios.create({
 
 export const usersAPI = {
   getUsers(currentPage, pageSize) {
-    return instanse.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data)
+    return instanse.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data);
   },
   getUserData() {
-    return instanse.get(`auth/me`).then(response => response.data)
+    return instanse.get(`auth/me`).then(response => response.data);
   },
-  followUserAPI(id) {
-    return instanse.post(`follow/${id}`).then(response => response.data)
+  followUserAPI(userId) {
+    return instanse.post(`follow/${userId}`).then(response => response.data);
   },
-  unfollowUserAPI(id) {
-    return instanse.delete(`follow/${id}`).then(response => response.data)
-  }
-}
+  unfollowUserAPI(userId) {
+    return instanse.delete(`follow/${userId}`).then(response => response.data);
+  },
+  getProfile(userId) {
+    return instanse.get(`profile/` + userId).then(response => response.data);
+  },
+};

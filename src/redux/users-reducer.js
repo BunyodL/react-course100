@@ -1,16 +1,20 @@
+import { usersAPI } from '../api/api';
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_COUNT = 'SET_TOTAL_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+const BUTTON_IS_DISABLED = 'BUTTON_IS_DISABLED';
 
 let initialState = {
   users: [],
   pageSize: 12,
   totalPagesCount: 0,
   currentPage: 1,
-  isFetching: true
+  isFetching: true,
+  disabledButton: [],
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -49,16 +53,75 @@ const usersReducer = (state = initialState, action) => {
     case TOGGLE_IS_FETCHING: {
       return { ...state, isFetching: action.isFetching };
     }
+    case BUTTON_IS_DISABLED: {
+      return {
+        ...state,
+        disabledButton: action.isDisabled
+          ? [...state.disabledButton, action.userId]
+          : state.disabledButton.filter(id => id !== action.userId),
+      };
+    }
     default:
       return state;
   }
 };
 
-export const follow = userId => ({ type: FOLLOW, userId });
-export const unfollow = userId => ({ type: UNFOLLOW, userId });
-export const setUsers = users => ({ type: SET_USERS, users });
-export const setCurrentPage = currentPage => ({ type: SET_CURRENT_PAGE, currentPage });
-export const setTotalCount = totalCount => ({ type: SET_TOTAL_COUNT, totalCount });
-export const toggleIsFetching = isFetching => ({ type: TOGGLE_IS_FETCHING, isFetching });
+//Action creators
+const followSuccess = userId => ({ type: FOLLOW, userId });
+const unfollowSuccess = userId => ({ type: UNFOLLOW, userId });
+const setUsers = users => ({ type: SET_USERS, users });
+const setCurrentPage = currentPage => ({ type: SET_CURRENT_PAGE, currentPage });
+const setTotalCount = totalCount => ({ type: SET_TOTAL_COUNT, totalCount });
+const toggleIsFetching = isFetching => ({ type: TOGGLE_IS_FETCHING, isFetching });
+const buttonIsDisabled = (isDisabled, userId) => ({ type: BUTTON_IS_DISABLED, isDisabled, userId });
+
+//Thunk creators
+export const getUsers = (currentPage, pageSize) => {
+  return dispatch => {
+    dispatch(toggleIsFetching(true));
+    usersAPI.getUsers(currentPage, pageSize).then(data => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setUsers(data.items));
+      dispatch(setTotalCount(Math.floor(Number(data.totalCount) / 200)));
+    });
+  };
+};
+
+export const setUsersPage = (pageNumber, pageSize) => {
+  return dispatch => {
+    dispatch(setCurrentPage(pageNumber));
+    dispatch(toggleIsFetching(true));
+    usersAPI.getUsers(pageNumber, pageSize).then(data => {
+      dispatch(toggleIsFetching(false));
+      dispatch(setUsers(data.items));
+    });
+  }
+}
+
+export const unfollow = userId => {
+  return dispatch => {
+    dispatch(buttonIsDisabled(true, userId));
+    usersAPI.unfollowUserAPI(userId).then(data => {
+      if (data.resultCode === 0) {
+        dispatch(unfollowSuccess(userId));
+      }
+      dispatch(buttonIsDisabled(false, userId));
+    });
+  };
+};
+
+export const follow = userId => {
+  return dispatch => {
+    dispatch(buttonIsDisabled(true, userId));
+    usersAPI.followUserAPI(userId).then(data => {
+      if (data.resultCode === 0) {
+        dispatch(followSuccess(userId));
+      }
+      dispatch(buttonIsDisabled(false, userId));
+    });
+  };
+};
+
+
 
 export default usersReducer;

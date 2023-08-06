@@ -17,6 +17,7 @@ const Users = props => {
         unfollow={props.unfollow}
         id={u.id}
         key={u.id}
+        disabledButton={props.disabledButton}
       />
     );
   });

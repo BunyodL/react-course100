@@ -1,3 +1,5 @@
+import { usersAPI } from "../api/api";
+
 const SET_USER_DATA = 'SET_USER_DATA';
 const RESPONSE_IS_FETCHING = 'RESPONSE_IS_FETCHING';
 
@@ -22,7 +24,22 @@ const authReducer = (state = initialState, action) => {
   }
 };
 
-export const setUserData = (id, email, login) => ({ type: SET_USER_DATA, data: { id, email, login } });
-export const responseIsFetching = isFetching => ({ type: SET_USER_DATA, isFetching });
+//Action creators
+const setUserData = (id, email, login) => ({ type: SET_USER_DATA, data: { id, email, login } });
+const responseIsFetching = isFetching => ({ type: SET_USER_DATA, isFetching });
+
+//Thunk creators
+export const getUserAccountData = () => {
+  return dispatch => {
+    dispatch(responseIsFetching(true));
+    usersAPI.getUserData().then(data => {
+      if (data.resultCode === 0) {
+        dispatch(responseIsFetching(false));
+        const { id, email, login } = data.data;
+        dispatch(setUserData(id, email, login));
+      }
+    });
+  }
+}
 
 export default authReducer;

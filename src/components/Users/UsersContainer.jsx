@@ -1,44 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, setUsers, unfollow, setCurrentPage, setTotalCount, toggleIsFetching } from '../../redux/users-reducer';
+import { follow, unfollow, getUsers, setUsersPage } from '../../redux/users-reducer';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
-import { usersAPI } from '../../api/api';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    console.log('вызов метода componentDidMount');
-    this.props.toggleIsFetching(true);
-    usersAPI.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-      this.props.toggleIsFetching(false);
-      this.props.setUsers(data.items);
-      this.props.setTotalCount(Math.floor(Number(data.totalCount) / 200));
-    });
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
   setPage = pageNumber => {
-    this.props.setCurrentPage(pageNumber);
-    this.props.toggleIsFetching(true);
-    usersAPI.getUsers(pageNumber, this.props.pageSize).then(data => {
-      this.props.toggleIsFetching(false);
-      this.props.setUsers(data.items);
-    });
-  };
-
-  unfollowUser = id => {
-    usersAPI.unfollowUserAPI(id).then(data => {
-      if (data.resultCode === 0) {
-        this.props.unfollow(id);
-      }
-    });
-  };
-
-  followUser = id => {
-    usersAPI.followUserAPI(id).then(data => {
-      if (data.resultCode === 0) {
-        this.props.follow(id);
-      }
-    });
+    this.props.setUsersPage(pageNumber, this.props.pageSize);
   };
 
   render() {
@@ -50,10 +22,11 @@ class UsersContainer extends React.Component {
           pageSize={this.props.pageSize}
           totalPagesCount={this.props.totalPagesCount}
           currentPage={this.props.currentPage}
-          follow={this.followUser}
-          unfollow={this.unfollowUser}
+          follow={this.props.follow}
+          unfollow={this.props.unfollow}
           setPage={this.setPage}
           key={this.props.users.id}
+          disabledButton={this.props.disabledButton}
         />
       </>
     );
@@ -66,6 +39,7 @@ const mapStateToProps = state => ({
   totalPagesCount: state.usersPage.totalPagesCount,
   currentPage: state.usersPage.currentPage,
   isFetching: state.usersPage.isFetching,
+  disabledButton: state.usersPage.disabledButton,
 });
 
-export default connect(mapStateToProps, { follow, unfollow, setUsers, setCurrentPage, setTotalCount, toggleIsFetching })(UsersContainer);
+export default connect(mapStateToProps, { follow, unfollow, getUsers, setUsersPage })(UsersContainer);
