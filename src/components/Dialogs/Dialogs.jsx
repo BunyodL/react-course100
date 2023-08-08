@@ -3,10 +3,13 @@ import st from './Dialogs.module.css';
 import Dialog from './Dialog/Dialog';
 import Messages from './Messages/Messages';
 import AddMessageContainer from './Messages/Message/AddMessageContainer';
+import { Navigate } from 'react-router-dom';
 
 const Dialogs = props => {
   const dialogs = props.dialogsData.map(d => <Dialog name={d.name} image={d.image} key={d.id} />);
   const messages = props.messagesData.map(m => <Messages message={m.message} key={m.id} />);
+
+  if (!props.isAuth) return <Navigate to={'/login/'} />;
 
   return (
     <div className={st.dialogs}>

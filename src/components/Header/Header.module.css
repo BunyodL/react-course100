@@ -1,14 +1,7 @@
 .header {
-  display: flex;
   grid-area: h;
   background-color: green;
-  width: 100%;
-  box-sizing: border-box;
-  justify-content: space-between;
-}
 
-.header a {
-  width: 50%;
 }
 
 .header img {
@@ -17,13 +10,11 @@
 }
 
 .loginBlock {
-  text-align: center;
+  float: right;
   cursor: pointer;
-  width: 10%;
-  color: white;
 }
 
 .loginBlock a {
-  color: white;
+  color: black;
   text-decoration: none;
 }

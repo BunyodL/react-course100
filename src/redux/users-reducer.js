@@ -76,52 +76,42 @@ const toggleIsFetching = isFetching => ({ type: TOGGLE_IS_FETCHING, isFetching }
 const buttonIsDisabled = (isDisabled, userId) => ({ type: BUTTON_IS_DISABLED, isDisabled, userId });
 
 //Thunk creators
-export const getUsers = (currentPage, pageSize) => {
-  return dispatch => {
-    dispatch(toggleIsFetching(true));
-    usersAPI.getUsers(currentPage, pageSize).then(data => {
-      dispatch(toggleIsFetching(false));
-      dispatch(setUsers(data.items));
-      dispatch(setTotalCount(Math.floor(Number(data.totalCount) / 200)));
-    });
-  };
+export const getUsers = (currentPage, pageSize) => dispatch => {
+  dispatch(toggleIsFetching(true));
+  usersAPI.getUsers(currentPage, pageSize).then(data => {
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+    dispatch(setTotalCount(Math.floor(Number(data.totalCount) / 200)));
+  });
 };
 
-export const setUsersPage = (pageNumber, pageSize) => {
-  return dispatch => {
-    dispatch(setCurrentPage(pageNumber));
-    dispatch(toggleIsFetching(true));
-    usersAPI.getUsers(pageNumber, pageSize).then(data => {
-      dispatch(toggleIsFetching(false));
-      dispatch(setUsers(data.items));
-    });
-  }
-}
-
-export const unfollow = userId => {
-  return dispatch => {
-    dispatch(buttonIsDisabled(true, userId));
-    usersAPI.unfollowUserAPI(userId).then(data => {
-      if (data.resultCode === 0) {
-        dispatch(unfollowSuccess(userId));
-      }
-      dispatch(buttonIsDisabled(false, userId));
-    });
-  };
+export const setUsersPage = (pageNumber, pageSize) => dispatch => {
+  dispatch(setCurrentPage(pageNumber));
+  dispatch(toggleIsFetching(true));
+  usersAPI.getUsers(pageNumber, pageSize).then(data => {
+    dispatch(toggleIsFetching(false));
+    dispatch(setUsers(data.items));
+  });
 };
 
-export const follow = userId => {
-  return dispatch => {
-    dispatch(buttonIsDisabled(true, userId));
-    usersAPI.followUserAPI(userId).then(data => {
-      if (data.resultCode === 0) {
-        dispatch(followSuccess(userId));
-      }
-      dispatch(buttonIsDisabled(false, userId));
-    });
-  };
+export const unfollow = userId => dispatch => {
+  dispatch(buttonIsDisabled(true, userId));
+  usersAPI.unfollow(userId).then(data => {
+    if (data.resultCode === 0) {
+      dispatch(unfollowSuccess(userId));
+    }
+    dispatch(buttonIsDisabled(false, userId));
+  });
 };
 
-
+export const follow = userId => dispatch => {
+  dispatch(buttonIsDisabled(true, userId));
+  usersAPI.follow(userId).then(data => {
+    if (data.resultCode === 0) {
+      dispatch(followSuccess(userId));
+    }
+    dispatch(buttonIsDisabled(false, userId));
+  });
+};
 
 export default usersReducer;

@@ -12,16 +12,28 @@ export const usersAPI = {
   getUsers(currentPage, pageSize) {
     return instanse.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data);
   },
-  getUserData() {
-    return instanse.get(`auth/me`).then(response => response.data);
-  },
-  followUserAPI(userId) {
+  follow(userId) {
     return instanse.post(`follow/${userId}`).then(response => response.data);
   },
-  unfollowUserAPI(userId) {
+  unfollow(userId) {
     return instanse.delete(`follow/${userId}`).then(response => response.data);
   },
+};
+
+export const profileAPI = {
   getProfile(userId) {
     return instanse.get(`profile/` + userId).then(response => response.data);
+  },
+  getStatus(userId) {
+    return instanse.get('profile/status/' + userId).then(response => response.data);
+  },
+  updateStatus(status) {
+    return instanse.put('profile/status', { status: status }).then(response => response.data);
+  },
+};
+
+export const authAPI = {
+  me() {
+    return instanse.get('auth/me').then(response => response.data);
   },
 };

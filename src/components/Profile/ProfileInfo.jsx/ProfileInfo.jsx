@@ -2,6 +2,8 @@ import React from 'react';
 import st from './ProfileInfo.module.css';
 import wallpaperImg from '../../../images/profile_wallpaper.jpg';
 import Preloader from '../../common/Preloader/Preloader';
+import defaultProfileImage from '../../../images/default-photo.png';
+import ProfileStatus from './ProfileStatus';
 
 const ProfileInfo = props => {
   if (!props.profile) {
@@ -15,7 +17,7 @@ const ProfileInfo = props => {
       </div>
       <div className={st.profile}>
         <div className={st.ava}>
-          <img src={props.profile.photos.large} alt="" />
+          <img src={props.profile.photos.large ? props.profile.photos.large : defaultProfileImage} alt="" />
         </div>
         <div className={st.description}>
           <div>
@@ -24,6 +26,7 @@ const ProfileInfo = props => {
           {props.profile.aboutMe}
         </div>
       </div>
+      <ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} />
     </div>
   );
 };
