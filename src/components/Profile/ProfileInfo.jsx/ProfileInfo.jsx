@@ -13,11 +13,11 @@ const ProfileInfo = props => {
   return (
     <div className={st.profileInfo}>
       <div className={st.image}>
-        <img src={wallpaperImg} alt="" />
+        <img src={wallpaperImg} alt='' />
       </div>
       <div className={st.profile}>
         <div className={st.ava}>
-          <img src={props.profile.photos.large ? props.profile.photos.large : defaultProfileImage} alt="" />
+          <img src={props.profile.photos.large ? props.profile.photos.large : defaultProfileImage} alt='' />
         </div>
         <div className={st.description}>
           <div>

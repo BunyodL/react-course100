@@ -1,23 +1,33 @@
 import React from 'react';
+import { Field, Form } from 'react-final-form';
+import { composeValidators, maxTextLength, required } from '../../../utils/validators/validators';
 import st from './../../Dialogs.module.css';
+import { Textarea } from '../../../common/FormsControls/Textarea';
 
 const AddMessage = props => {
-  let addMessage = () => props.addMessage();
-
-  let onMessageChange = e => {
-    let text = e.target.value;
-    return props.updateNewMessageText(text);
+  let addNewMessage = ({ newMessageText }) => {
+    props.addMessage(newMessageText);
   };
 
   return (
-    <div className={st.addMessage}>
-      <div className={st.textarea}>
-        <textarea onChange={onMessageChange} value={props.newMessageText} placeholder="Add message" />
-      </div>
-      <div className={st.button}>
-        <button onClick={addMessage}>Add message</button>
-      </div>
-    </div>
+    <Form
+      onSubmit={addNewMessage}
+      render={({ handleSubmit }) => (
+        <form className={st.addMessage} onSubmit={handleSubmit}>
+          <div className={st.textarea}>
+            <Field
+              component={Textarea}
+              name='newMessageText'
+              placeholder='Add message'
+              validate={composeValidators(required, maxTextLength(20))}
+            />
+          </div>
+          <div className={st.button}>
+            <button type='submit'>Add message</button>
+          </div>
+        </form>
+      )}
+    />
   );
 };
 

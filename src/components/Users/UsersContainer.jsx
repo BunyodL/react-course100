@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, unfollow, getUsers, setUsersPage } from '../../redux/users-reducer';
+import { follow, unfollow, getUsers, setUsersPage } from '../../redux/reducers/users-reducer';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
-import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
 class UsersContainer extends React.Component {
@@ -44,4 +43,4 @@ const mapStateToProps = state => ({
   disabledButton: state.usersPage.disabledButton,
 });
 
-export default compose(withAuthRedirect, connect(mapStateToProps, { follow, unfollow, getUsers, setUsersPage }))(UsersContainer);
+export default compose( connect(mapStateToProps, { follow, unfollow, getUsers, setUsersPage }))(UsersContainer);

@@ -30,14 +30,21 @@
 }
 
 .loginForm input[type='text'] {
-    display: block;
-    margin: 5px 0 15px;
-    width: 100%;
-    font-size: 1em;
-    padding: 8px;
-    border-radius: 5px;
-    border: 1px solid;
-  }
+  display: block;
+  margin: 5px 0 15px;
+  width: 100%;
+  font-size: 1em;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid;
+}
+
+.errorMessage {
+  border: 1px solid red;
+  color: red;
+  margin-bottom: 15px;
+  padding: 3px;
+}
 
 .checkbox__submit {
   display: flex;
