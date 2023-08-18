@@ -30,6 +30,17 @@ export const profileAPI = {
   updateStatus(status) {
     return instanse.put('profile/status', { status: status }).then(response => response.data);
   },
+  async updateMyPhoto(photoFile) {
+    const formData = new FormData();
+    formData.append('image', photoFile);
+
+    let response = await instanse.put('profile/photo', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  },
 };
 
 export const authAPI = {
@@ -41,5 +52,5 @@ export const authAPI = {
   },
   logout() {
     return instanse.delete('auth/login');
-  }
+  },
 };

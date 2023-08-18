@@ -4,9 +4,9 @@ import { Input } from '../common/FormsControls/Input';
 import { required } from '../utils/validators/validators';
 import st from './Login.module.css';
 
-const LoginForm = props => {
+const LoginForm = ({ login, errorMessage }) => {
   const onSubmit = ({ email, password, rememberMe = false }) => {
-    props.login(email, password, rememberMe);
+    login(email, password, rememberMe);
   };
 
   return (
@@ -18,11 +18,14 @@ const LoginForm = props => {
             <label htmlFor='email'>Email:</label>
             <Field id='email' name='email' component={Input} type='text' validate={required} placeholder='Email' />
           </div>
+
           <div className={st.password}>
             <label htmlFor='password'>Password:</label>
             <Field id='password' name='password' component={Input} type='text' validate={required} placeholder='Password' />
           </div>
-          {props.errorMessage && <div className={st.errorMessage}>{props.errorMessage}</div>}
+
+          {errorMessage && <div className={st.errorMessage}>{errorMessage}</div>}
+
           <div className={st.checkbox__submit}>
             <div className={st.checkbox}>
               <Field name='rememberMe' component='input' type='checkbox' />
@@ -35,5 +38,5 @@ const LoginForm = props => {
     />
   );
 };
- 
+
 export default LoginForm;

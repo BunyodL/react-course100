@@ -18,10 +18,12 @@
 .profile {
   display: flex;
   padding: 15px;
+  width: 100%;
 }
 
 .ava {
   margin: 10px;
+  width: 30%;
 }
 
 .ava img {
@@ -33,13 +35,15 @@
 .description {
   font-size: 20px;
   color: bisque;
-  margin: 10px;
 }
 
 .description h2 {
   color: black;
-  margin: 0;
-  margin-bottom: 5px;
+}
+
+.lookingForAJob {
+  display: flex;
+  align-items: center;
 }
 
 .profileStatus {
@@ -49,4 +53,3 @@
 .profileStatus input {
   font-size: 15px;
 }
-  

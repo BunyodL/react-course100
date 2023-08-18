@@ -2,11 +2,11 @@ import React from 'react';
 import st from './../Dialogs.module.css';
 import { NavLink } from 'react-router-dom';
 
-const Dialog = props => {
+const Dialog = ({ name, image }) => {
   return (
-    <NavLink to={'/dialogs/' + props.name} className={st.dialog}>
-      <img src={props.image} alt="" />
-      <div> {props.name} </div>
+    <NavLink to={'/dialogs/' + name} className={st.dialog}>
+      <img src={image} alt='' />
+      <div> {name} </div>
     </NavLink>
   );
 };

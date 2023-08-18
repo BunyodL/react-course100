@@ -2,13 +2,13 @@ import React from 'react';
 import st from '../Navbar.module.css';
 import { NavLink } from 'react-router-dom';
 
-const Friend = props => {
+const Friend = ({ name, image }) => {
   return (
-    <NavLink to={'/dialogs/' + props.name} className={st.friend}>
+    <NavLink to={'/dialogs/' + name} className={st.friend}>
       <div className={st.image}>
-        <img src={props.image} alt="" />
+        <img src={image} alt='' />
       </div>
-      <div className={st.name}> {props.name} </div>
+      <div className={st.name}> {name} </div>
     </NavLink>
   );
 };

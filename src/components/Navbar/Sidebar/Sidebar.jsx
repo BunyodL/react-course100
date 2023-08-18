@@ -2,8 +2,8 @@ import React from 'react';
 import st from '../Navbar.module.css';
 import Friend from '../Friend/Friend';
 
-const Sidebar = props => {
-  const myFriends = props.friends.map(f => <Friend name={f.name} image={f.image} key={f.id} />);
+const Sidebar = ({ friends }) => {
+  const myFriends = friends.map(f => <Friend name={f.name} image={f.image} key={f.id} />);
 
   return (
     <div className={st.bar}>

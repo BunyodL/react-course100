@@ -4,9 +4,9 @@ import { composeValidators, maxTextLength, required } from '../../../utils/valid
 import st from './../../Dialogs.module.css';
 import { Textarea } from '../../../common/FormsControls/Textarea';
 
-const AddMessage = props => {
+const AddMessage = ({ addMessage }) => {
   let addNewMessage = ({ newMessageText }) => {
-    props.addMessage(newMessageText);
+    addMessage(newMessageText);
   };
 
   return (

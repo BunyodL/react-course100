@@ -3,11 +3,11 @@ import AddPostForm from './AddPostForm';
 import st from './MyPosts.module.css';
 import Post from './post/Post';
 
-const MyPosts = props => {
-  const postElement = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id} />);
+const MyPosts = React.memo(({ posts, addPost }) => {
+  const postElement = posts.map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id} />);
 
   const addNewPost = ({ newPostText }) => {
-    props.addPost(newPostText);
+    addPost(newPostText);
   };
 
   return (
@@ -17,6 +17,6 @@ const MyPosts = props => {
       <div>{postElement}</div>
     </div>
   );
-};
+});
 
 export default MyPosts;

@@ -1,4 +1,4 @@
-const ADD_MESSAGE = 'ADD_MESSAGE';
+const ADD_MESSAGE = 'samurai/dialogs/ADD_MESSAGE';
 
 let initialState = {
   dialogsData: [

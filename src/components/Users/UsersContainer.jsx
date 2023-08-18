@@ -1,17 +1,28 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { follow, unfollow, getUsers, setUsersPage } from '../../redux/reducers/users-reducer';
+import { follow, unfollow, requestUsers, setUsersPage } from '../../redux/reducers/users-reducer';
 import Users from './Users';
 import Preloader from '../common/Preloader/Preloader';
 import { compose } from 'redux';
+import {
+  getCurrentPage,
+  getDisabledButton,
+  getIsFetching,
+  getPageSize,
+  getPortionCount,
+  getTotalPagesCount,
+  getUsers,
+} from '../../redux/selectors/users-selectors';
 
 class UsersContainer extends React.Component {
   componentDidMount() {
-    this.props.getUsers(this.props.currentPage, this.props.pageSize);
+    const { requestUsers, currentPage, pageSize } = this.props;
+    requestUsers(currentPage, pageSize);
   }
 
   setPage = pageNumber => {
-    this.props.setUsersPage(pageNumber, this.props.pageSize);
+    const { setUsersPage, pageSize } = this.props;
+    setUsersPage(pageNumber, pageSize);
   };
 
   render() {
@@ -21,8 +32,9 @@ class UsersContainer extends React.Component {
         <Users
           users={this.props.users}
           pageSize={this.props.pageSize}
-          totalPagesCount={this.props.totalPagesCount}
+          totalUsersCount={this.props.totalUsersCount}
           currentPage={this.props.currentPage}
+          portionSize={this.props.portionSize}
           follow={this.props.follow}
           unfollow={this.props.unfollow}
           setPage={this.setPage}
@@ -35,12 +47,13 @@ class UsersContainer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  users: state.usersPage.users,
-  pageSize: state.usersPage.pageSize,
-  totalPagesCount: state.usersPage.totalPagesCount,
-  currentPage: state.usersPage.currentPage,
-  isFetching: state.usersPage.isFetching,
-  disabledButton: state.usersPage.disabledButton,
+  users: getUsers(state),
+  pageSize: getPageSize(state),
+  totalUsersCount: getTotalPagesCount(state),
+  currentPage: getCurrentPage(state),
+  portionSize: getPortionCount(state),
+  isFetching: getIsFetching(state),
+  disabledButton: getDisabledButton(state),
 });
 
-export default compose( connect(mapStateToProps, { follow, unfollow, getUsers, setUsersPage }))(UsersContainer);
+export default compose(connect(mapStateToProps, { follow, unfollow, requestUsers, setUsersPage }))(UsersContainer);

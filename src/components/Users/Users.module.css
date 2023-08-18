@@ -4,19 +4,6 @@
   font-size: 20px;
 }
 
-.users .pages {
-  padding: 10px;
-  text-align: center;
-  font-size: 22px;
-}
-
-.users .pages span {
-  width: 70px;
-  margin: 5px;
-  padding: 10px;
-  cursor: pointer;
-}
-
 .user {
   display: grid;
   margin: 15px;
@@ -92,8 +79,4 @@
   align-items: center;
   justify-items: center;
   padding: 5px;
-}
-
-.selectedPage {
-  font-weight: bold;
 }

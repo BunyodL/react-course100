@@ -3,10 +3,10 @@ import { composeValidators, maxTextLength, required } from '../../utils/validato
 import { Textarea } from '../../common/FormsControls/Textarea';
 import st from './MyPosts.module.css';
 
-const AddPostForm = props => {
+const AddPostForm = ({ addNewPost }) => {
   return (
     <Form
-      onSubmit={props.addNewPost}
+      onSubmit={addNewPost}
       render={({ handleSubmit }) => (
         <form className={st.addPost} onSubmit={handleSubmit}>
           <div className={st.textarea}>
