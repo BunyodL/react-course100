@@ -41,16 +41,26 @@ export const profileAPI = {
     });
     return response.data;
   },
+  async updateMyProfile(profileData) {
+    let response = await instanse.put('profile', profileData)
+    return response.data;
+  }
 };
 
 export const authAPI = {
   me() {
     return instanse.get('auth/me').then(response => response.data);
   },
-  login(email, password, rememberMe) {
-    return instanse.post('auth/login', { email, password, rememberMe }).then(response => response.data);
+  login(email, password, rememberMe, captcha = null) {
+    return instanse.post('auth/login', { email, password, rememberMe, captcha }).then(response => response.data);
   },
   logout() {
     return instanse.delete('auth/login');
+  },
+};
+
+export const securityAPI = {
+  getCaptchaUrl() {
+    return instanse.get('security/get-captcha-url');
   },
 };

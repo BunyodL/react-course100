@@ -1,21 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import st from './ProfileInfo.module.css';
 import wallpaperImg from '../../../images/profile_wallpaper.jpg';
 import Preloader from '../../common/Preloader/Preloader';
-import defaultProfileImage from '../../../images/default-photo.png';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
-import CheckIcon from '../../../images/icons/doneIcon.svg';
-import CloseIcon from '../../../images/icons/closeIcon.svg';
+import ProfileDescription from './ProfileData/ProfileDescription';
+import ProfileDescriptionForm from './ProfileData/ProfileDescriptionForm';
+import ProfilePhoto from './ProfileData/ProfilePhoto';
 
-const ProfileInfo = ({ profile, status, updateUserStatus, isOwner, updatePhoto }) => {
+const ProfileInfo = ({ profile, status, updateUserStatus, isOwner, updatePhoto, updateProfileData, errorMessage }) => {
+  const [editMode, setEditMode] = useState(false);
+
   if (!profile) {
     return <Preloader />;
   }
 
-  const onPhotoSelected = e => {
-    if (e.target.files.length) {
-      updatePhoto(e.target.files[0]);
-    }
+  const onSubmit = profileData => {
+    updateProfileData(profileData).then(() => {
+      setEditMode(false);
+    });
   };
 
   return (
@@ -25,18 +27,12 @@ const ProfileInfo = ({ profile, status, updateUserStatus, isOwner, updatePhoto }
       </div>
 
       <div className={st.profile}>
-        <div className={st.ava}>
-          <img src={profile.photos.large || defaultProfileImage} alt='' />
-          {isOwner && <input type='file' onChange={onPhotoSelected} />}
-        </div>
-
-        <div className={st.description}>
-          <h2>{profile.fullName}</h2>
-          <div>{profile.aboutMe}</div>
-          <div className={st.lookingForAJob}>
-            <div>Looking for a job:</div> {profile.lookingForAJob ? <img src={CheckIcon} alt='' /> : <img src={CloseIcon} alt='' />}
-          </div>
-        </div>
+        <ProfilePhoto profile={profile} isOwner={isOwner} updatePhoto={updatePhoto} />
+        {editMode ? (
+          <ProfileDescriptionForm profile={profile} onSubmit={onSubmit} errorMessage={errorMessage} />
+        ) : (
+          <ProfileDescription profile={profile} isOwner={isOwner} setEditMode={setEditMode} />
+        )}
       </div>
       <ProfileStatusWithHooks status={status} updateUserStatus={updateUserStatus} />
     </div>

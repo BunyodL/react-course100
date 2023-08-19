@@ -4,9 +4,9 @@ import { Input } from '../common/FormsControls/Input';
 import { required } from '../utils/validators/validators';
 import st from './Login.module.css';
 
-const LoginForm = ({ login, errorMessage }) => {
-  const onSubmit = ({ email, password, rememberMe = false }) => {
-    login(email, password, rememberMe);
+const LoginForm = ({ login, errorMessage, captchaUrl }) => {
+  const onSubmit = ({ email, password, rememberMe = false, captcha }) => {
+    login(email, password, rememberMe, captcha);
   };
 
   return (
@@ -26,12 +26,24 @@ const LoginForm = ({ login, errorMessage }) => {
 
           {errorMessage && <div className={st.errorMessage}>{errorMessage}</div>}
 
+          {captchaUrl && <img src={captchaUrl} alt='' />}
+          {captchaUrl && (
+            <Field
+              id='captcha'
+              name='captcha'
+              component={Input}
+              type='text'
+              validate={required}
+              placeholder='Write here from the picture'
+            />
+          )}
+
           <div className={st.checkbox__submit}>
             <div className={st.checkbox}>
               <Field name='rememberMe' component='input' type='checkbox' />
               <label htmlFor='rememberMe'>Remember me</label>
             </div>
-            <button type='submit'>Login</button>
+            <button>Login</button>
           </div>
         </form>
       )}

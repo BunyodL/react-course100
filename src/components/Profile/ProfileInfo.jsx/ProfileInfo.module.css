@@ -16,14 +16,11 @@
 }
 
 .profile {
-  display: flex;
   padding: 15px;
-  width: 100%;
 }
 
 .ava {
   margin: 10px;
-  width: 30%;
 }
 
 .ava img {
@@ -34,16 +31,25 @@
 
 .description {
   font-size: 20px;
-  color: bisque;
 }
 
-.description h2 {
+.description .info h2 {
   color: black;
 }
+.errorMessage {
+  border: 1px solid red;
+  color: red;
+  margin-bottom: 15px;
+  padding: 3px;
+}
 
-.lookingForAJob {
+.description .info .lookingForAJob {
   display: flex;
   align-items: center;
+}
+
+.contact {
+  padding-left: 15px;
 }
 
 .profileStatus {
