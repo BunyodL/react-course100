@@ -9,16 +9,25 @@ import NavbarContainer from './components/Navbar/NavbarContainer';
 import HeaderContainer from './components/Header/HeaderContainer';
 import LoginContainer from './components/Login/LoginContainer';
 import { Provider, connect } from 'react-redux';
-import { initializeApp } from './redux/reducers/app-reducer';
+import { initializeApp } from './redux/reducers/app-reducer.ts';
 import Preloader from './components/common/Preloader/Preloader';
-import store from './redux/redux-store';
+import store, { RootState } from './redux/redux-store.ts';
 
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer'))
 
-class App extends React.Component {
+class App extends React.Component<any, any> {
+  handleUncaughtErrors(e: any) {
+    console.log("Error occurred: " + e.reason);
+  }
+
   componentDidMount() {
     this.props.initializeApp();
+    window.addEventListener('unhandledrejection', this.handleUncaughtErrors);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('unhandledrejection', this.handleUncaughtErrors);
   }
 
   render() {
@@ -43,6 +52,7 @@ class App extends React.Component {
               <Route path='/music/*' element={<Music />} />
               <Route path='/settings/*' element={<Settings />} />
               <Route path='/login/' element={<LoginContainer />} />
+              <Route path='*' element={<div>404 NOT FOUND</div>} />
             </Routes>
           </React.Suspense>
         </div>
@@ -51,13 +61,13 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   initialized: state.app.initialized,
 });
 
 const AppContainer = connect(mapStateToProps, { initializeApp })(App);
 
-const MainApp = props => {
+const MainApp = () => {
   return (
     <BrowserRouter>
       <Provider store={store}>

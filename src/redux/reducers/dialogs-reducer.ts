@@ -1,6 +1,13 @@
+import { DialogType, MessageType } from "../../types/types";
+
 const ADD_MESSAGE = 'samurai/dialogs/ADD_MESSAGE';
 
-let initialState = {
+type InitialStateType = {
+  dialogsData: Array<DialogType>
+  messagesData: Array<MessageType>
+}
+
+let initialState: InitialStateType = {
   dialogsData: [
     {
       id: 1,
@@ -46,7 +53,9 @@ let initialState = {
   ],
 };
 
-const dialogsReducer = (state = initialState, action) => {
+
+
+const dialogsReducer = (state = initialState, action: any): InitialStateType => {
   switch (action.type) {
     case ADD_MESSAGE: {
       const newMessage = {
@@ -60,6 +69,10 @@ const dialogsReducer = (state = initialState, action) => {
   }
 };
 
-export const addMessage = newMessageText => ({ type: ADD_MESSAGE, newMessageText });
+type AddMessageActionType = {
+  type: typeof ADD_MESSAGE,
+  newMessageText: string
+}
+export const addMessage = (newMessageText: string): AddMessageActionType => ({ type: ADD_MESSAGE, newMessageText });
 
 export default dialogsReducer;

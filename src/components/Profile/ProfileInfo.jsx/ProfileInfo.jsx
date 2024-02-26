@@ -28,8 +28,9 @@ const ProfileInfo = ({ profile, status, updateUserStatus, isOwner, updatePhoto, 
 
       <div className={st.profile}>
         <ProfilePhoto profile={profile} isOwner={isOwner} updatePhoto={updatePhoto} />
+        {errorMessage && <div className={st.errorMessage}>{errorMessage}</div>}
         {editMode ? (
-          <ProfileDescriptionForm profile={profile} onSubmit={onSubmit} errorMessage={errorMessage} />
+          <ProfileDescriptionForm profile={profile} onSubmit={onSubmit} />
         ) : (
           <ProfileDescription profile={profile} isOwner={isOwner} setEditMode={setEditMode} />
         )}

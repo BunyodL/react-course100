@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const instanse = axios.create({
+const instance = axios.create({
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
   withCredentials: true,
   headers: {
@@ -10,31 +10,36 @@ const instanse = axios.create({
 
 export const usersAPI = {
   getUsers(currentPage, pageSize) {
-    return instanse.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data);
+    return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => response.data);
   },
   follow(userId) {
-    return instanse.post(`follow/${userId}`).then(response => response.data);
+    return instance.post(`follow/${userId}`).then(response => response.data);
   },
   unfollow(userId) {
-    return instanse.delete(`follow/${userId}`).then(response => response.data);
+    return instance.delete(`follow/${userId}`).then(response => response.data);
   },
 };
 
 export const profileAPI = {
   getProfile(userId) {
-    return instanse.get(`profile/` + userId).then(response => response.data);
+    return instance.get(`profile/` + userId).then(response => response.data);
   },
   getStatus(userId) {
-    return instanse.get('profile/status/' + userId).then(response => response.data);
+    return instance.get('profile/status/' + userId).then(response => response.data);
   },
-  updateStatus(status) {
-    return instanse.put('profile/status', { status: status }).then(response => response.data);
+  async updateStatus(status) {
+    try {
+      const response = await instance.put('profile/status', { status: status });
+      return response.data
+    } catch (error) {
+      // alert(error);
+    }
   },
   async updateMyPhoto(photoFile) {
     const formData = new FormData();
     formData.append('image', photoFile);
 
-    let response = await instanse.put('profile/photo', formData, {
+    let response = await instance.put('profile/photo', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -42,25 +47,25 @@ export const profileAPI = {
     return response.data;
   },
   async updateMyProfile(profileData) {
-    let response = await instanse.put('profile', profileData)
+    const response = await instance.put('profile', profileData);
     return response.data;
   }
 };
 
 export const authAPI = {
   me() {
-    return instanse.get('auth/me').then(response => response.data);
+    return instance.get('auth/me').then(response => response.data);
   },
   login(email, password, rememberMe, captcha = null) {
-    return instanse.post('auth/login', { email, password, rememberMe, captcha }).then(response => response.data);
+    return instance.post('auth/login', { email, password, rememberMe, captcha }).then(response => response.data);
   },
   logout() {
-    return instanse.delete('auth/login');
+    return instance.delete('auth/login').then(response => response.data);
   },
 };
 
 export const securityAPI = {
   getCaptchaUrl() {
-    return instanse.get('security/get-captcha-url');
+    return instance.get('security/get-captcha-url');
   },
 };

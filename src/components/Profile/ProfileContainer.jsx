@@ -1,7 +1,7 @@
 import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
-import { getUserProfile, getUserStatus, updateUserStatus, updatePhoto, updateProfileData } from '../../redux/reducers/profile-reducer';
+import { getUserProfile, getUserStatus, updateUserStatus, updatePhoto, updateProfileData } from '../../redux/reducers/profile-reducer.ts';
 import { withRouter } from '../../hoc/withRouter';
 import { compose } from 'redux';
 

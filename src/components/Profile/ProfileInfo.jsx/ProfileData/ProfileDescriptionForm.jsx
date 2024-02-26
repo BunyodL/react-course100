@@ -5,7 +5,7 @@ import { Input } from '../../../common/FormsControls/Input';
 import { Textarea } from '../../../common/FormsControls/Textarea';
 import ContactForm from './ContactForm';
 
-const ProfileDescriptionForm = ({ profile, onSubmit, errorMessage }) => {
+const ProfileDescriptionForm = ({ profile, onSubmit }) => {
   return (
     <Form
       onSubmit={onSubmit}
@@ -15,13 +15,8 @@ const ProfileDescriptionForm = ({ profile, onSubmit, errorMessage }) => {
           <div className={st.description}>
             <div className={st.info}>
               <button>Save changes</button>
-
-              {errorMessage && <div className={st.errorMessage}>{errorMessage}</div>}
-
               <div>
-                <span>
-                  <b>Full name:</b>
-                </span>
+                <span><b>Full name:</b></span>
                 <Field id='fullName' name='fullName' type='text' component={Input} placeholder='Full Name' />
               </div>
 

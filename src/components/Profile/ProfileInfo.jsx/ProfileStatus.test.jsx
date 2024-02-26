@@ -4,57 +4,55 @@ import ProfileStatus from './ProfileStatus';
 describe('ProfileStatus component', () => {
   test('status from props should be in the local state status', () => {
     const component = create(<ProfileStatus status={'samuraiJS.com'} />);
-    let instanse = component.getInstance();
-    expect(instanse.props.status).toEqual(instanse.state.status);
+    const instance = component.getInstance();
+    expect(instance.props.status).toEqual(instance.state.status);
   });
 
-  test('span should be displayed after component creation',async  () => {
+  test('span should be displayed after component creation', async () => {
     const component = create(<ProfileStatus status={'samuraiJS.com'} />);
-    let root = component.root;
-    let span = root.findByType('span');
-    expect(span).toBeDefined();
+    const root = component.root;
+    expect(() => root.findByType('span')).toBeDefined();
   });
 
   test("input shouldn't be displayed after component creation", () => {
     const component = create(<ProfileStatus status={'samuraiJS.com'} />);
-    let root = component.root;
-    expect(() => {
-      root.findByType('input');
-    }).toThrow();
+    const root = component.root;
+    expect(() => root.findByType('input')).toThrow();
   });
 
   test('span status should be correct', () => {
     const component = create(<ProfileStatus status={'samuraiJS.com'} />);
-    let root = component.root;
-    let instanse = component.getInstance();
-    let span = root.findByType('span');
-    expect(span.children[0]).toBe(instanse.state.status);
+    const root = component.root;
+    const instance = component.getInstance();
+    const span = root.findByType('span');
+    expect(span.children[0]).toBe(instance.state.status);
   });
 
   test('after double click input should be displayed instead of span', () => {
     const component = create(<ProfileStatus status={'samuraiJS.com'} />);
-    let root = component.root;
-    let span = root.findByType('span');
+    const root = component.root;
+    const span = root.findByType('span');
     span.props.onDoubleClick();
-    let input = root.findByType('input');
-    expect(input).toBeDefined();
+    expect(() => root.findByType('input')).toBeDefined();
   });
 
-  test('input value should be the same with span status', () => {
+  test('input value should be the same with span status', async () => {
     const component = create(<ProfileStatus status={'samuraiJS.com'} />);
-    let root = component.root;
-    let instanse = component.getInstance();
-    let span = root.findByType('span');
+    const root = component.root;
+    const instance = component.getInstance();
+    const span = await root.findByType('span');
     span.props.onDoubleClick();
-    let input = root.findByType('input');
-    expect(input.props.value).toBe(instanse.state.status);
+    const input = await root.findByType('input');
+    expect(input.props.value).toBe(instance.state.status);
   });
 
   test('callback should be called', () => {
     const mockCallBack = jest.fn();
-    const component = create(<ProfileStatus status={'samuraiJS.com'} updateUserStatus={mockCallBack} />);
-    let instanse = component.getInstance();
-    instanse.deactivateEditMode();
+    const component = create(
+      <ProfileStatus status={'samuraiJS.com'} updateUserStatus={mockCallBack} />
+    );
+    const instance = component.getInstance();
+    instance.deactivateEditMode();
     expect(mockCallBack.mock.calls.length).toBe(1);
   });
 });
