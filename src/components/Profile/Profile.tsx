@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { ProfileType } from "types/types";
 import st from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import MyPostsContainer from './MyPosts/MyPostsContainer';
+import MyPostsContainer from './MyPosts/MyPostsContainer.tsx';
 
 export type ProfileInfoType = {
   profile: ProfileType
