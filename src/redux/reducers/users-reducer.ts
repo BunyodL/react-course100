@@ -1,5 +1,5 @@
 import { usersAPI } from '../../api/api';
-import { updateObjectInArray } from '../../components/utils/object-helpers';
+import { updateObjectInArray } from '../../components/utils/object-helpers.ts';
 import { UserType } from "types/types";
 
 const FOLLOW = 'samurai/users/FOLLOW';
@@ -22,18 +22,19 @@ let initialState = {
 
 type InitialStateType = typeof initialState
 
-
 const usersReducer = (state = initialState, action: any):InitialStateType => {
   switch (action.type) {
     case FOLLOW: {
       return {
         ...state,
+      // @ts-ignore
         users: updateObjectInArray(state.users, action.userId, 'id', { followed: true }),
       };
     }
     case UNFOLLOW: {
       return {
         ...state,
+        // @ts-ignore
         users: updateObjectInArray(state.users, action.userId, 'id', { followed: false }),
       };
     }

@@ -1,3 +1,4 @@
+import { AppDispatch } from "redux/redux-store";
 import { authAPI, securityAPI } from '../../api/api';
 
 const SET_USER_DATA = 'samurai/auth/SET_USER_DATA';
@@ -77,6 +78,13 @@ export const getUserAuthData = () => async (dispatch: any) => {
     dispatch(setUserData(id, email, login, true));
   }
 };
+
+export type LoginTCPropsType = {
+  email: string | null,
+  password: string | null,
+  rememberMe: boolean,
+  captcha: string | null
+}
 
 export const login = (email: string | null, password: string | null, rememberMe: boolean, captcha: any) => async (dispatch: any) => {
   const data = await authAPI.login(email, password, rememberMe, captcha);

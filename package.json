@@ -14,8 +14,10 @@
     "@types/jest": "^29.5.12",
     "@types/node": "^20.11.20",
     "@types/react": "^18.2.58",
+    "@types/react-css-modules": "^4.6.8",
     "@types/react-dom": "^18.2.19",
     "axios": "^1.4.0",
+    "file-loader": "^6.2.0",
     "final-form": "^4.20.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -26,14 +28,20 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "reselect": "^4.1.8",
+    "ts-loader": "^9.5.1",
+    "typed-css-modules": "^0.9.1",
     "typescript": "^5.3.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch" : "tcm --watch.",
+    "check:up-to-date-types": "tcm --listDifferent ."
   },
   "eslintConfig": {
     "extends": [
