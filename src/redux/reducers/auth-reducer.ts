@@ -1,4 +1,4 @@
-import { authAPI, securityAPI } from '../../api/api';
+import { authAPI, securityAPI } from '../../api/api.ts';
 
 const SET_USER_DATA = 'samurai/auth/SET_USER_DATA';
 const STOP_SUBMIT = 'samurai/auth/STOP_SUBMIT';

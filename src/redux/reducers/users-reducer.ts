@@ -1,4 +1,4 @@
-import { usersAPI } from '../../api/api';
+import { usersAPI } from '../../api/api.ts';
 import { updateObjectInArray } from '../../components/utils/object-helpers.ts';
 import { UserType } from "types/types";
 

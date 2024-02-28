@@ -1,7 +1,7 @@
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "redux/redux-store";
 import { PhotosType, PostType, ProfileType } from "types/types";
-import { profileAPI } from '../../api/api';
+import { profileAPI } from '../../api/api.ts';
 
 const ADD_POST = 'samurai/profile/ADD_POST';
 const SET_USER_PROFILE = 'samurai/profile/SET_USER_PROFILE';
@@ -122,11 +122,13 @@ export const getUserStatus = (userId: number | null): ThunkActionType => async (
 
 export const updateUserStatus = (status: string): ThunkActionType => async (dispatch) => {
   const data = await profileAPI.updateStatus(status);
-  if (data.resultCode === 0) {
-    dispatch(setUserStatus(status));
-  } else {
-    const message = data.messages.length > 0 ? data.messages[0] : 'Some unknown error';
-    dispatch(stopSubmit(message));
+  if (data) {
+    if (data.resultCode === 0) {
+      dispatch(setUserStatus(status));
+    } else {
+      const message = data.messages.length > 0 ? data.messages[0] : 'Some unknown error';
+      dispatch(stopSubmit(message));
+    }
   }
 };
 
