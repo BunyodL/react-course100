@@ -1,15 +1,14 @@
-import { FC } from "react";
-import { Form, Field } from 'react-final-form';
-import { composeValidators, maxTextLength, required } from '../../utils/validators/validators';
+import React, { FC } from "react";
+import { Field, Form } from 'react-final-form';
 import { Textarea } from '../../common/FormsControls/Textarea';
+import { composeValidators, maxTextLength, required } from '../../utils/validators/validators';
 import st from './MyPosts.module.css';
 
-type AddPostFormPropsType = {
+type Props = {
   addNewPost: (postText: { newPostText: string }) => void
 }
 
-
-const AddPostForm: FC<AddPostFormPropsType> = ({ addNewPost }) => {
+const AddPostForm: FC<Props> = ({ addNewPost }) => {
   return (
     <Form
       onSubmit={addNewPost}

@@ -14,27 +14,32 @@ import {
   getPortionCount,
   getTotalPagesCount,
   getUsers,
-} from '../../redux/selectors/users-selectors';
+} from '../../redux/selectors/users-selectors.ts';
 
-type UsersContainerPropsType = {
-  requestUsers: (page: number, pageSize: number) => void
+type MapStateToProps = {
   isFetching: boolean
-  setUsersPage: (page: number, pageSize: number) => void
-  follow: (id: number) => void
-  unfollow: (id: number) => void
   disabledButton: Array<number>
   currentPage: number
   pageSize: number
-  users: Array<UserType>
+  users: Array<UserType | undefined>
   totalUsersCount: number
   portionSize: number
 }
 
-type UsersContainerStateType = {
+type MapDispatchToProps = {
+  requestUsers: (page: number, pageSize: number) => void
+  follow: (id: number) => void
+  unfollow: (id: number) => void
+  setUsersPage: (page: number, pageSize: number) => void
+}
+
+type Props = MapStateToProps & MapDispatchToProps
+
+type State = {
   setPage: (page: number) => void
 }
 
-class UsersContainer extends React.Component<UsersContainerPropsType, UsersContainerStateType> {
+class UsersContainer extends React.Component<Props, State> {
   componentDidMount() {
     const { requestUsers, currentPage, pageSize } = this.props;
     requestUsers(currentPage, pageSize);
@@ -65,7 +70,7 @@ class UsersContainer extends React.Component<UsersContainerPropsType, UsersConta
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   users: getUsers(state),
   pageSize: getPageSize(state),
   totalUsersCount: getTotalPagesCount(state),
@@ -75,4 +80,9 @@ const mapStateToProps = (state: RootState) => ({
   disabledButton: getDisabledButton(state),
 });
 
-export default compose(connect(mapStateToProps, { follow, unfollow, requestUsers, setUsersPage }))(UsersContainer);
+export default compose(connect<MapStateToProps, MapDispatchToProps, {}, RootState>(mapStateToProps, {
+  follow,
+  unfollow,
+  requestUsers,
+  setUsersPage
+}))(UsersContainer);

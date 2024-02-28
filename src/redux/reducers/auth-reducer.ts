@@ -1,4 +1,3 @@
-import { AppDispatch } from "redux/redux-store";
 import { authAPI, securityAPI } from '../../api/api';
 
 const SET_USER_DATA = 'samurai/auth/SET_USER_DATA';

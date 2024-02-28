@@ -1,5 +1,7 @@
-import { profileAPI } from '../../api/api';
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "redux/redux-store";
 import { PhotosType, PostType, ProfileType } from "types/types";
+import { profileAPI } from '../../api/api';
 
 const ADD_POST = 'samurai/profile/ADD_POST';
 const SET_USER_PROFILE = 'samurai/profile/SET_USER_PROFILE';
@@ -25,7 +27,7 @@ const initialState: InitialStateType = {
   errorMessage: '',
 };
 
-const profileReducer = (state = initialState, action:any): InitialStateType => {
+const profileReducer = (state = initialState, action: ActionTypes): InitialStateType => {
   switch (action.type) {
     case ADD_POST: {
       const newPost = {
@@ -61,21 +63,25 @@ type AddPostActionType = {
   newPostText: string
 }
 export const addPost = (newPostText: string): AddPostActionType => ({ type: ADD_POST, newPostText });
+
 type SetUserProfileActionType = {
   type: typeof SET_USER_PROFILE,
   profile: ProfileType
 }
 export const setUserProfile = (profile: ProfileType): SetUserProfileActionType => ({ type: SET_USER_PROFILE, profile });
+
 type SetUserStatusActionType = {
   type: typeof SET_USER_STATUS,
   status: string
 }
 export const setUserStatus = (status: string): SetUserStatusActionType => ({ type: SET_USER_STATUS, status });
+
 type DeletePostActionType = {
   type: typeof DELETE_POST,
   postId: number
 }
 export const deletePost = (postId: number): DeletePostActionType => ({ type: DELETE_POST, postId });
+
 type UpdatePhotoSuccessActionType = {
   type: typeof UPDATE_PHOTO,
   photos: PhotosType
@@ -84,24 +90,37 @@ export const updatePhotoSuccess = (photos: PhotosType): UpdatePhotoSuccessAction
   type: UPDATE_PHOTO,
   photos
 });
+
 type StopSubmitActionType = {
   type: typeof STOP_SUBMIT
   message: string
 }
 export const stopSubmit = (message: string): StopSubmitActionType => ({ type: STOP_SUBMIT, message });
 
-//Thunk creators
-export const getUserProfile = (userId: number) => async (dispatch:any) => {
-  const data = await profileAPI.getProfile(userId);
-  dispatch(setUserProfile(data));
-};
+type ActionTypes =
+  AddPostActionType
+  | SetUserProfileActionType
+  | SetUserStatusActionType
+  | DeletePostActionType
+  | UpdatePhotoSuccessActionType
+  | StopSubmitActionType
 
-export const getUserStatus = (userId: number) => async (dispatch: any) => {
+//Thunk creators
+
+type ThunkActionType = ThunkAction<Promise<void>, RootState, null, ActionTypes>
+
+export const getUserProfile = (userId: number | null): ThunkActionType =>
+  async (dispatch) => {
+    const data = await profileAPI.getProfile(userId);
+    dispatch(setUserProfile(data));
+  };
+
+export const getUserStatus = (userId: number | null): ThunkActionType => async (dispatch) => {
   const data = await profileAPI.getStatus(userId);
   dispatch(setUserStatus(data));
 };
 
-export const updateUserStatus = (status: string) => async (dispatch: any) => {
+export const updateUserStatus = (status: string): ThunkActionType => async (dispatch) => {
   const data = await profileAPI.updateStatus(status);
   if (data.resultCode === 0) {
     dispatch(setUserStatus(status));
@@ -111,18 +130,18 @@ export const updateUserStatus = (status: string) => async (dispatch: any) => {
   }
 };
 
-export const updatePhoto = (file: any) => async (dispatch: any) => {
+export const updatePhoto = (file: any): ThunkActionType => async (dispatch) => {
   const data = await profileAPI.updateMyPhoto(file);
   if (data.resultCode === 0) {
     dispatch(updatePhotoSuccess(data.data.photos));
   }
 };
 
-export const updateProfileData = (profileData: ProfileType) => async (dispatch: any, getState: any) => {
+export const updateProfileData = (profileData: ProfileType): ThunkActionType => async (dispatch, getState) => {
   const userId = getState().auth.id;
   const data = await profileAPI.updateMyProfile(profileData);
   if (data.resultCode === 0) {
-    dispatch(getUserProfile(userId));
+    await dispatch(getUserProfile(userId))
   } else {
     const message = data.messages.length > 0 ? data.messages[0] : 'Some unknown error';
     dispatch(stopSubmit(message));

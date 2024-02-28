@@ -1,27 +1,32 @@
-import React, {FC} from 'react';
+import React from 'react';
 import './App.css';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import News from './components/News/News.tsx';
-import Music from './components/Music/Music.tsx';
-import Settings from './components/Settings/Settings.tsx';
-import UsersContainer from './components/Users/UsersContainer.tsx';
-import NavbarContainer from './components/Navbar/NavbarContainer.tsx';
+import { connect, Provider } from 'react-redux';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Preloader from './components/common/Preloader/Preloader.tsx';
 import HeaderContainer from './components/Header/HeaderContainer.tsx';
 import LoginContainer from './components/Login/LoginContainer.tsx';
-import { Provider, connect } from 'react-redux';
+import Music from './components/Music/Music.tsx';
+import NavbarContainer from './components/Navbar/NavbarContainer.tsx';
+import News from './components/News/News.tsx';
+import Settings from './components/Settings/Settings.tsx';
+import UsersContainer from './components/Users/UsersContainer.tsx';
 import { initializeApp } from './redux/reducers/app-reducer.ts';
-import Preloader from './components/common/Preloader/Preloader.tsx';
 import store, { RootState } from './redux/redux-store.ts';
 
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer.ts'))
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer.tsx'))
 const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContainer.tsx'))
 
-type AppComponentPropsType = {
-  initializeApp: () => void
+type MapStateToProps = {
   initialized: boolean
 }
 
-class App extends React.Component<AppComponentPropsType, {}> {
+type MapDispatchToProps = {
+  initializeApp: () => void
+}
+
+type Props = MapStateToProps & MapDispatchToProps
+
+class App extends React.Component<Props, {}> {
   handleUncaughtErrors(e: PromiseRejectionEvent) {
     console.log("Error occurred: " + e.reason);
   }
@@ -66,11 +71,11 @@ class App extends React.Component<AppComponentPropsType, {}> {
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   initialized: state.app.initialized,
 });
 
-const AppContainer: FC = connect(mapStateToProps, { initializeApp })(App);
+const AppContainer = connect<MapStateToProps, MapDispatchToProps, {}, RootState>(mapStateToProps, { initializeApp })(App);
 
 const MainApp = () => {
   return (

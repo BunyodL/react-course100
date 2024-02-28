@@ -7,7 +7,7 @@ import authReducer from './reducers/auth-reducer.ts';
 import ThunkMiddleware from 'redux-thunk';
 import appReducer from './reducers/app-reducer.ts';
 
-let reducers = combineReducers({
+let rootReducer = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   sidebar: sidebarReducer,
@@ -16,10 +16,10 @@ let reducers = combineReducers({
   app: appReducer,
 });
 
-let store = legacy_createStore(reducers, applyMiddleware(ThunkMiddleware));
-
 // window.store = store;
 
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = ReturnType<typeof store.dispatch>
+export type RootState = ReturnType<typeof rootReducer>
+export type AppDispatch = typeof store.dispatch
+
+let store = legacy_createStore(rootReducer, applyMiddleware(ThunkMiddleware));
 export default store;

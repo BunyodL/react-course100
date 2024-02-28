@@ -1,25 +1,47 @@
-import { ProfileInfoType } from "components/Profile/Profile";
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { ProfileType } from "types/types";
-import st from './ProfileInfo.module.css';
 import wallpaperImg from '../../../images/profile_wallpaper.jpg';
 import Preloader from '../../common/Preloader/Preloader';
-import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 import ProfileDescription from './ProfileData/ProfileDescription.tsx';
 import ProfileDescriptionForm from './ProfileData/ProfileDescriptionForm.tsx';
 import ProfilePhoto from './ProfileData/ProfilePhoto.tsx';
+import st from './ProfileInfo.module.css';
+import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
-const ProfileInfo: FC<ProfileInfoType> = ({ profile, status, updateUserStatus, isOwner, updatePhoto, updateProfileData, errorMessage }) => {
-  const [editMode, setEditMode] = useState<boolean>(false);
+type ProfileInfoType = {
+  profile: ProfileType | null
+  status: string
+  updateUserStatus: (status: string) => void
+  isOwner: boolean
+  updatePhoto: (file: any) => void
+  updateProfileData: (profileData: ProfileType) => void
+  errorMessage: string
+}
+
+const ProfileInfo: FC<ProfileInfoType> = ({
+                                            profile,
+                                            status,
+                                            updateUserStatus,
+                                            isOwner,
+                                            updatePhoto,
+                                            updateProfileData,
+                                            errorMessage
+                                          }) => {
+  const [editMode, setEditMode] = useState(false);
+
+  // useEffect(() => {
+  //   setEditMode(false);
+  // }, [])
 
   if (!profile) {
     return <Preloader />;
   }
 
   const onSubmit = (profileData: ProfileType) => {
-    updateProfileData(profileData).then(() => {
-      setEditMode(false);
-    });
+    updateProfileData(profileData)
+    //   .then(() => {
+    //   setEditMode(false);
+    // });
   };
 
   return (

@@ -4,12 +4,12 @@ import AddPostForm from './AddPostForm.tsx';
 import st from './MyPosts.module.css';
 import Post from './post/Post.tsx';
 
-type MyPostsPropsType = {
+type Props = {
   posts: Array<PostType>
   addPost: (newPostText: string) => void
 }
 
-const MyPosts: FC<MyPostsPropsType> = React.memo(({ posts, addPost }) => {
+const MyPosts: FC<Props> = React.memo(({ posts, addPost }) => {
   const postElement = posts.map(p => <Post message={p.message} likesCount={p.likesCount} key={p.id} />);
 
   const addNewPost = ({ newPostText }: { newPostText: string }) => {

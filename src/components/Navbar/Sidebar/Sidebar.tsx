@@ -1,9 +1,13 @@
-import { FriendsType } from "components/Navbar/Navbar";
 import React, { FC } from 'react';
-import st from '../Navbar.module.css';
+import { FriendType } from "types/types";
 import Friend from '../Friend/Friend.tsx';
+import st from '../Navbar.module.css';
 
-const Sidebar: FC<FriendsType> = ({ friends }) => {
+type Props = {
+  friends: Array<FriendType>
+}
+
+const Sidebar: FC<Props> = ({ friends }) => {
   const myFriends = friends.map(f => <Friend name={f.name} image={f.image} key={f.id} id={f.id} age={f.age} />);
 
   return (

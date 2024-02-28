@@ -3,18 +3,24 @@ import { RootState } from "redux/redux-store";
 import { login } from '../../redux/reducers/auth-reducer.ts';
 import Login from './Login.tsx';
 
-export type LoginPropsType = {
+type MapStateToProps = {
   isAuth: boolean
   errorMessage: string
-  captchaUrl: any
-  login: (email: string | null, password: string | null, rememberMe: boolean, captcha: any) => (dispatch: any) => Promise<void>
+  captchaUrl: string | null
 }
 
-const mapStateToProps = (state: RootState) => ({
+type MapDispatchPropsType = {
+  login: (email: string | null, password: string | null, rememberMe: boolean, captcha: string | null) => void
+}
+
+type OwnProps = {}
+
+export type LoginProps = MapStateToProps & MapDispatchPropsType & OwnProps
+
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   isAuth: state.auth.isAuth,
   errorMessage: state.auth.errorMessage,
   captchaUrl: state.auth.captchaUrl,
 });
 
-// @ts-ignore
-export default connect(mapStateToProps, { login })(Login);
+export default connect<MapStateToProps, MapDispatchPropsType, OwnProps, RootState>(mapStateToProps, { login })(Login);

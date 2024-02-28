@@ -1,13 +1,13 @@
 import React, { FC } from 'react';
-import st from './Post.module.css';
 import postAvatar from '../../../../images/Muzhskaya_avatarka_bez_litza.jpg';
+import st from './Post.module.css';
 
-type PostPropsType = {
+type Props = {
   message: string
   likesCount: number
 }
 
-const Post: FC<PostPropsType> = ({ message, likesCount }) => {
+const Post: FC<Props> = ({ message, likesCount }) => {
   return (
     <div className={st.item}>
       <img src={postAvatar} alt='' />

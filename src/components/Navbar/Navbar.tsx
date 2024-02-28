@@ -1,14 +1,16 @@
 import React, { FC } from 'react';
+import { NavLink } from 'react-router-dom';
 import { FriendType } from "types/types";
 import st from './Navbar.module.css';
-import { NavLink } from 'react-router-dom';
 import Sidebar from './Sidebar/Sidebar.tsx';
 
 const setActive = ({ isActive }: { isActive: boolean }) => (isActive ? st.active : '');
 
-export type FriendsType = { friends: Array<FriendType> }
+type Props = {
+  friends: Array<FriendType>
+}
 
-const Navbar: FC<FriendsType> = ({ friends }) => {
+const Navbar: FC<Props> = ({ friends }) => {
   return (
     <div className={st.navbar}>
       <nav className={st.nav}>

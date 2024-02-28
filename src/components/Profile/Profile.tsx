@@ -1,29 +1,28 @@
-import { ProfileContainerPropsType } from "components/Profile/ProfileContainer";
 import React, { FC } from 'react';
 import { ProfileType } from "types/types";
+import MyPostsContainer from './MyPosts/MyPostsContainer.tsx';
 import st from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
-import MyPostsContainer from './MyPosts/MyPostsContainer.tsx';
 
-export type ProfileInfoType = {
-  profile: ProfileType
+type Props = {
+  profile: ProfileType | null
   status: string
-  updateUserStatus: () => void
+  updateUserStatus: (status: string) => void
+  updatePhoto: (file: any) => void
+  updateProfileData: (profileData: ProfileType) => void
   isOwner: boolean
-  updatePhoto: () => void
-  updateProfileData: (profileData: ProfileType) => Promise<void>
   errorMessage: string
 }
 
-const Profile: FC<ProfileContainerPropsType> = ({
-                                                  profile,
-                                                  status,
-                                                  updateUserStatus,
-                                                  isOwner,
-                                                  updatePhoto,
-                                                  updateProfileData,
-                                                  errorMessage
-                                                }) => {
+const Profile: FC<Props> = ({
+                                     profile,
+                                     status,
+                                     updateUserStatus,
+                                     isOwner,
+                                     updatePhoto,
+                                     updateProfileData,
+                                     errorMessage
+                                   }) => {
   return (
     <div className={st.content}>
       <ProfileInfo

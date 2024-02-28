@@ -1,18 +1,17 @@
 import React, { FC } from 'react';
-import { Form, Field } from 'react-final-form';
+import { Field, Form } from 'react-final-form';
 import { LoginTCPropsType } from "redux/reducers/auth-reducer";
-import { AppDispatch } from "redux/redux-store";
 import { Input } from '../common/FormsControls/Input';
 import { required } from '../utils/validators/validators';
 import st from './Login.module.css';
 
-type LoginFormPropsType = {
-  login: (email: string | null, password: string | null, rememberMe: boolean, captcha: any) => (dispatch: any) => Promise<void>
-    errorMessage: string
-    captchaUrl: string | null
+type LoginFormProps = {
+  login: (email: string | null, password: string | null, rememberMe: boolean, captcha: string | null) => void
+  errorMessage: string
+  captchaUrl: string | null
 }
 
-const LoginForm: FC<LoginFormPropsType> = ({ login, errorMessage, captchaUrl }) => {
+const LoginForm: FC<LoginFormProps> = ({ login, errorMessage, captchaUrl }) => {
   const onSubmit = ({ email, password, rememberMe = false, captcha }: LoginTCPropsType) => {
     login(email, password, rememberMe, captcha);
   };
@@ -29,7 +28,8 @@ const LoginForm: FC<LoginFormPropsType> = ({ login, errorMessage, captchaUrl }) 
 
           <div className={st.password}>
             <label htmlFor='password'>Password:</label>
-            <Field id='password' name='password' component={Input} type='text' validate={required} placeholder='Password' />
+            <Field id='password' name='password' component={Input} type='text' validate={required}
+                   placeholder='Password' />
           </div>
 
           {errorMessage && <div className={st.errorMessage}>{errorMessage}</div>}

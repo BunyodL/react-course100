@@ -4,11 +4,11 @@ import { composeValidators, maxTextLength, required } from '../../../utils/valid
 import st from './../../Dialogs.module.css';
 import { Textarea } from '../../../common/FormsControls/Textarea';
 
-type AddMessagePropsType = {
+type PropsType = {
   addMessage: (text: string) => void
 }
 
-const AddMessage: FC<AddMessagePropsType> = ({ addMessage }) => {
+const AddMessage: FC<PropsType> = ({ addMessage }) => {
   let addNewMessage = ({ newMessageText }: { newMessageText: string }) => {
     addMessage(newMessageText);
   };

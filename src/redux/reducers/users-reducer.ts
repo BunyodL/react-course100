@@ -11,7 +11,7 @@ const TOGGLE_IS_FETCHING = 'samurai/users/TOGGLE_IS_FETCHING';
 const BUTTON_IS_DISABLED = 'samurai/users/BUTTON_IS_DISABLED';
 
 let initialState = {
-  users: [] as Array<UserType | null>,
+  users: [] as Array<UserType | undefined>,
   pageSize: 12,
   totalUsersCount: 0,
   currentPage: 1,
@@ -27,14 +27,12 @@ const usersReducer = (state = initialState, action: any):InitialStateType => {
     case FOLLOW: {
       return {
         ...state,
-      // @ts-ignore
         users: updateObjectInArray(state.users, action.userId, 'id', { followed: true }),
       };
     }
     case UNFOLLOW: {
       return {
         ...state,
-        // @ts-ignore
         users: updateObjectInArray(state.users, action.userId, 'id', { followed: false }),
       };
     }

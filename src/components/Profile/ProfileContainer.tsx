@@ -1,34 +1,43 @@
-import React, {ComponentType } from 'react';
+import React, { ComponentType } from 'react';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { RootState } from "redux/redux-store";
 import { ProfileType } from "types/types";
-import Profile from './Profile.tsx';
-import { connect } from 'react-redux';
+import { withRouter } from '../../hoc/withRouter';
 import {
   getUserProfile,
   getUserStatus,
-  updateUserStatus,
   updatePhoto,
-  updateProfileData
+  updateProfileData,
+  updateUserStatus
 } from '../../redux/reducers/profile-reducer.ts';
-import { withRouter } from '../../hoc/withRouter';
-import { compose } from 'redux';
+import Profile from "./Profile.tsx";
 
-export type ProfileContainerPropsType = {
-  params: { userId: number }
-  authorizedUserId: number
-  navigate: (path: string) => void
-  getUserProfile: (id: number) => void
-  getUserStatus: (id: number) => void
-  profile: ProfileType
+type MapStateToProps = {
+  authorizedUserId: number | null
+  profile: ProfileType | null
   status: string
-  updateUserStatus: () => void
-  isOwner: boolean
-  updatePhoto: () => void
-  updateProfileData: (profileData: ProfileType) => Promise<void>
-  errorMessage: string;
+  errorMessage: string
+  isAuth: boolean
 }
 
-class ProfileContainer extends React.Component<ProfileContainerPropsType, {}> {
+type MapDispatchToProps = {
+  getUserProfile: (id: number | null) => void
+  getUserStatus: (id: number | null) => void
+  updateUserStatus: (status: string) => void
+  updatePhoto: (file: any) => void
+  updateProfileData: (profileData: ProfileType) => void
+}
+
+type OwnProps = {
+  params: { userId: number | null}
+  navigate: (path: string) => void
+}
+
+type Props = MapStateToProps & MapDispatchToProps & OwnProps
+type State = { refreshUserProfile: () => void }
+
+class ProfileContainer extends React.Component<Props, State> {
   refreshUserProfile() {
     const { params, authorizedUserId, navigate, getUserProfile, getUserStatus } = this.props;
     let userId = params.userId;
@@ -46,18 +55,25 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType, {}> {
     this.refreshUserProfile();
   }
 
-  componentDidUpdate(prevProps: ProfileContainerPropsType, prevState: any) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     if (this.props.params.userId !== prevProps.params.userId) {
       this.refreshUserProfile();
     }
   }
 
   render() {
-    return <Profile {...this.props} isOwner={!this.props.params.userId} />;
+    return <Profile updatePhoto={this.props.updatePhoto}
+                    updateProfileData={this.props.updateProfileData}
+                    updateUserStatus={this.props.updateUserStatus}
+                    profile={this.props.profile}
+                    status={this.props.status}
+                    isOwner={!this.props.params.userId}
+                    errorMessage={this.props.errorMessage} />;
   }
 }
 
-const mapStateToProps = (state: RootState) => ({
+
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
   authorizedUserId: state.auth.id,
@@ -66,6 +82,12 @@ const mapStateToProps = (state: RootState) => ({
 });
 
 export default compose(
-  connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus, updatePhoto, updateProfileData }),
-  withRouter
+  connect<MapStateToProps, MapDispatchToProps, OwnProps, RootState>(mapStateToProps, {
+    getUserProfile,
+    getUserStatus,
+    updateUserStatus,
+    updatePhoto,
+    updateProfileData
+  }),
+  withRouter,
 )(ProfileContainer) as ComponentType;
