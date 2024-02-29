@@ -1,8 +1,9 @@
+import { createField } from "components/common/FormsControls/createField";
 import React, { FC } from 'react';
-import { Field, Form } from 'react-final-form';
-import { composeValidators, maxTextLength, required } from '../../../utils/validators/validators';
+import { Form } from 'react-final-form';
+import { TextArea } from '../../../common/FormsControls/FormControls.tsx';
+import { composeValidators, maxTextLength, required } from '../../../utils/validators/validators.ts';
 import st from './../../Dialogs.module.css';
-import { Textarea } from '../../../common/FormsControls/Textarea';
 
 type PropsType = {
   addMessage: (text: string) => void
@@ -19,12 +20,9 @@ const AddMessage: FC<PropsType> = ({ addMessage }) => {
       render={({ handleSubmit }) => (
         <form className={st.addMessage} onSubmit={handleSubmit}>
           <div className={st.textarea}>
-            <Field
-              component={Textarea}
-              name='newMessageText'
-              placeholder='Add message'
-              validate={composeValidators(required, maxTextLength(20))}
-            />
+            {createField('newMessageText', '',
+              TextArea, 'Add message',
+              composeValidators(required, maxTextLength(20)))}
           </div>
           <div className={st.button}>
             <button type='submit'>Add message</button>

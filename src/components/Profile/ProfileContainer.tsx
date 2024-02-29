@@ -30,7 +30,7 @@ type MapDispatchToProps = {
 }
 
 type OwnProps = {
-  params: { userId: number | null}
+  params: { userId: number | null }
   navigate: (path: string) => void
 }
 

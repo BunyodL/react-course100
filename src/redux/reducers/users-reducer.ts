@@ -1,4 +1,4 @@
-import { usersAPI } from '../../api/api.ts';
+import { ResultCodesEnum, usersAPI } from '../../api/api.ts';
 import { updateObjectInArray } from '../../components/utils/object-helpers.ts';
 import { UserType } from "types/types";
 
@@ -126,7 +126,7 @@ export const setUsersPage = (pageNumber: number, pageSize: number) => async (dis
 const followUnfollowFlow = async (dispatch: any, apiMethod: any, actionCreator: any, userId: number) => {
   dispatch(buttonIsDisabled(true, userId));
   let data = await apiMethod(userId);
-  if (data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     dispatch(actionCreator(userId));
   }
   dispatch(buttonIsDisabled(false, userId));

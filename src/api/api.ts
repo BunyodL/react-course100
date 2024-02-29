@@ -9,6 +9,15 @@ const instance = axios.create({
   },
 });
 
+export enum ResultCodesEnum {
+  Success = 0,
+  Error = 1,
+}
+
+export enum ResultCodeForCaptcha {
+  CaptchaIsRequired = 10
+}
+
 type GetUsersType = {
   items: Array<UserType>
   totalCount: number
@@ -16,7 +25,7 @@ type GetUsersType = {
 }
 
 type FollowUnfollow = {
-  resultCode: number
+  resultCode: ResultCodesEnum
   messages: Array<string>
   data: {}
 }
@@ -37,20 +46,20 @@ export const usersAPI = {
 };
 
 type UpdateStatusType = {
-  resultCode: number
+  resultCode: ResultCodesEnum
   messages: Array<string>
   data: {}
 }
 
 type UpdateMyPhotoType = {
-  resultCode: number
+  resultCode: ResultCodesEnum
   messages: Array<string>
   data: { photos: PhotosType }
   fieldsErrors: Array<string>
 }
 
 type UpdateMyProfileType = {
-  resultCode: number
+  resultCode: ResultCodesEnum
   messages: Array<string>
   data: {}
 }
@@ -94,18 +103,18 @@ type MeResponseType = {
     email: string
     login: string
   }
-  resultCode: number
+  resultCode: ResultCodesEnum
   messages: Array<string>
 }
 
 type LoginResponseType = {
-  resultCode: number
+  resultCode: ResultCodesEnum | ResultCodeForCaptcha
   messages: Array<string>
   data: { userId: number }
 }
 
 type LogoutResponseType = {
-  resultCode: number
+  resultCode: ResultCodesEnum
   messages: Array<string>
   data: {}
 }

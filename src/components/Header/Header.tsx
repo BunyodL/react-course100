@@ -1,7 +1,7 @@
 import { HeaderPropsType } from "components/Header/HeaderContainer";
 import React, { FC } from 'react';
-import st from './Header.module.css';
 import { NavLink } from 'react-router-dom';
+import st from './Header.module.css';
 
 const Header: FC<HeaderPropsType> = ({ isAuth, login, logout }) => {
   return (

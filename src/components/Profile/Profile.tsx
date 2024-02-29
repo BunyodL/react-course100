@@ -15,14 +15,14 @@ type Props = {
 }
 
 const Profile: FC<Props> = ({
-                                     profile,
-                                     status,
-                                     updateUserStatus,
-                                     isOwner,
-                                     updatePhoto,
-                                     updateProfileData,
-                                     errorMessage
-                                   }) => {
+                              profile,
+                              status,
+                              updateUserStatus,
+                              isOwner,
+                              updatePhoto,
+                              updateProfileData,
+                              errorMessage
+                            }) => {
   return (
     <div className={st.content}>
       <ProfileInfo

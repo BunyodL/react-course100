@@ -1,12 +1,12 @@
 import React, { FC } from 'react';
 import st from '../ProfileInfo.module.css';
 
-type ContactPropsType = {
+type Props = {
   socialMediaName: string
   socialMediaLink: string
 }
 
-const Contact: FC<ContactPropsType> = ({ socialMediaName, socialMediaLink }) => {
+const Contact: FC<Props> = ({ socialMediaName, socialMediaLink }) => {
   return (
     <div className={st.contact}>
       <span>

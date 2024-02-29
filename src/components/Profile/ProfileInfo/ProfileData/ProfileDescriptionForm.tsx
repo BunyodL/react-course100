@@ -1,17 +1,17 @@
+import { createField } from "components/common/FormsControls/createField";
 import React, { FC } from 'react';
+import { Form } from 'react-final-form';
 import { ProfileType } from "types/types";
+import { Input, TextArea } from '../../../common/FormsControls/FormControls.tsx';
 import st from '../ProfileInfo.module.css';
-import { Field, Form } from 'react-final-form';
-import { Input } from '../../../common/FormsControls/Input';
-import { Textarea } from '../../../common/FormsControls/Textarea';
 import ContactForm from './ContactForm';
 
-type ProfileDescriptionFormPropsType = {
+type Props = {
   profile: ProfileType
   onSubmit: (profile: ProfileType) => void
 }
 
-const ProfileDescriptionForm: FC<ProfileDescriptionFormPropsType> = ({ profile, onSubmit }) => {
+const ProfileDescriptionForm: FC<Props> = ({ profile, onSubmit }) => {
   return (
     <Form
       onSubmit={onSubmit}
@@ -21,31 +21,14 @@ const ProfileDescriptionForm: FC<ProfileDescriptionFormPropsType> = ({ profile, 
           <div className={st.description}>
             <div className={st.info}>
               <button>Save changes</button>
-              <div>
-                <span><b>Full name:</b></span>
-                <Field id='fullName' name='fullName' type='text' component={Input} placeholder='Full Name' />
-              </div>
-
-              <div className={st.lookingForAJob}>
-                <span>Looking for a job:</span>
-                <Field id='lookingForAJob' name='lookingForAJob' component={Input} type='checkbox' />
-              </div>
-
-              <div>
-                <span>My professional skills:</span>
-                <Field
-                  id='lookingForAJobDescription'
-                  name='lookingForAJobDescription'
-                  type='text'
-                  component={Textarea}
-                  placeholder='My professional skills'
-                />
-              </div>
-
-              <div>
-                <span>About me:</span>
-                <Field id='aboutMe' name='aboutMe' type='text' component={Textarea} placeholder='About me' />
-              </div>
+              {createField('fullName', 'fullName', Input, 'Full Name',
+                undefined, { type: 'text' }, 'Full Name')}
+              {createField('lookingForAJob', 'lookingForAJob', Input, '',
+                undefined, { type: 'checkbox' }, 'lookingForAJob')}
+              {createField('lookingForAJobDescription', 'lookingForAJobDescription', TextArea,
+                'My professional skills', undefined, { type: 'text' }, 'My professional skills')}
+              {createField('aboutMe', 'aboutMe', TextArea,'About me',
+                undefined, { type: 'text' }, 'About me')}
             </div>
             <div className={st.contacts}>
               {Object.keys(profile.contacts).map(key => (

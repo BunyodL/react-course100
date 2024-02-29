@@ -1,13 +1,13 @@
+import { createField } from "components/common/FormsControls/createField";
 import React from 'react';
+import { Input } from '../../../common/FormsControls/FormControls.tsx';
 import st from '../ProfileInfo.module.css';
-import { Field } from 'react-final-form';
-import { Input } from '../../../common/FormsControls/Input';
 
 const ContactForm = ({ contactName }: { contactName: string}) => {
   return (
     <div className={st.contact}>
       <b>{contactName}:</b>
-      <Field id={contactName} name={`contacts.${contactName}`} type='text' component={Input} placeholder={contactName} />
+      {createField(`contacts.${contactName}`, '', Input, contactName, undefined)}
     </div>
   );
 };

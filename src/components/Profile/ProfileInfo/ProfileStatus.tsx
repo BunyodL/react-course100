@@ -2,12 +2,12 @@ import { ProfileStatusPropsType } from "components/Profile/ProfileInfo/ProfileSt
 import React, { ChangeEvent } from 'react';
 import st from './ProfileInfo.module.css';
 
-type ProfileStatusStateType = {
+type State = {
   editMode: boolean,
   status: string,
 }
 
-class ProfileStatus extends React.Component<ProfileStatusPropsType, ProfileStatusStateType> {
+class ProfileStatus extends React.Component<ProfileStatusPropsType, State> {
   state = {
     editMode: false,
     status: this.props.status,
@@ -32,7 +32,7 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, ProfileStatu
     });
   };
 
-  componentDidUpdate(prevProps: ProfileStatusPropsType, prevState: ProfileStatusStateType) {
+  componentDidUpdate(prevProps: ProfileStatusPropsType, prevState: State) {
     if (prevProps.status !== this.props.status) {
       this.setState({
         status: this.props.status,
@@ -50,7 +50,8 @@ class ProfileStatus extends React.Component<ProfileStatusPropsType, ProfileStatu
         )}
         {this.state.editMode && (
           <div>
-            <input autoFocus onChange={this.onStatusChange} onBlur={this.deactivateEditMode} type='text' value={this.state.status} />
+            <input autoFocus onChange={this.onStatusChange} onBlur={this.deactivateEditMode} type='text'
+                   value={this.state.status} />
           </div>
         )}
       </div>

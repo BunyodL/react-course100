@@ -1,17 +1,17 @@
 import React, { FC } from 'react';
 import { ContactType, ProfileType } from "types/types";
-import CheckIcon from '../../../../images/icons/doneIcon.svg';
 import CloseIcon from '../../../../images/icons/closeIcon.svg';
+import CheckIcon from '../../../../images/icons/doneIcon.svg';
 import st from '../ProfileInfo.module.css';
 import Contact from './Contact';
 
-type ProfileDescriptionPropsType = {
+type Props = {
   profile: ProfileType
   setEditMode: (editMode: boolean) => void
   isOwner: boolean
 }
 
-const ProfileDescription: FC<ProfileDescriptionPropsType> = ({ profile, isOwner, setEditMode }) => {
+const ProfileDescription: FC<Props> = ({ profile, isOwner, setEditMode }) => {
   const turnOnEditMode = () => setEditMode(true);
 
   return (
@@ -24,7 +24,8 @@ const ProfileDescription: FC<ProfileDescriptionPropsType> = ({ profile, isOwner,
         </div>
 
         <div className={st.lookingForAJob}>
-          <div>Looking for a job:</div> {profile.lookingForAJob ? <img src={CheckIcon} alt='' /> : <img src={CloseIcon} alt='' />}
+          <div>Looking for a job:</div>
+          {profile.lookingForAJob ? <img src={CheckIcon} alt='' /> : <img src={CloseIcon} alt='' />}
         </div>
 
         <div>

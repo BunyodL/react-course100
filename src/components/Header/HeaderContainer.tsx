@@ -1,7 +1,7 @@
-import { RootState } from "redux/redux-store";
-import Header from './Header.tsx';
 import { connect } from 'react-redux';
+import { RootState } from "redux/redux-store";
 import { logout } from '../../redux/reducers/auth-reducer.ts';
+import Header from './Header.tsx';
 
 type MapStateToProps = {
   login: string | null

@@ -5,16 +5,18 @@ import Dialogs from './Dialogs.tsx';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { compose } from 'redux';
 
-export type DialogsPropsType = {
+type MapStateToProps = {
   dialogsData: Array<DialogType>
   messagesData: Array<MessageType>
   isAuth: boolean
 }
 
-const mapStateToProps = (state: RootState): DialogsPropsType => ({
+export type DialogsPropsType = MapStateToProps
+
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   dialogsData: state.dialogsPage.dialogsData,
   messagesData: state.dialogsPage.messagesData,
   isAuth: state.auth.isAuth
 });
 
-export default compose<any>(connect(mapStateToProps), withAuthRedirect)(Dialogs);
+export default compose<any>(connect<MapStateToProps, {}, {}, RootState>(mapStateToProps), withAuthRedirect)(Dialogs);

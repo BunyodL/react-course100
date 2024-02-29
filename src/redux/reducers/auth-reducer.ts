@@ -1,4 +1,4 @@
-import { authAPI, securityAPI } from '../../api/api.ts';
+import { authAPI, ResultCodeForCaptcha, ResultCodesEnum, securityAPI } from '../../api/api.ts';
 
 const SET_USER_DATA = 'samurai/auth/SET_USER_DATA';
 const STOP_SUBMIT = 'samurai/auth/STOP_SUBMIT';
@@ -72,25 +72,18 @@ const getCaptchaUrlSuccess = (captchaUrl: string | null): GetCaptchaUrlSuccessAc
 //Thunk creators
 export const getUserAuthData = () => async (dispatch: any) => {
   const data = await authAPI.me();
-  if (data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     let { id, email, login } = data.data;
     dispatch(setUserData(id, email, login, true));
   }
 };
 
-export type LoginTCPropsType = {
-  email: string | null,
-  password: string | null,
-  rememberMe: boolean,
-  captcha: string | null
-}
-
 export const login = (email: string | null, password: string | null, rememberMe: boolean, captcha: any) => async (dispatch: any) => {
   const data = await authAPI.login(email, password, rememberMe, captcha);
-  if (data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     dispatch(getUserAuthData());
   } else {
-    if (data.resultCode === 10) {
+    if (data.resultCode === ResultCodeForCaptcha.CaptchaIsRequired) {
       dispatch(getCaptchaUrl());
     }
     const message = data.messages.length > 0 ? data.messages[0] : 'Some unknown error';
@@ -107,7 +100,7 @@ export const getCaptchaUrl = () => async (dispatch: any) => {
 
 export const logout = () => async (dispatch: any) => {
   const data = await authAPI.logout();
-  if (data.resultCode === 0) {
+  if (data.resultCode === ResultCodesEnum.Success) {
     dispatch(setUserData(null, null, null, false));
   }
 };

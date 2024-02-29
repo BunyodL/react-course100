@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { ProfileType } from "types/types";
 import wallpaperImg from '../../../images/profile_wallpaper.jpg';
 import Preloader from '../../common/Preloader/Preloader';
@@ -8,7 +8,7 @@ import ProfilePhoto from './ProfileData/ProfilePhoto.tsx';
 import st from './ProfileInfo.module.css';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
-type ProfileInfoType = {
+type Props = {
   profile: ProfileType | null
   status: string
   updateUserStatus: (status: string) => void
@@ -18,15 +18,15 @@ type ProfileInfoType = {
   errorMessage: string
 }
 
-const ProfileInfo: FC<ProfileInfoType> = ({
-                                            profile,
-                                            status,
-                                            updateUserStatus,
-                                            isOwner,
-                                            updatePhoto,
-                                            updateProfileData,
-                                            errorMessage
-                                          }) => {
+const ProfileInfo: FC<Props> = ({
+                                  profile,
+                                  status,
+                                  updateUserStatus,
+                                  isOwner,
+                                  updatePhoto,
+                                  updateProfileData,
+                                  errorMessage
+                                }) => {
   const [editMode, setEditMode] = useState(false);
 
   // useEffect(() => {
@@ -38,10 +38,8 @@ const ProfileInfo: FC<ProfileInfoType> = ({
   }
 
   const onSubmit = (profileData: ProfileType) => {
+    setEditMode(false);
     updateProfileData(profileData)
-    //   .then(() => {
-    //   setEditMode(false);
-    // });
   };
 
   return (

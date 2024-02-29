@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import st from './../Users.module.css';
 import { NavLink } from 'react-router-dom';
+import st from './../Users.module.css';
 
-type UserPropsType = {
+type Props = {
   follow: (id: number) => void
   unfollow: (id: number) => void
   disabledButton: Array<number>
@@ -13,7 +13,7 @@ type UserPropsType = {
   image: string
 }
 
-const User: FC<UserPropsType> = props => {
+const User: FC<Props> = props => {
   return (
     <div className={st.user}>
       <div className={st.profile}>

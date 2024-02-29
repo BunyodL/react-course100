@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
+import { NavLink } from 'react-router-dom';
 import { FriendType } from "types/types";
 import st from '../Navbar.module.css';
-import { NavLink } from 'react-router-dom';
 
 const Friend: FC<FriendType> = ({ name, image }) => {
   return (

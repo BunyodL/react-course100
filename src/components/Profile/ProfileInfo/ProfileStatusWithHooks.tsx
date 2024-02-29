@@ -7,8 +7,8 @@ export type ProfileStatusPropsType = {
 }
 
 const ProfileStatusWithHooks: FC<ProfileStatusPropsType> = props => {
-  let [editMode, setEditMode] = useState<boolean>(false);
-  let [status, setStatus] = useState<string>(props.status);
+  let [editMode, setEditMode] = useState(false);
+  let [status, setStatus] = useState(props.status);
 
   useEffect(() => {
     setStatus(props.status);

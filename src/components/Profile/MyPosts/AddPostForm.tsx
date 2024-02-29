@@ -1,7 +1,8 @@
+import { createField } from "components/common/FormsControls/createField";
 import React, { FC } from "react";
-import { Field, Form } from 'react-final-form';
-import { Textarea } from '../../common/FormsControls/Textarea';
-import { composeValidators, maxTextLength, required } from '../../utils/validators/validators';
+import { Form } from 'react-final-form';
+import { TextArea } from '../../common/FormsControls/FormControls.tsx';
+import { composeValidators, maxTextLength, required } from '../../utils/validators/validators.ts';
 import st from './MyPosts.module.css';
 
 type Props = {
@@ -15,12 +16,9 @@ const AddPostForm: FC<Props> = ({ addNewPost }) => {
       render={({ handleSubmit }) => (
         <form className={st.addPost} onSubmit={handleSubmit}>
           <div className={st.textarea}>
-            <Field
-              name='newPostText'
-              component={Textarea}
-              placeholder='Add Post'
-              validate={composeValidators(required, maxTextLength(10))}
-            />
+            {createField('newPostText', '',
+              TextArea, 'Add Post',
+              composeValidators(required, maxTextLength(30)))}
           </div>
           <button type='submit'>Add post</button>
         </form>

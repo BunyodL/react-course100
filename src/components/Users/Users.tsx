@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 import { UserType } from "types/types";
-import User from './User/User.tsx';
-import st from './Users.module.css';
 import defaultUserPhoto from '../../images/default-photo.png';
 import Paginator from '../common/Paginator/Paginator';
+import User from './User/User.tsx';
+import st from './Users.module.css';
 
-type UsersPropsType = {
+type Props = {
   follow: (id: number) => void
   unfollow: (id: number) => void
   disabledButton: Array<number>
@@ -17,7 +17,7 @@ type UsersPropsType = {
   setPage: (page: number) => void
 }
 
-const Users: FC<UsersPropsType> = props => {
+const Users: FC<Props> = props => {
   const userElement = props.users.map((u) => {
     if (u) {
       let photo = u.photos.small != null ? u.photos.small : defaultUserPhoto;

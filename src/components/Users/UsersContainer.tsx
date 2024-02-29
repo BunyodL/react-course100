@@ -1,11 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { RootState } from "redux/redux-store";
 import { UserType } from "types/types";
-import { follow, unfollow, requestUsers, setUsersPage } from '../../redux/reducers/users-reducer.ts';
-import Users from './Users.tsx';
-import Preloader from '../common/Preloader/Preloader';
-import { compose } from 'redux';
+import { follow, requestUsers, setUsersPage, unfollow } from '../../redux/reducers/users-reducer.ts';
 import {
   getCurrentPage,
   getDisabledButton,
@@ -15,6 +13,8 @@ import {
   getTotalPagesCount,
   getUsers,
 } from '../../redux/selectors/users-selectors.ts';
+import Preloader from '../common/Preloader/Preloader';
+import Users from './Users.tsx';
 
 type MapStateToProps = {
   isFetching: boolean
