@@ -1,4 +1,4 @@
-import dialogsReducer, { addMessage } from '../reducers/dialogs-reducer';
+import dialogsReducer, { actions } from '../reducers/dialogs-reducer';
 
 let state = {
   dialogsData: [
@@ -18,7 +18,7 @@ let state = {
 };
 
 test('dialogs messages should be incremented', () => {
-  let action = addMessage('Good ebening');
+  let action = actions.addMessage('Good ebening');
   let newState = dialogsReducer(state, action);
   expect(newState.messagesData.length).toBe(4);
 });
