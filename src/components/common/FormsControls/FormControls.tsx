@@ -1,33 +1,33 @@
-import { InputHTMLAttributes, ReactNode } from 'react';
 import st from './FormsControls.module.css';
+import { FieldRenderProps } from 'react-final-form';
 
-type FormControlProps =  {
-	meta: { 
-		touched: boolean
-		error: string
-	}
-	// meta
-	input: InputHTMLAttributes<HTMLInputElement>
-  children: ReactNode,
-}
+export type FormControlProps<E extends HTMLElement = HTMLElement> = FieldRenderProps<
+  string,
+  E,
+  string
+>;
 
 const FormControl = ({
   input,
   meta: { touched, error },
   children,
   ...props
-}: FormControlProps) => {
+}: FormControlProps<HTMLTextAreaElement & HTMLInputElement>) => {
   const hasError = touched && error;
   return (
-    <div className={st.formControl + ' ' + (hasError && st.error)}>
+    <div
+      className={st.formControl + ' ' + (hasError && st.error)}
+      {...props}
+    >
       <div>{children}</div>
       {hasError && <span>{error}</span>}
     </div>
   );
 };
 
-export const TextArea = (props: any) => {
+export const TextArea = (props: FormControlProps<HTMLTextAreaElement>) => {
   const { input, meta, ...restProps } = props;
+
   return (
     <FormControl {...props}>
       <textarea
@@ -38,7 +38,7 @@ export const TextArea = (props: any) => {
   );
 };
 
-export const Input = (props: any) => {
+export const Input = (props: FormControlProps<HTMLInputElement>) => {
   const { input, meta, ...restProps } = props;
   return (
     <FormControl {...props}>

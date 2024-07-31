@@ -2,7 +2,7 @@ import { UserType } from '../@types/types';
 import { instance } from './instance';
 import { ResponseType } from './types';
 
-const enum Endpoints {
+enum Endpoints {
   Users = 'users',
   FollowUser = 'follow',
 }

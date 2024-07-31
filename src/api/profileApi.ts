@@ -2,7 +2,7 @@ import { ResponseType } from './types';
 import { PhotosType, ProfileType } from '../@types/types';
 import { instance } from './instance';
 
-const enum Endpoints {
+enum Endpoints {
   Profile = 'profile',
   ProfileStatus = Endpoints.Profile + '/status',
   ProfilePhoto = Endpoints.Profile + '/photo',
