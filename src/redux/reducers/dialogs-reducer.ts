@@ -1,6 +1,5 @@
+import { InferActionsTypes } from 'redux/redux-store';
 import { DialogType, MessageType } from '../../@types/types';
-
-const ADD_MESSAGE = 'samurai/dialogs/ADD_MESSAGE';
 
 type InitialStateType = {
   dialogsData: Array<DialogType>;
@@ -64,7 +63,7 @@ const dialogsReducer = (
   action: ActionTypes
 ): InitialStateType => {
   switch (action.type) {
-    case ADD_MESSAGE: {
+    case 'ADD_MESSAGE': {
       const newMessage = {
         id: state.messagesData.length + 1,
         message: action.newMessageText,
@@ -76,16 +75,14 @@ const dialogsReducer = (
   }
 };
 
-type AddMessage = {
-  type: typeof ADD_MESSAGE;
-  newMessageText: string;
+type ActionTypes = InferActionsTypes<typeof actions>;
+
+export const actions = {
+  addMessage: (newMessageText: string) =>
+    ({
+      type: 'ADD_MESSAGE',
+      newMessageText,
+    } as const),
 };
-
-type ActionTypes = AddMessage;
-
-export const addMessage = (newMessageText: string): AddMessage => ({
-  type: ADD_MESSAGE,
-  newMessageText,
-});
 
 export default dialogsReducer;

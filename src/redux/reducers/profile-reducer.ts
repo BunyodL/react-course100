@@ -1,14 +1,7 @@
-import { ThunkActionType } from 'redux/redux-store';
+import { InferActionsTypes, ThunkActionType } from 'redux/redux-store';
 import { PhotosType, PostType, ProfileType } from '../../@types/types.ts';
 import { profileAPI } from 'api';
 import { ResultCodesEnum } from 'api/types.ts';
-
-const ADD_POST = 'samurai/profile/ADD_POST';
-const SET_USER_PROFILE = 'samurai/profile/SET_USER_PROFILE';
-const SET_USER_STATUS = 'samurai/profile/SET_USER_STATUS';
-const DELETE_POST = 'samurai/profile/DELETE_POST';
-const UPDATE_PHOTO = 'samurai/profile/UPDATE_PHOTO';
-const STOP_SUBMIT = 'samurai/profile/STOP_SUBMIT';
 
 type InitialStateType = {
   postsData: Array<PostType>;
@@ -32,7 +25,7 @@ const profileReducer = (
   action: ActionTypes
 ): InitialStateType => {
   switch (action.type) {
-    case ADD_POST: {
+    case 'ADD_POST': {
       const newPost = {
         id: state.postsData.length + 1,
         message: action.newPostText,
@@ -40,25 +33,25 @@ const profileReducer = (
       };
       return { ...state, postsData: [...state.postsData, newPost] };
     }
-    case SET_USER_PROFILE: {
+    case 'SET_USER_PROFILE': {
       return { ...state, profile: action.profile, errorMessage: '' };
     }
-    case SET_USER_STATUS: {
+    case 'SET_USER_STATUS': {
       return { ...state, status: action.status };
     }
-    case DELETE_POST: {
+    case 'DELETE_POST': {
       return {
         ...state,
         postsData: state.postsData.filter((p) => p.id !== action.postId),
       };
     }
-    case UPDATE_PHOTO: {
+    case 'UPDATE_PHOTO': {
       return {
         ...state,
         profile: { ...state.profile, photos: action.photos } as ProfileType,
       };
     }
-    case STOP_SUBMIT: {
+    case 'STOP_SUBMIT': {
       return { ...state, errorMessage: action.message };
     }
     default:
@@ -66,83 +59,57 @@ const profileReducer = (
   }
 };
 
+type ActionTypes = InferActionsTypes<typeof actions>;
+
 //Action creators
-type AddPostActionType = {
-  type: typeof ADD_POST;
-  newPostText: string;
-};
-export const addPost = (newPostText: string): AddPostActionType => ({
-  type: ADD_POST,
-  newPostText,
-});
+export const actions = {
+  addPost: (newPostText: string) =>
+    ({
+      type: 'ADD_POST',
+      newPostText,
+    } as const),
 
-type SetUserProfileActionType = {
-  type: typeof SET_USER_PROFILE;
-  profile: ProfileType;
-};
-export const setUserProfile = (
-  profile: ProfileType
-): SetUserProfileActionType => ({ type: SET_USER_PROFILE, profile });
+  setUserProfile: (profile: ProfileType) =>
+    ({ type: 'SET_USER_PROFILE', profile } as const),
 
-type SetUserStatusActionType = {
-  type: typeof SET_USER_STATUS;
-  status: string;
-};
-export const setUserStatus = (status: string): SetUserStatusActionType => ({
-  type: SET_USER_STATUS,
-  status,
-});
+  setUserStatus: (status: string) =>
+    ({
+      type: 'SET_USER_STATUS',
+      status,
+    } as const),
 
-type DeletePostActionType = {
-  type: typeof DELETE_POST;
-  postId: number;
-};
-export const deletePost = (postId: number): DeletePostActionType => ({
-  type: DELETE_POST,
-  postId,
-});
+  deletePost: (postId: number) =>
+    ({
+      type: 'DELETE_POST',
+      postId,
+    } as const),
 
-type UpdatePhotoSuccessActionType = {
-  type: typeof UPDATE_PHOTO;
-  photos: PhotosType;
-};
-export const updatePhotoSuccess = (
-  photos: PhotosType
-): UpdatePhotoSuccessActionType => ({
-  type: UPDATE_PHOTO,
-  photos,
-});
+  updatePhotoSuccess: (photos: PhotosType) =>
+    ({
+      type: 'UPDATE_PHOTO',
+      photos,
+    } as const),
 
-type StopSubmitActionType = {
-  type: typeof STOP_SUBMIT;
-  message: string;
+  stopSubmit: (message: string) =>
+    ({
+      type: 'STOP_SUBMIT',
+      message,
+    } as const),
 };
-export const stopSubmit = (message: string): StopSubmitActionType => ({
-  type: STOP_SUBMIT,
-  message,
-});
-
-type ActionTypes =
-  | AddPostActionType
-  | SetUserProfileActionType
-  | SetUserStatusActionType
-  | DeletePostActionType
-  | UpdatePhotoSuccessActionType
-  | StopSubmitActionType;
 
 //Thunk creators
 export const getUserProfile =
   (userId: number | null): ThunkActionType<ActionTypes> =>
   async (dispatch) => {
     const data = await profileAPI.getProfile(userId);
-    dispatch(setUserProfile(data));
+    dispatch(actions.setUserProfile(data));
   };
 
 export const getUserStatus =
   (userId: number | null): ThunkActionType<ActionTypes> =>
   async (dispatch) => {
     const data = await profileAPI.getStatus(userId);
-    dispatch(setUserStatus(data));
+    dispatch(actions.setUserStatus(data));
   };
 
 export const updateUserStatus =
@@ -151,11 +118,11 @@ export const updateUserStatus =
     const data = await profileAPI.updateStatus(status);
     if (data) {
       if (data.resultCode === ResultCodesEnum.Success) {
-        dispatch(setUserStatus(status));
+        dispatch(actions.setUserStatus(status));
       } else {
         const message =
           data.messages.length > 0 ? data.messages[0] : 'Some unknown error';
-        dispatch(stopSubmit(message));
+        dispatch(actions.stopSubmit(message));
       }
     }
   };
@@ -165,7 +132,7 @@ export const updatePhoto =
   async (dispatch) => {
     const data = await profileAPI.updateMyPhoto(file);
     if (data.resultCode === ResultCodesEnum.Success) {
-      dispatch(updatePhotoSuccess(data.data.photos));
+      dispatch(actions.updatePhotoSuccess(data.data.photos));
     }
   };
 
@@ -179,7 +146,7 @@ export const updateProfileData =
     } else {
       const message =
         data.messages.length > 0 ? data.messages[0] : 'Some unknown error';
-      dispatch(stopSubmit(message));
+      dispatch(actions.stopSubmit(message));
       return Promise.reject(data.messages[0]);
     }
   };

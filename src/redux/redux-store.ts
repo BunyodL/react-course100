@@ -1,4 +1,9 @@
-import { legacy_createStore, combineReducers, applyMiddleware, Action } from 'redux';
+import {
+  legacy_createStore,
+  combineReducers,
+  applyMiddleware,
+  Action,
+} from 'redux';
 import dialogsReducer from './reducers/dialogs-reducer.ts';
 import profileReducer from './reducers/profile-reducer.ts';
 import sidebarReducer from './reducers/sidebar-reducer.ts';
@@ -18,11 +23,22 @@ let rootReducer = combineReducers({
 
 // window.store = store;
 
-export type RootState = ReturnType<typeof rootReducer>
-export type AppDispatch = typeof store.dispatch
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;
 
 // type ThunkActionType is for typing thunk action creators
-export type ThunkActionType<T extends Action> = ThunkAction<Promise<void>, RootState, null, T>
+export type ThunkActionType<T extends Action> = ThunkAction<
+  Promise<void>,
+  RootState,
+  null,
+  T
+>;
+
+type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never;
+
+export type InferActionsTypes<
+  T extends { [key: string]: (...args: any[]) => any }
+> = ReturnType<PropertiesTypes<T>>;
 
 let store = legacy_createStore(rootReducer, applyMiddleware(ThunkMiddleware));
 export default store;
