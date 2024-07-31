@@ -1,15 +1,21 @@
-import { FC, useState } from 'react';
+import { useState } from 'react';
 import st from './Paginator.module.css';
 
 type PropsType = {
-  totalItemsCount: number
-  pageSize: number
-  currentPage: number
-  setPage: (page: number) => void
-  portionSize: number
-}
+  totalItemsCount: number;
+  pageSize: number;
+  currentPage: number;
+  setPage: (page: number) => void;
+  portionSize: number;
+};
 
-const Paginator: FC<PropsType> = ({ totalItemsCount, pageSize, currentPage, setPage, portionSize = 10 }) => {
+const Paginator = ({
+  totalItemsCount,
+  pageSize,
+  currentPage,
+  setPage,
+  portionSize = 10,
+}:PropsType) => {
   const pagesCount = Math.ceil(totalItemsCount / pageSize);
 
   const pages: Array<number> = [];
@@ -24,19 +30,33 @@ const Paginator: FC<PropsType> = ({ totalItemsCount, pageSize, currentPage, setP
 
   return (
     <div className={st.pages}>
-      {portionNumber > 1 && <button onClick={() => setPortionNumber(portionNumber - 1)}>LEFT</button>}
+      {portionNumber > 1 && (
+        <button onClick={() => setPortionNumber(portionNumber - 1)}>
+          LEFT
+        </button>
+      )}
 
       {pages
-        .filter(p => p >= leftPortionPageNumber && p <= rightPortionPageNumber)
-        .map(p => {
+        .filter(
+          (p) => p >= leftPortionPageNumber && p <= rightPortionPageNumber
+        )
+        .map((p) => {
           return (
-            <span className={currentPage === p && st.selectedPage} onClick={() => setPage(p)}>
+            <span
+              key={p}
+              className={currentPage === p ? st.selectedPage : undefined}
+              onClick={() => setPage(p)}
+            >
               {p}
             </span>
           );
         })}
 
-      {portionCount > portionNumber && <button onClick={() => setPortionNumber(portionNumber + 1)}>RIGHT</button>}
+      {portionCount > portionNumber && (
+        <button onClick={() => setPortionNumber(portionNumber + 1)}>
+          RIGHT
+        </button>
+      )}
     </div>
   );
 };

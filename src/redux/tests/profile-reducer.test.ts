@@ -5,6 +5,9 @@ let state = {
     { id: 1, message: 'Good morning, Vasya', likesCount: 12 },
     { id: 2, message: 'How are you', likesCount: 16 },
   ],
+	profile: null,
+  status: '',
+  errorMessage: '',
 };
 
 test('post should be added', () => {

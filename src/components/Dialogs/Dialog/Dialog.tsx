@@ -1,12 +1,18 @@
-import React, { FC } from 'react';
-import { DialogType } from "types/types";
+import { DialogType } from '../../../@types/types';
 import st from './../Dialogs.module.css';
 import { NavLink } from 'react-router-dom';
+import { Navigation } from '../../../@types/navigation';
 
-const Dialog: FC<DialogType> = ({ name, image }) => {
+const Dialog = ({ name, image }: DialogType) => {
   return (
-    <NavLink to={'/dialogs/' + name} className={st.dialog}>
-      <img src={image} alt='' />
+    <NavLink
+      to={`${Navigation.Dialogs}/${name}`}
+      className={st.dialog}
+    >
+      <img
+        src={image}
+        alt=""
+      />
       <div> {name} </div>
     </NavLink>
   );

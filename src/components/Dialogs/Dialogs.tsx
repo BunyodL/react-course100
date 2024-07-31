@@ -1,34 +1,36 @@
-import { DialogsPropsType } from "components/Dialogs/DialogsContainer";
-import React, { FC } from 'react';
+import { DialogsPropsType } from 'components/Dialogs/DialogsContainer';
+import { memo } from 'react';
 import st from './Dialogs.module.css';
 import Dialog from './Dialog/Dialog.tsx';
-import Messages from './Messages/Messages.tsx';
-import AddMessageContainer from './Messages/Message/AddMessageContainer.tsx';
 import { Navigate } from 'react-router-dom';
+import { Messages } from './Messages/Messages.tsx';
+import { Navigation } from '../../@types/navigation.ts';
 
-const Dialogs: FC<DialogsPropsType> = (props) => {
-  const dialogs = props.dialogsData.map(d => <Dialog name={d.name} image={d.image} key={d.id} id={d.id} age={d.age} />);
-  const messages = props.messagesData.map(m => <Messages message={m.message} key={m.id} id={m.id} />);
+export const Dialogs = memo(
+  ({ messagesData, dialogsData, isAuth }: DialogsPropsType) => {
+    if (!isAuth) return <Navigate to={`${Navigation.Dialogs}`} />;
 
-  if (!props.isAuth) return <Navigate to={'/login/'} />;
-
-  return (
-    <div className={st.dialogs}>
-      <div className={st.dialogsItem}>
-        <div className={st.title}>Dialogs</div>
-        {dialogs}
-      </div>
-      <div className={st.messagesContainer}>
-        <div className={st.mainMessages}>
-          <div className={st.messages}>
-            <div className={st.message}>{messages}</div>
-            <AddMessageContainer />
+    return (
+      <div className={st.dialogs}>
+        <div className={st.dialogsItem}>
+          <div className={st.title}>Dialogs</div>
+          {dialogsData.map((d) => (
+            <Dialog
+              name={d.name}
+              image={d.image}
+              key={d.id}
+              id={d.id}
+              age={d.age}
+            />
+          ))}
+        </div>
+        <div className={st.messagesContainer}>
+          <div className={st.mainMessages}>
+            <Messages messages={messagesData} />
           </div>
         </div>
+        {/* messagesContainer */}
       </div>
-      {/* messagesContainer */}
-    </div>
-  );
-};
-
-export default Dialogs;
+    );
+  }
+);

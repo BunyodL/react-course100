@@ -1,13 +1,18 @@
-import { HeaderPropsType } from "components/Header/HeaderContainer";
-import React, { FC } from 'react';
+import { HeaderPropsType } from 'components/Header/HeaderContainer';
+import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import st from './Header.module.css';
+import logo from '../../assets/prozrachniy-logo-800x575.png';
+import { Navigation } from '../../@types/navigation';
 
-const Header: FC<HeaderPropsType> = ({ isAuth, login, logout }) => {
+const Header = memo(({ isAuth, login, logout }:HeaderPropsType) => {
   return (
     <header className={st.header}>
-      <NavLink to='/'>
-        <img src='https://assets.turbologo.ru/blog/ru/2018/03/18170838/prozrachniy-logo-800x575.png' alt='logo' />
+      <NavLink to={Navigation.Home}>
+        <img
+          src={logo}
+          alt="logo"
+        />
       </NavLink>
       <div className={st.loginBlock}>
         {isAuth ? (
@@ -15,11 +20,11 @@ const Header: FC<HeaderPropsType> = ({ isAuth, login, logout }) => {
             {login} - <button onClick={logout}>Log out</button>
           </div>
         ) : (
-          <NavLink to='/login'>Login</NavLink>
+          <NavLink to={Navigation.Login}>Login</NavLink>
         )}
       </div>
     </header>
   );
-};
+});
 
 export default Header;

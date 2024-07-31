@@ -1,19 +1,21 @@
-import React, { ChangeEvent, FC } from 'react';
-import { ProfileType } from "types/types";
+import { ChangeEvent, FC } from 'react';
+import { ProfileType } from '../../../../@types/types';
 import defaultProfileImage from '../../../../images/default-photo.png';
 import st from '../ProfileInfo.module.css';
 
 type Props = {
-  profile: ProfileType
-  isOwner: boolean
-  updatePhoto: (file: any) => void
-}
+  profile: ProfileType;
+  isOwner: boolean;
+  updatePhoto: (file: File) => void;
+};
 
 const ProfilePhoto: FC<Props> = ({ profile, isOwner, updatePhoto }) => {
   const onPhotoSelected = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = (e.target).files;
+    const files = e.target.files;
+    console.log(files);
+
     if (!files) {
-      return
+      return;
     } else {
       updatePhoto(files[0]);
     }
@@ -21,8 +23,16 @@ const ProfilePhoto: FC<Props> = ({ profile, isOwner, updatePhoto }) => {
 
   return (
     <div className={st.ava}>
-      <img src={profile.photos.large || defaultProfileImage} alt='' />
-      {isOwner && <input type='file' onChange={onPhotoSelected} />}
+      <img
+        src={profile.photos.large || defaultProfileImage}
+        alt=""
+      />
+      {isOwner && (
+        <input
+          type="file"
+          onChange={onPhotoSelected}
+        />
+      )}
     </div>
   );
 };

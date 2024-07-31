@@ -1,11 +1,12 @@
 import { LoginProps } from "components/Login/LoginContainer";
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import st from './Login.module.css';
 import LoginForm from './LoginForm';
+import { Navigation } from "../../@types/navigation";
 
 const Login: FC<LoginProps> = ({ isAuth, login, errorMessage, captchaUrl }) => {
-  if (isAuth) return <Navigate to={'/profile'} />;
+  if (isAuth) return <Navigate to={`${Navigation.Profile}`} />;
 
   return (
     <div className={st.loginItem}>

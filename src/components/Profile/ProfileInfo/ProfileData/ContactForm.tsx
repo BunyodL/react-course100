@@ -1,5 +1,4 @@
 import { createField } from "components/common/FormsControls/createField";
-import React from 'react';
 import { Input } from '../../../common/FormsControls/FormControls.tsx';
 import st from '../ProfileInfo.module.css';
 

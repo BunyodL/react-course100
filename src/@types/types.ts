@@ -54,5 +54,5 @@ export type FriendType = {
   id: number,
   name: string,
   age: number,
-  image: string | undefined
+  image?: string
 }

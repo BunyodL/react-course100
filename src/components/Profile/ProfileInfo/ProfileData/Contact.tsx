@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import st from '../ProfileInfo.module.css';
 
 type Props = {

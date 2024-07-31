@@ -1,11 +1,22 @@
-import React from 'react';
-import st from './FromsControls.module.css';
+import { InputHTMLAttributes, ReactNode } from 'react';
+import st from './FormsControls.module.css';
+
+type FormControlProps =  {
+	meta: { 
+		touched: boolean
+		error: string
+	}
+	// meta
+	input: InputHTMLAttributes<HTMLInputElement>
+  children: ReactNode,
+}
 
 const FormControl = ({
-// @ts-ignore
-                       input,  meta: { touched, error }, children,
-                       ...props
-                     }) => {
+  input,
+  meta: { touched, error },
+  children,
+  ...props
+}: FormControlProps) => {
   const hasError = touched && error;
   return (
     <div className={st.formControl + ' ' + (hasError && st.error)}>
@@ -13,16 +24,28 @@ const FormControl = ({
       {hasError && <span>{error}</span>}
     </div>
   );
-}
+};
 
 export const TextArea = (props: any) => {
   const { input, meta, ...restProps } = props;
-  return <FormControl  {...props}><textarea {...input} {...restProps} /></FormControl>
+  return (
+    <FormControl {...props}>
+      <textarea
+        {...input}
+        {...restProps}
+      />
+    </FormControl>
+  );
 };
 
 export const Input = (props: any) => {
   const { input, meta, ...restProps } = props;
-  return <FormControl  {...props}><input {...input} {...restProps} /></FormControl>
+  return (
+    <FormControl {...props}>
+      <input
+        {...input}
+        {...restProps}
+      />
+    </FormControl>
+  );
 };
-
-

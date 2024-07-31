@@ -1,9 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { RootState } from "redux/redux-store";
-import { UserType } from "types/types";
-import { follow, requestUsers, setUsersPage, unfollow } from '../../redux/reducers/users-reducer.ts';
+import { RootState } from 'redux/redux-store';
+import { UserType } from '../../@types/types.ts';
+import {
+  follow,
+  requestUsers,
+  setUsersPage,
+  unfollow,
+} from '../../redux/reducers/users-reducer.ts';
 import {
   getCurrentPage,
   getDisabledButton,
@@ -13,31 +18,31 @@ import {
   getTotalPagesCount,
   getUsers,
 } from '../../redux/selectors/users-selectors.ts';
-import Preloader from '../common/Preloader/Preloader';
+import { Preloader } from '../common/Preloader/Preloader';
 import Users from './Users.tsx';
 
 type MapStateToProps = {
-  isFetching: boolean
-  disabledButton: Array<number>
-  currentPage: number
-  pageSize: number
-  users: Array<UserType | undefined>
-  totalUsersCount: number
-  portionSize: number
-}
+  isFetching: boolean;
+  disabledButton: Array<number>;
+  currentPage: number;
+  pageSize: number;
+  users: Array<UserType | undefined>;
+  totalUsersCount: number;
+  portionSize: number;
+};
 
 type MapDispatchToProps = {
-  requestUsers: (page: number, pageSize: number) => void
-  follow: (id: number) => void
-  unfollow: (id: number) => void
-  setUsersPage: (page: number, pageSize: number) => void
-}
+  requestUsers: (page: number, pageSize: number) => void;
+  follow: (id: number) => void;
+  unfollow: (id: number) => void;
+  setUsersPage: (page: number, pageSize: number) => void;
+};
 
-type Props = MapStateToProps & MapDispatchToProps
+type Props = MapStateToProps & MapDispatchToProps;
 
 type State = {
-  setPage: (page: number) => void
-}
+  setPage: (page: number) => void;
+};
 
 class UsersContainer extends React.Component<Props, State> {
   componentDidMount() {
@@ -80,9 +85,11 @@ const mapStateToProps = (state: RootState): MapStateToProps => ({
   disabledButton: getDisabledButton(state),
 });
 
-export default compose(connect<MapStateToProps, MapDispatchToProps, {}, RootState>(mapStateToProps, {
-  follow,
-  unfollow,
-  requestUsers,
-  setUsersPage
-}))(UsersContainer);
+export default compose(
+  connect<MapStateToProps, MapDispatchToProps, {}, RootState>(mapStateToProps, {
+    follow,
+    unfollow,
+    requestUsers,
+    setUsersPage,
+  })
+)(UsersContainer);

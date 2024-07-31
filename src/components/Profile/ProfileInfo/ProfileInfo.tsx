@@ -1,7 +1,7 @@
-import React, { FC, useState } from 'react';
-import { ProfileType } from "types/types";
+import { FC, useState } from 'react';
+import { ProfileType } from '../../../@types/types.ts';
 import wallpaperImg from '../../../images/profile_wallpaper.jpg';
-import Preloader from '../../common/Preloader/Preloader';
+import { Preloader } from '../../common/Preloader/Preloader';
 import ProfileDescription from './ProfileData/ProfileDescription.tsx';
 import ProfileDescriptionForm from './ProfileData/ProfileDescriptionForm.tsx';
 import ProfilePhoto from './ProfileData/ProfilePhoto.tsx';
@@ -9,24 +9,24 @@ import st from './ProfileInfo.module.css';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
 type Props = {
-  profile: ProfileType | null
-  status: string
-  updateUserStatus: (status: string) => void
-  isOwner: boolean
-  updatePhoto: (file: any) => void
-  updateProfileData: (profileData: ProfileType) => void
-  errorMessage: string
-}
+  profile: ProfileType | null;
+  status: string;
+  updateUserStatus: (status: string) => void;
+  isOwner: boolean;
+  updatePhoto: (file: File) => void;
+  updateProfileData: (profileData: ProfileType) => void;
+  errorMessage: string;
+};
 
 const ProfileInfo: FC<Props> = ({
-                                  profile,
-                                  status,
-                                  updateUserStatus,
-                                  isOwner,
-                                  updatePhoto,
-                                  updateProfileData,
-                                  errorMessage
-                                }) => {
+  profile,
+  status,
+  updateUserStatus,
+  isOwner,
+  updatePhoto,
+  updateProfileData,
+  errorMessage,
+}) => {
   const [editMode, setEditMode] = useState(false);
 
   // useEffect(() => {
@@ -39,25 +39,42 @@ const ProfileInfo: FC<Props> = ({
 
   const onSubmit = (profileData: ProfileType) => {
     setEditMode(false);
-    updateProfileData(profileData)
+    updateProfileData(profileData);
   };
 
   return (
     <div className={st.profileInfo}>
       <div className={st.image}>
-        <img src={wallpaperImg} alt='' />
+        <img
+          src={wallpaperImg}
+          alt=""
+        />
       </div>
 
       <div className={st.profile}>
-        <ProfilePhoto profile={profile} isOwner={isOwner} updatePhoto={updatePhoto} />
+        <ProfilePhoto
+          profile={profile}
+          isOwner={isOwner}
+          updatePhoto={updatePhoto}
+        />
         {errorMessage && <div className={st.errorMessage}>{errorMessage}</div>}
         {editMode ? (
-          <ProfileDescriptionForm profile={profile} onSubmit={onSubmit} />
+          <ProfileDescriptionForm
+            profile={profile}
+            onSubmit={onSubmit}
+          />
         ) : (
-          <ProfileDescription profile={profile} isOwner={isOwner} setEditMode={setEditMode} />
+          <ProfileDescription
+            profile={profile}
+            isOwner={isOwner}
+            setEditMode={setEditMode}
+          />
         )}
       </div>
-      <ProfileStatusWithHooks status={status} updateUserStatus={updateUserStatus} />
+      <ProfileStatusWithHooks
+        status={status}
+        updateUserStatus={updateUserStatus}
+      />
     </div>
   );
 };

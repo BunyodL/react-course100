@@ -1,15 +1,15 @@
-import React, { FC } from 'react';
-import { ContactType, ProfileType } from "types/types";
+import { FC } from 'react';
+import { ContactType, ProfileType } from '../../../../@types/types';
 import CloseIcon from '../../../../images/icons/closeIcon.svg';
 import CheckIcon from '../../../../images/icons/doneIcon.svg';
 import st from '../ProfileInfo.module.css';
 import Contact from './Contact';
 
 type Props = {
-  profile: ProfileType
-  setEditMode: (editMode: boolean) => void
-  isOwner: boolean
-}
+  profile: ProfileType;
+  setEditMode: (editMode: boolean) => void;
+  isOwner: boolean;
+};
 
 const ProfileDescription: FC<Props> = ({ profile, isOwner, setEditMode }) => {
   const turnOnEditMode = () => setEditMode(true);
@@ -25,7 +25,17 @@ const ProfileDescription: FC<Props> = ({ profile, isOwner, setEditMode }) => {
 
         <div className={st.lookingForAJob}>
           <div>Looking for a job:</div>
-          {profile.lookingForAJob ? <img src={CheckIcon} alt='' /> : <img src={CloseIcon} alt='' />}
+          {profile.lookingForAJob ? (
+            <img
+              src={CheckIcon}
+              alt=""
+            />
+          ) : (
+            <img
+              src={CloseIcon}
+              alt=""
+            />
+          )}
         </div>
 
         <div>
@@ -40,8 +50,12 @@ const ProfileDescription: FC<Props> = ({ profile, isOwner, setEditMode }) => {
       </div>
       <div className={st.contacts}>
         <div>Contacts:</div>
-        {Object.keys(profile.contacts).map(key => (
-          <Contact key={key} socialMediaName={key} socialMediaLink={profile.contacts[key as keyof ContactType]} />
+        {Object.keys(profile.contacts).map((key) => (
+          <Contact
+            key={key}
+            socialMediaName={key}
+            socialMediaLink={profile.contacts[key as keyof ContactType]}
+          />
         ))}
       </div>
     </div>

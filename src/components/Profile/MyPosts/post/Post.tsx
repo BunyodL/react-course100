@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC, memo } from 'react';
 import postAvatar from '../../../../images/Muzhskaya_avatarka_bez_litza.jpg';
 import st from './Post.module.css';
 
@@ -7,7 +7,7 @@ type Props = {
   likesCount: number
 }
 
-const Post: FC<Props> = ({ message, likesCount }) => {
+const Post: FC<Props> = memo(({ message, likesCount }) => {
   return (
     <div className={st.item}>
       <img src={postAvatar} alt='' />
@@ -15,6 +15,6 @@ const Post: FC<Props> = ({ message, likesCount }) => {
       <div>{`likes: ${likesCount}`}</div>
     </div>
   );
-};
+});
 
 export default Post;

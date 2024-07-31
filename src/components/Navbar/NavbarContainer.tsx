@@ -1,14 +1,16 @@
 import { connect } from 'react-redux';
-import { RootState } from "redux/redux-store";
-import { FriendType } from "types/types";
+import { RootState } from 'redux/redux-store';
+import { FriendType } from '../../@types/types.ts';
 import Navbar from './Navbar.tsx';
 
 type MapStateToProps = {
-  friends: Array<FriendType>
-}
+  friends: Array<FriendType>;
+};
 
-const mapStateToProps = (state: RootState):MapStateToProps => ({
+const mapStateToProps = (state: RootState): MapStateToProps => ({
   friends: state.sidebar.friends,
 });
 
-export default connect<MapStateToProps, {}, {}, RootState>(mapStateToProps)(Navbar);
+export default connect<MapStateToProps, {}, {}, RootState>(mapStateToProps)(
+  Navbar
+);

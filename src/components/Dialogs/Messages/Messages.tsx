@@ -1,9 +1,25 @@
-import React, { FC } from 'react';
-import { MessageType } from "types/types";
-import st from './../Dialogs.module.css';
+import { Message } from './Message';
+import { MessageType } from '../../../@types/types';
+import st from '../Dialogs.module.css';
+import AddMessageContainer from './Message/AddMessageContainer';
 
-const Messages: FC<MessageType> = ({ message }) => {
-  return <div className={st.messageItem}>{message}</div>;
+type Props = {
+  messages: Array<MessageType>;
 };
 
-export default Messages;
+export function Messages({ messages }: Props) {
+  return (
+    <div className={st.messages}>
+      <div className={st.message}>
+        {messages.map((m) => (
+          <Message
+            message={m.message}
+            key={m.id}
+            id={m.id}
+          />
+        ))}
+      </div>
+      <AddMessageContainer />
+    </div>
+  );
+}

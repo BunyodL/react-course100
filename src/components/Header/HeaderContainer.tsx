@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import { RootState } from "redux/redux-store";
 import { logout } from '../../redux/reducers/auth-reducer.ts';
 import Header from './Header.tsx';
+import { memo } from 'react';
 
 type MapStateToProps = {
   login: string | null
@@ -19,4 +20,4 @@ const mapStateToProps = (state: RootState): MapStateToProps => ({
   isAuth: state.auth.isAuth,
 });
 
-export default connect<MapStateToProps, MapDispatchToProps, {}, RootState>(mapStateToProps, { logout })(Header);
+export default memo(connect<MapStateToProps, MapDispatchToProps, {}, RootState>(mapStateToProps, { logout })(Header));
