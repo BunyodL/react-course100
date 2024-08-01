@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
-import { addMessage } from '../../../../redux/reducers/dialogs-reducer.ts';
+import { actions } from '../../../../redux/reducers/dialogs-reducer.ts';
 import AddMessage from './AddMessage';
+
+const { addMessage } = actions;
 
 export default connect(null, { addMessage })(AddMessage);

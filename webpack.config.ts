@@ -1,4 +1,8 @@
-const webpack = require('webpack');
+// in case you run into any typescript error when configuring `devServer`
+import 'webpack-dev-server';
+
+const webpack = require('webpack')
+const path = require('path')
 
 module.exports = {
   entry: './src/index.js',

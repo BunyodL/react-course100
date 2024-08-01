@@ -1,13 +1,7 @@
+import { InferActionsTypes } from 'redux/redux-store';
 import { DialogType, MessageType } from '../../@types/types';
 
-const ADD_MESSAGE = 'samurai/dialogs/ADD_MESSAGE';
-
-type InitialStateType = {
-  dialogsData: Array<DialogType>;
-  messagesData: Array<MessageType>;
-};
-
-let initialState: InitialStateType = {
+const initialState = {
   dialogsData: [
     {
       id: 1,
@@ -51,20 +45,20 @@ let initialState: InitialStateType = {
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoldbXNMFuRVNmn4m9E5K4wb1h1CDH8b9daw&usqp=CAU',
     },
-  ],
+  ] as Array<DialogType>,
   messagesData: [
     { id: 1, message: "What's up" },
     { id: 2, message: "How's it going" },
     { id: 3, message: 'Welcome to the team' },
-  ],
+  ] as Array<MessageType>,
 };
 
-const dialogsReducer = (
+export const dialogsReducer = (
   state = initialState,
   action: ActionTypes
 ): InitialStateType => {
   switch (action.type) {
-    case ADD_MESSAGE: {
+    case 'dialogs/ADD_MESSAGE': {
       const newMessage = {
         id: state.messagesData.length + 1,
         message: action.newMessageText,
@@ -76,16 +70,13 @@ const dialogsReducer = (
   }
 };
 
-type AddMessage = {
-  type: typeof ADD_MESSAGE;
-  newMessageText: string;
+export const actions = {
+  addMessage: (newMessageText: string) =>
+    ({
+      type: 'dialogs/ADD_MESSAGE',
+      newMessageText,
+    } as const),
 };
 
-type ActionTypes = AddMessage;
-
-export const addMessage = (newMessageText: string): AddMessage => ({
-  type: ADD_MESSAGE,
-  newMessageText,
-});
-
-export default dialogsReducer;
+type InitialStateType = typeof initialState;
+type ActionTypes = InferActionsTypes<typeof actions>;

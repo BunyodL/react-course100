@@ -1,7 +1,7 @@
 import { instance } from './instance';
 import { ResponseType, WithCaptchaResponseType } from './types';
 
-const enum Endpoints {
+enum Endpoints {
   Me = 'auth/me',
   Login = 'auth/login',
 }
