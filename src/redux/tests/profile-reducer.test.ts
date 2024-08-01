@@ -1,11 +1,11 @@
-import profileReducer, { actions } from '../reducers/profile-reducer';
+import { profileReducer, actions } from '../reducers/profile-reducer';
 
 let state = {
   postsData: [
     { id: 1, message: 'Good morning, Vasya', likesCount: 12 },
     { id: 2, message: 'How are you', likesCount: 16 },
   ],
-	profile: null,
+  profile: null,
   status: '',
   errorMessage: '',
 };

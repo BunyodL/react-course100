@@ -1,4 +1,4 @@
-import dialogsReducer, { actions } from '../reducers/dialogs-reducer';
+import { dialogsReducer, actions } from '../reducers/dialogs-reducer';
 
 let state = {
   dialogsData: [

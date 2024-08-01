@@ -2,42 +2,31 @@ import { authAPI, securityAPI } from 'api';
 import { ResultCodeForCaptcha, ResultCodesEnum } from 'api/types';
 import { InferActionsTypes, ThunkActionType } from 'redux/redux-store';
 
-type InitialStateType = {
-  id: number | null;
-  email: string | null;
-  login: string | null;
-  isAuth: boolean;
-  errorMessage: string;
-  captchaUrl: string | null;
-};
-
-let initialState: InitialStateType = {
-  id: null,
-  email: null,
-  login: null,
+const initialState = {
+  id: null as number | null,
+  email: null as string | null,
+  login: null as string | null,
   isAuth: false,
   errorMessage: '',
-  captchaUrl: null, // if null, captcha is not required
+  captchaUrl: null as string | null, // if null, captcha is not required
 };
 
-const authReducer = (
+export const authReducer = (
   state = initialState,
   action: ActionTypes
 ): InitialStateType => {
   switch (action.type) {
-    case 'SET_USER_DATA':
-    case 'GET_CAPTCHA_URL_SUCCESS': {
+    case 'auth/SET_USER_DATA':
+    case 'auth/GET_CAPTCHA_URL_SUCCESS': {
       return { ...state, ...action.payload };
     }
-    case 'STOP_SUBMIT': {
+    case 'auth/STOP_SUBMIT': {
       return { ...state, errorMessage: action.message };
     }
     default:
       return state;
   }
 };
-
-type ActionTypes = InferActionsTypes<typeof actions>;
 
 //Action creators
 export const actions = {
@@ -48,19 +37,19 @@ export const actions = {
     isAuth: boolean
   ) =>
     ({
-      type: 'SET_USER_DATA',
+      type: 'auth/SET_USER_DATA',
       payload: { id, email, login, isAuth },
     } as const),
 
   stopSubmit: (message: string) =>
     ({
-      type: 'STOP_SUBMIT',
+      type: 'auth/STOP_SUBMIT',
       message,
     } as const),
 
   getCaptchaUrlSuccess: (captchaUrl: string | null) =>
     ({
-      type: 'GET_CAPTCHA_URL_SUCCESS',
+      type: 'auth/GET_CAPTCHA_URL_SUCCESS',
       payload: { captchaUrl },
     } as const),
 };
@@ -110,4 +99,5 @@ export const logout = (): ThunkActionType<ActionTypes> => async (dispatch) => {
   }
 };
 
-export default authReducer;
+type InitialStateType = typeof initialState;
+type ActionTypes = InferActionsTypes<typeof actions>;

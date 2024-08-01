@@ -3,29 +3,22 @@ import { PhotosType, PostType, ProfileType } from '../../@types/types.ts';
 import { profileAPI } from 'api';
 import { ResultCodesEnum } from 'api/types.ts';
 
-type InitialStateType = {
-  postsData: Array<PostType>;
-  profile: ProfileType | null;
-  status: string;
-  errorMessage: string;
-};
-
-const initialState: InitialStateType = {
+const initialState = {
   postsData: [
     { id: 1, message: 'Good morning, Vasya', likesCount: 12 },
     { id: 2, message: 'How are you', likesCount: 16 },
-  ],
-  profile: null,
+  ] as Array<PostType>,
+  profile: null as ProfileType | null,
   status: '',
   errorMessage: '',
 };
 
-const profileReducer = (
+export const profileReducer = (
   state = initialState,
   action: ActionTypes
 ): InitialStateType => {
   switch (action.type) {
-    case 'ADD_POST': {
+    case 'profile/ADD_POST': {
       const newPost = {
         id: state.postsData.length + 1,
         message: action.newPostText,
@@ -33,25 +26,25 @@ const profileReducer = (
       };
       return { ...state, postsData: [...state.postsData, newPost] };
     }
-    case 'SET_USER_PROFILE': {
+    case 'profile/SET_USER_PROFILE': {
       return { ...state, profile: action.profile, errorMessage: '' };
     }
-    case 'SET_USER_STATUS': {
+    case 'profile/SET_USER_STATUS': {
       return { ...state, status: action.status };
     }
-    case 'DELETE_POST': {
+    case 'profile/DELETE_POST': {
       return {
         ...state,
         postsData: state.postsData.filter((p) => p.id !== action.postId),
       };
     }
-    case 'UPDATE_PHOTO': {
+    case 'profile/UPDATE_PHOTO': {
       return {
         ...state,
         profile: { ...state.profile, photos: action.photos } as ProfileType,
       };
     }
-    case 'STOP_SUBMIT': {
+    case 'profile/STOP_SUBMIT': {
       return { ...state, errorMessage: action.message };
     }
     default:
@@ -59,40 +52,38 @@ const profileReducer = (
   }
 };
 
-type ActionTypes = InferActionsTypes<typeof actions>;
-
 //Action creators
 export const actions = {
   addPost: (newPostText: string) =>
     ({
-      type: 'ADD_POST',
+      type: 'profile/ADD_POST',
       newPostText,
     } as const),
 
   setUserProfile: (profile: ProfileType) =>
-    ({ type: 'SET_USER_PROFILE', profile } as const),
+    ({ type: 'profile/SET_USER_PROFILE', profile } as const),
 
   setUserStatus: (status: string) =>
     ({
-      type: 'SET_USER_STATUS',
+      type: 'profile/SET_USER_STATUS',
       status,
     } as const),
 
   deletePost: (postId: number) =>
     ({
-      type: 'DELETE_POST',
+      type: 'profile/DELETE_POST',
       postId,
     } as const),
 
   updatePhotoSuccess: (photos: PhotosType) =>
     ({
-      type: 'UPDATE_PHOTO',
+      type: 'profile/UPDATE_PHOTO',
       photos,
     } as const),
 
   stopSubmit: (message: string) =>
     ({
-      type: 'STOP_SUBMIT',
+      type: 'profile/STOP_SUBMIT',
       message,
     } as const),
 };
@@ -140,15 +131,19 @@ export const updateProfileData =
   (profileData: ProfileType): ThunkActionType<ActionTypes> =>
   async (dispatch, getState) => {
     const userId = getState().auth.id;
+
     const data = await profileAPI.updateMyProfile(profileData);
+
     if (data.resultCode === ResultCodesEnum.Success) {
       await dispatch(getUserProfile(userId));
     } else {
       const message =
         data.messages.length > 0 ? data.messages[0] : 'Some unknown error';
+
       dispatch(actions.stopSubmit(message));
       return Promise.reject(data.messages[0]);
     }
   };
 
-export default profileReducer;
+type InitialStateType = typeof initialState;
+type ActionTypes = InferActionsTypes<typeof actions>;
