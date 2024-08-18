@@ -1,4 +1,4 @@
-import { ValidatorType } from 'components/utils/validators/validators';
+import { ValidatorType } from 'utils/validators';
 import { Field, SupportedInputs } from 'react-final-form';
 import { FormControlProps } from '.';
 import { FC } from 'react';

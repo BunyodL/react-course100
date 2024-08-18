@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { UserType } from '../../@types/types.ts';
 import defaultUserPhoto from '../../images/default-photo.png';
-import { Paginator } from '../common/paginator';
-import { User } from './user';
+import { Paginator } from '../components/common/paginator/index.ts';
+import { User } from './user/index.ts';
 import st from './Users.module.css';
 
 type Props = {

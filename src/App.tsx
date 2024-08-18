@@ -1,4 +1,4 @@
-import { ProjectRoutes } from 'components/projectRoutes';
+import { ProjectRoutes } from 'projectRoutes';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import './App.css';

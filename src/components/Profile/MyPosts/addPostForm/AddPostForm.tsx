@@ -1,7 +1,7 @@
 import { createField } from 'components/common/formsControls/createField.tsx';
 import { Form } from 'react-final-form';
 import { TextArea } from '../../../common/formsControls';
-import { composeValidators, maxTextLength, required } from '../../../utils/validators';
+import { composeValidators, maxTextLength, required } from '../../../../utils/validators';
 import st from './AddPostForm.module.css';
 
 type Props = {

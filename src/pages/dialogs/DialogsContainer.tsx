@@ -4,7 +4,7 @@ import { compose } from 'redux';
 import { RootState } from 'redux/redux-store';
 import { DialogType, MessageType } from '../../@types/types.ts';
 import { withAuthRedirect } from '../../hoc/withAuthRedirect.tsx';
-import { Dialogs } from '.';
+import { Dialogs } from './index.ts';
 
 type MapStateToProps = {
     dialogsData: Array<DialogType>;

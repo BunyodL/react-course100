@@ -12,7 +12,7 @@ import {
     updateProfileData,
     updateUserStatus,
 } from '../../redux/reducers/profile-reducer.ts';
-import { Profile } from '.';
+import { Profile } from './index.ts';
 
 type MapStateToProps = {
     authorizedUserId: number | null;

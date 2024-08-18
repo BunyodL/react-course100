@@ -18,8 +18,8 @@ import {
     getTotalPagesCount,
     getUsers,
 } from '../../redux/selectors/users-selectors.ts';
-import { Preloader } from '../common/preloader';
-import { Users } from '.';
+import { Preloader } from '../components/common/preloader/index.ts';
+import { Users } from './index.ts';
 
 type MapStateToProps = {
     isFetching: boolean;

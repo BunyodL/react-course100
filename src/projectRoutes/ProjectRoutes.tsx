@@ -1,16 +1,16 @@
 import { Suspense, lazy, memo } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Navigation } from '../../@types/navigation.ts';
+import { Navigation } from '../@types/navigation.ts';
 import '../App.css';
-import { LoginContainer } from '../login/index.ts';
-import { Music } from '../music/index.ts';
-import { News } from '../news/index.ts';
-import { Settings } from '../settings/index.ts';
-import { UsersContainer } from '../users/index.ts';
-import { Preloader } from '../common/preloader/index.ts';
+import { LoginContainer } from '../pages/login/index.ts';
+import { Music } from '../pages/music';
+import { News } from '../pages/news/index.ts';
+import { Settings } from '../pages/settings/index.ts';
+import { UsersContainer } from '../pages/users/index.ts';
+import { Preloader } from '../components/common/preloader/index.ts';
 
-const DialogsContainer = lazy(() => import('../dialogs/DialogsContainer.tsx'));
-const ProfileContainer = lazy(() => import('../profile/ProfileContainer.tsx'));
+const DialogsContainer = lazy(() => import('../pages/dialogs/DialogsContainer.tsx'));
+const ProfileContainer = lazy(() => import('../pages/profile/ProfileContainer.tsx'));
 
 export const ProjectRoutes = memo(() => {
     return (
