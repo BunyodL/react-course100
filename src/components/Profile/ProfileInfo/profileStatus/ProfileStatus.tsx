@@ -1,6 +1,6 @@
 import { ProfileStatusPropsType } from './ProfileStatusWithHooks';
 import React, { ChangeEvent } from 'react';
-import st from './ProfileInfo.module.css';
+import st from '../ProfileInfo.module.css';
 
 type State = {
     editMode: boolean;

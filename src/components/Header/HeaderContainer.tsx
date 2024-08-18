@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { RootState } from 'redux/redux-store';
+import { RootState } from '@/redux/redux-store';
 import { logout } from '@/redux/reducers/auth-reducer.ts';
 import { Header } from '.';
 import { memo } from 'react';

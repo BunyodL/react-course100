@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { RootState } from 'redux/redux-store';
+import { RootState } from '@/redux/redux-store';
 import { PostType } from '@/@types/types.ts';
 import { actions } from '@/redux/reducers/profile-reducer.ts';
 import { MyPosts } from '.';

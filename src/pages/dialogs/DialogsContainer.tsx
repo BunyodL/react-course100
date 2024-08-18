@@ -1,7 +1,7 @@
 import { ComponentType } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { RootState } from 'redux/redux-store';
+import { RootState } from '@/redux/redux-store';
 import { DialogType, MessageType } from '@/@types/types.ts';
 import { withAuthRedirect } from '@/hoc';
 import { Dialogs } from '.';

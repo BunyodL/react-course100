@@ -1,8 +1,9 @@
-import { AppDispatch, InferActionsTypes, ThunkActionType } from 'redux/redux-store';
-import { UserType } from '../../@types/types.ts';
-import { updateObjectInArray } from '../../utils/object-helpers.ts';
-import { usersAPI } from 'api';
-import { ResponseType, ResultCodesEnum } from 'api/types.ts';
+import { InferActionsTypes, RootState, ThunkActionType } from '@/redux/redux-store';
+import { UserType } from '@/@types/types.ts';
+import { updateObjectInArray } from '@/utils/object-helpers.ts';
+import { usersAPI } from '@/api';
+import { ResponseType, ResultCodesEnum } from '@/api/types.ts';
+import { ThunkDispatch } from 'redux-thunk';
 
 const initialState = {
     users: [] as Array<UserType | undefined>,
@@ -125,7 +126,7 @@ export const setUsersPage =
     };
 
 const _followUnfollowFlow = async (
-    dispatch: AppDispatch,
+    dispatch: ThunkDispatch<RootState, null, ActionTypes>,
     apiMethod: (userId: number) => Promise<ResponseType>,
     actionCreator: (userId: number) => ActionTypes,
     userId: number,

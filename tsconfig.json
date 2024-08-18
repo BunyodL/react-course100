@@ -16,13 +16,12 @@
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "baseUrl": "./src",
         "paths": {
-            "@/*": ["*"],
-            "@/images/*": ["@/assets/images/*"],
-            "@/icons/*": ["@/assets/icons/*"],
-            "@/gifs/*": ["@/assets/gifs/*"],
-            "@/logo/*": ["@/assets/logo/*"]
+            "@/*": ["./src/*"],
+            "@/images": ["./src/assets/images"],
+            "@/icons": ["./src/assets/icons"],
+            "@/gifs": ["./src/assets/gifs"],
+            "@/logo": ["./src/assets/logo"]
         }
     },
     "include": ["src"]

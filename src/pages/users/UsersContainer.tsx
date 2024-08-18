@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { RootState } from 'redux/redux-store';
+import { RootState } from '@/redux/redux-store';
 import { UserType } from '@/@types/types.ts';
 import {
     follow,
