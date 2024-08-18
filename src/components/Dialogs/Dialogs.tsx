@@ -1,10 +1,10 @@
 import { DialogsPropsType } from 'components/dialogs/DialogsContainer.tsx';
 import { memo } from 'react';
 import st from './Dialogs.module.css';
-import Dialog from './Dialog/Dialog.tsx';
-import { Messages } from './Messages/Messages.tsx';
+import { Dialog } from './dialog';
+import { Messages } from './messages';
 
-export const Dialogs = memo(({ messagesData, dialogsData }: DialogsPropsType) => {
+const Dialogs = memo(({ messagesData, dialogsData }: DialogsPropsType) => {
     return (
         <div className={st.dialogs}>
             <div className={st.dialogsItem}>
@@ -28,3 +28,5 @@ export const Dialogs = memo(({ messagesData, dialogsData }: DialogsPropsType) =>
         </div>
     );
 });
+
+export default Dialogs;

@@ -1,10 +1,10 @@
-import { ProjectRoutes } from 'components/ProjectRoutes.tsx';
+import { ProjectRoutes } from 'components/projectRoutes';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
-import HeaderContainer from './components/header/HeaderContainer.tsx';
-import NavbarContainer from './components/navbar/NavbarContainer.tsx';
-import { Preloader } from './components/common/preloader/Preloader.tsx';
+import { HeaderContainer } from './components/header';
+import { NavbarContainer } from './components/navbar';
+import { Preloader } from './components/common/preloader';
 import { initializeApp } from './redux/reducers/app-reducer.ts';
 import { RootState } from './redux/redux-store.ts';
 

@@ -2,7 +2,7 @@ import { LoginProps } from 'components/login/LoginContainer';
 import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import st from './Login.module.css';
-import LoginForm from './LoginForm';
+import { LoginForm } from './loginForm';
 import { Navigation } from '../../@types/navigation';
 
 const Login: FC<LoginProps> = ({ isAuth, login, errorMessage, captchaUrl }) => {

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { FriendType } from '../../../@types/types';
-import st from '../Navbar.module.css';
+import st from './Friend.module.css';
 import { Navigation } from '../../../@types/navigation';
 
 const Friend = ({ name, image }: FriendType) => {

@@ -1,5 +1,5 @@
 import { DialogType } from '../../../@types/types';
-import st from './../Dialogs.module.css';
+import st from './Dialog.module.css';
 import { NavLink } from 'react-router-dom';
 import { Navigation } from '../../../@types/navigation';
 

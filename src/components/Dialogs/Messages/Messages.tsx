@@ -1,25 +1,25 @@
-import { Message } from './Message';
+import { Message } from './message';
 import { MessageType } from '../../../@types/types';
-import st from '../Dialogs.module.css';
-import AddMessageContainer from './Message/AddMessageContainer';
+import st from './Messages.module.css';
+import { AddMessageContainer } from './addMessage';
 
 type Props = {
-  messages: Array<MessageType>;
+    messages: Array<MessageType>;
 };
 
 export function Messages({ messages }: Props) {
-  return (
-    <div className={st.messages}>
-      <div className={st.message}>
-        {messages.map((m) => (
-          <Message
-            message={m.message}
-            key={m.id}
-            id={m.id}
-          />
-        ))}
-      </div>
-      <AddMessageContainer />
-    </div>
-  );
+    return (
+        <div className={st.messages}>
+            <div className={st.message}>
+                {messages.map((m) => (
+                    <Message
+                        message={m.message}
+                        key={m.id}
+                        id={m.id}
+                    />
+                ))}
+            </div>
+            <AddMessageContainer />
+        </div>
+    );
 }

@@ -1,6 +1,6 @@
 import { FriendType } from '../../../@types/types.ts';
 import Friend from '../friend/Friend.tsx';
-import st from '../Navbar.module.css';
+import st from './SideBar.module.css';
 
 type Props = {
   friends: Array<FriendType>;

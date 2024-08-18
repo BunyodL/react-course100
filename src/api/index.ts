@@ -1,4 +1,6 @@
-export { securityAPI } from './security-api';
-export { profileAPI } from './profile-api';
-export { usersAPI } from './users-api';
-export { authAPI } from './auth-api';
+import { securityAPI } from './security-api';
+import { profileAPI } from './profile-api';
+import { usersAPI } from './users-api';
+import { authAPI } from './auth-api';
+
+export { authAPI, profileAPI, securityAPI, usersAPI };
