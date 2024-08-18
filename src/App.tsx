@@ -1,61 +1,59 @@
-import { ProjectRoutes } from 'components/ProjectRoutes.tsx';
+import { ProjectRoutes } from '@/projectRoutes';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
-import HeaderContainer from './components/Header/HeaderContainer.tsx';
-import NavbarContainer from './components/Navbar/NavbarContainer.tsx';
-import { Preloader } from './components/common/Preloader/Preloader.tsx';
-import { initializeApp } from './redux/reducers/app-reducer.ts';
-import { RootState } from './redux/redux-store.ts';
+import { HeaderContainer } from '@/components/header';
+import { NavbarContainer } from '@/components/navbar';
+import { Preloader } from '@/components/common/preloader';
+import { initializeApp } from '@/redux/reducers/app-reducer.ts';
+import { RootState } from '@/redux/redux-store.ts';
 
 type MapStateToProps = {
-  initialized: boolean;
+    initialized: boolean;
 };
 
 type MapDispatchToProps = {
-  initializeApp: () => void;
+    initializeApp: () => void;
 };
 
 type Props = MapStateToProps & MapDispatchToProps;
 
 class App extends PureComponent<Props, {}> {
-  handleUncaughtErrors(e: PromiseRejectionEvent) {
-    console.log('Error occurred: ' + e.reason);
-  }
-
-  componentDidMount() {
-    this.props.initializeApp();
-    window.addEventListener('unhandledrejection', this.handleUncaughtErrors);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('unhandledrejection', this.handleUncaughtErrors);
-  }
-
-  render() {
-    if (!this.props.initialized) {
-      return <Preloader />;
+    handleUncaughtErrors(e: PromiseRejectionEvent) {
+        console.log('Error occurred: ' + e.reason);
     }
 
-    return (
-      <div className="app-wrapper">
-        <HeaderContainer />
-        <NavbarContainer />
-        <div className="app-wrapper-content">
-          <ProjectRoutes />
-        </div>
-      </div>
-    );
-  }
+    componentDidMount() {
+        this.props.initializeApp();
+        window.addEventListener('unhandledrejection', this.handleUncaughtErrors);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.handleUncaughtErrors);
+    }
+
+    render() {
+        if (!this.props.initialized) {
+            return <Preloader />;
+        }
+
+        return (
+            <div className="app-wrapper">
+                <HeaderContainer />
+                <NavbarContainer />
+                <div className="app-wrapper-content">
+                    <ProjectRoutes />
+                </div>
+            </div>
+        );
+    }
 }
 
 const mapStateToProps = (state: RootState): MapStateToProps => ({
-  initialized: state.app.initialized,
+    initialized: state.app.initialized,
 });
 
-export const AppContainer = connect<
-  MapStateToProps,
-  MapDispatchToProps,
-  {},
-  RootState
->(mapStateToProps, { initializeApp })(App);
+export const AppContainer = connect<MapStateToProps, MapDispatchToProps, {}, RootState>(
+    mapStateToProps,
+    { initializeApp },
+)(App);

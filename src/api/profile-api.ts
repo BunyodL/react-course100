@@ -1,5 +1,5 @@
 import { ResponseType } from './types';
-import { PhotosType, ProfileType } from '../@types/types';
+import { PhotosType, ProfileType } from '@/@types/types';
 import { instance } from './instance';
 
 enum Endpoints {
