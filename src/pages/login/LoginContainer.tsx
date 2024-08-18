@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { RootState } from 'redux/redux-store';
-import { login } from '../../redux/reducers/auth-reducer.ts';
-import { Login } from './index.ts';
+import { login } from '@/redux/reducers/auth-reducer.ts';
+import { Login } from '.';
 
 type MapStateToProps = {
     isAuth: boolean;

@@ -1,12 +1,12 @@
-import { ProjectRoutes } from 'projectRoutes';
+import { ProjectRoutes } from '@/projectRoutes';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
-import { HeaderContainer } from './components/header';
-import { NavbarContainer } from './components/navbar';
-import { Preloader } from './components/common/preloader';
-import { initializeApp } from './redux/reducers/app-reducer.ts';
-import { RootState } from './redux/redux-store.ts';
+import { HeaderContainer } from '@/components/header';
+import { NavbarContainer } from '@/components/navbar';
+import { Preloader } from '@/components/common/preloader';
+import { initializeApp } from '@/redux/reducers/app-reducer.ts';
+import { RootState } from '@/redux/redux-store.ts';
 
 type MapStateToProps = {
     initialized: boolean;

@@ -1,7 +1,7 @@
-import { createField } from 'components/common/formsControls/createField.tsx';
+import { TextArea } from '@/components/common/formsControls';
+import { createField } from '@/components/common/formsControls/createField.tsx';
+import { composeValidators, maxTextLength, required } from '@/utils/validators';
 import { Form } from 'react-final-form';
-import { TextArea } from '../../../common/formsControls';
-import { composeValidators, maxTextLength, required } from '../../../../utils/validators';
 import st from './AddMessage.module.css';
 
 type PropsType = {

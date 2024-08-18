@@ -1,7 +1,7 @@
-import { DialogType } from '../../../@types/types';
+import { DialogType } from '@/@types/types';
 import st from './Dialog.module.css';
 import { NavLink } from 'react-router-dom';
-import { Navigation } from '../../../@types/navigation';
+import { Navigation } from '@/@types/navigation';
 
 const Dialog = ({ name, image }: DialogType) => {
   return (

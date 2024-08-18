@@ -1,4 +1,4 @@
-import { FriendType } from '../../../@types/types.ts';
+import { FriendType } from '@/@types/types.ts';
 import Friend from '../friend/Friend.tsx';
 import st from './SideBar.module.css';
 

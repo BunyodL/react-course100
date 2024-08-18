@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { PostType } from '../../../@types/types.ts';
+import { PostType } from '@/@types/types.ts';
 import { AddPostForm } from './addPostForm';
 import st from './MyPosts.module.css';
 import { Post } from './post';

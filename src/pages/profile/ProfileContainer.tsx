@@ -2,17 +2,17 @@ import React, { ComponentType } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { RootState } from 'redux/redux-store';
-import { Navigation } from '../../@types/navigation.ts';
-import { ProfileType } from '../../@types/types.ts';
-import { withRouter } from '../../hoc/withRouter.tsx';
+import { Navigation } from '@/@types/navigation.ts';
+import { ProfileType } from '@/@types/types.ts';
+import { withRouter } from '@/hoc';
 import {
     getUserProfile,
     getUserStatus,
     updatePhoto,
     updateProfileData,
     updateUserStatus,
-} from '../../redux/reducers/profile-reducer.ts';
-import { Profile } from './index.ts';
+} from '@/redux/reducers/profile-reducer.ts';
+import { Profile } from '.';
 
 type MapStateToProps = {
     authorizedUserId: number | null;

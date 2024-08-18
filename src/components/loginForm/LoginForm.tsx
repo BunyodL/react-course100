@@ -1,10 +1,10 @@
-import { createField } from 'components/common/formsControls/createField.tsx';
+import { createField } from '@/components/common/formsControls/createField.tsx';
 import { Form } from 'react-final-form';
-import { Input } from '../../common/formsControls';
-import { required } from '../../utils/validators/index.ts';
+import { Input } from '@/components/common/formsControls';
+import { required } from '@/utils/validators/index.ts';
 import st from './LoginForm.module.css';
 import { memo } from 'react';
-import { GetStringKeys } from '../../../@types/types.ts';
+import { GetStringKeys } from '@/@types/types.ts';
 
 type Props = {
     login: (

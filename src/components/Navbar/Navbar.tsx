@@ -1,8 +1,8 @@
 import { NavLink } from 'react-router-dom';
-import { FriendType } from '../../@types/types.ts';
+import { FriendType } from '@/@types/types.ts';
 import st from './Navbar.module.css';
 import { Sidebar } from './sidebar';
-import { Navigation } from '../../@types/navigation.ts';
+import { Navigation } from '@/@types/navigation.ts';
 
 const setActive = ({ isActive }: { isActive: boolean }) => (isActive ? st.active : '');
 

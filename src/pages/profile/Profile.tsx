@@ -1,8 +1,8 @@
 import { FC } from 'react';
-import { ProfileType } from '../../@types/types.ts';
-import MyPostsContainer from './myPosts/MyPostsContainer.tsx';
+import { ProfileType } from '@/@types/types.ts';
+import { MyPostsContainer } from '@/components/profile/myPosts';
 import st from './Profile.module.css';
-import { ProfileInfo } from './profileInfo/index.ts';
+import { ProfileInfo } from '@/components/profile/profileInfo';
 
 type Props = {
     profile: ProfileType | null;

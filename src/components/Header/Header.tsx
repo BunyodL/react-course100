@@ -1,9 +1,9 @@
-import { HeaderPropsType } from 'components/header/HeaderContainer';
+import { HeaderPropsType } from './HeaderContainer';
 import { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 import st from './Header.module.css';
-import logo from '../../assets/prozrachniy-logo-800x575.png';
-import { Navigation } from '../../@types/navigation';
+import logo from '@/logo/prozrachniy-logo-800x575.png';
+import { Navigation } from '@/@types/navigation';
 
 const Header = memo(({ isAuth, login, logout }: HeaderPropsType) => {
     return (

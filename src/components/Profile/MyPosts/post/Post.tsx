@@ -1,5 +1,5 @@
 import { FC, memo } from 'react';
-import postAvatar from '../../../../images/Muzhskaya_avatarka_bez_litza.jpg';
+import postAvatar from '@/images/Muzhskaya_avatarka_bez_litza.jpg';
 import st from './Post.module.css';
 
 type Props = {
