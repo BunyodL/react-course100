@@ -1,0 +1,53 @@
+.posts {
+  padding: 5px 25px;
+}
+
+.addPost {
+  padding: 10px 0;
+}
+
+.textarea {
+  margin-bottom: 10px;
+}
+
+.textarea textarea {
+  min-width: 20%;
+  min-height: 2.5em;
+  border-radius: 10px;
+  outline: 0;
+  border: 0;
+  font-size: 18px;
+  padding: 8px;
+  transition: 0.5s;
+  overflow: hidden;
+  resize: none;
+  line-height: 20px;
+}
+
+.textarea textarea:focus {
+  min-width: 30%;
+  min-height: 3em;
+  outline: 0;
+  /* border: 2px solid #4671ea; */
+  transition: 0.5s;
+  padding: 14px;
+}
+
+.addPost > button {
+  background-color: bisque;
+  height: 2em;
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  font-size: 1em;
+  min-width: 10%;
+}
+
+.addPost > button:hover {
+  cursor: pointer;
+  background-color: rgb(246, 217, 180);
+}
+
+.addPost > button:active {
+  transform: scale(0.95);
+}

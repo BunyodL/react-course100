@@ -1,21 +1,25 @@
-import { LoginProps } from "components/Login/LoginContainer";
+import { LoginProps } from 'components/login/LoginContainer';
 import { FC } from 'react';
 import { Navigate } from 'react-router-dom';
 import st from './Login.module.css';
 import LoginForm from './LoginForm';
-import { Navigation } from "../../@types/navigation";
+import { Navigation } from '../../@types/navigation';
 
 const Login: FC<LoginProps> = ({ isAuth, login, errorMessage, captchaUrl }) => {
-  if (isAuth) return <Navigate to={`${Navigation.Profile}`} />;
+    if (isAuth) return <Navigate to={`${Navigation.Profile}`} />;
 
-  return (
-    <div className={st.loginItem}>
-      <div className={st.loginList}>  
-        <h2>Authorization</h2>
-        <LoginForm login={login} errorMessage={errorMessage} captchaUrl={captchaUrl} />
-      </div>
-    </div>
-  );
+    return (
+        <div className={st.loginItem}>
+            <div className={st.loginList}>
+                <h2>Authorization</h2>
+                <LoginForm
+                    login={login}
+                    errorMessage={errorMessage}
+                    captchaUrl={captchaUrl}
+                />
+            </div>
+        </div>
+    );
 };
 
 export default Login;

@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
-import st from './../Users.module.css';
+import st from './User.module.css';
 
 type Props = {
   follow: (id: number) => void

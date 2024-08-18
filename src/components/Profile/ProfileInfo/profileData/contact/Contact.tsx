@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import st from '../ProfileInfo.module.css';
+import st from './Contact.module.css';
 
 type Props = {
   socialMediaName: string

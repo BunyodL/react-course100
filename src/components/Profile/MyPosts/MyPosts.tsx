@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import { PostType } from '../../../@types/types.ts';
-import AddPostForm from './AddPostForm.tsx';
+import { AddPostForm } from './addPostForm';
 import st from './MyPosts.module.css';
-import Post from './post/Post.tsx';
+import { Post } from './post';
 
 type Props = {
     posts: Array<PostType>;

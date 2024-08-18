@@ -1,7 +1,7 @@
 import { ChangeEvent, FC } from 'react';
-import { ProfileType } from '../../../../@types/types';
+import { ProfileType } from '../../../../../@types/types';
 import defaultProfileImage from '../../../../images/default-photo.png';
-import st from '../ProfileInfo.module.css';
+import st from './ProfilePhoto.module.css';
 
 type Props = {
   profile: ProfileType;

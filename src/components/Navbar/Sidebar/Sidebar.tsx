@@ -1,5 +1,5 @@
 import { FriendType } from '../../../@types/types.ts';
-import Friend from '../Friend/Friend.tsx';
+import Friend from '../friend/Friend.tsx';
 import st from '../Navbar.module.css';
 
 type Props = {
