@@ -1,39 +1,26 @@
 import { authAPI, securityAPI } from 'api';
 import { ResultCodeForCaptcha, ResultCodesEnum } from 'api/types';
-import { ThunkActionType } from 'redux/redux-store';
+import { InferActionsTypes, ThunkActionType } from 'redux/redux-store';
 
-const SET_USER_DATA = 'samurai/auth/SET_USER_DATA';
-const STOP_SUBMIT = 'samurai/auth/STOP_SUBMIT';
-const GET_CAPTCHA_URL_SUCCESS = 'samurai/auth/GET_CAPTCHA_URL_SUCCESS';
-
-type InitialStateType = {
-  id: number | null;
-  email: string | null;
-  login: string | null;
-  isAuth: boolean;
-  errorMessage: string;
-  captchaUrl: string | null;
-};
-
-let initialState: InitialStateType = {
-  id: null,
-  email: null,
-  login: null,
+const initialState = {
+  id: null as number | null,
+  email: null as string | null,
+  login: null as string | null,
   isAuth: false,
   errorMessage: '',
-  captchaUrl: null, // if null, captcha is not required
+  captchaUrl: null as string | null, // if null, captcha is not required
 };
 
-const authReducer = (
+export const authReducer = (
   state = initialState,
   action: ActionTypes
 ): InitialStateType => {
   switch (action.type) {
-    case SET_USER_DATA:
-    case GET_CAPTCHA_URL_SUCCESS: {
+    case 'auth/SET_USER_DATA':
+    case 'auth/GET_CAPTCHA_URL_SUCCESS': {
       return { ...state, ...action.payload };
     }
-    case STOP_SUBMIT: {
+    case 'auth/STOP_SUBMIT': {
       return { ...state, errorMessage: action.message };
     }
     default:
@@ -42,51 +29,30 @@ const authReducer = (
 };
 
 //Action creators
-type SetUserDataActionPayloadType = {
-  id: number | null;
-  email: string | null;
-  login: string | null;
-  isAuth: boolean;
-};
+export const actions = {
+  setUserData: (
+    id: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean
+  ) =>
+    ({
+      type: 'auth/SET_USER_DATA',
+      payload: { id, email, login, isAuth },
+    } as const),
 
-type SetUserDataActionType = {
-  type: typeof SET_USER_DATA;
-  payload: SetUserDataActionPayloadType;
-};
-const setUserData = (
-  id: number | null,
-  email: string | null,
-  login: string | null,
-  isAuth: boolean
-): SetUserDataActionType => ({
-  type: SET_USER_DATA,
-  payload: { id, email, login, isAuth },
-});
+  stopSubmit: (message: string) =>
+    ({
+      type: 'auth/STOP_SUBMIT',
+      message,
+    } as const),
 
-type StopSubmitActionType = {
-  type: typeof STOP_SUBMIT;
-  message: string;
+  getCaptchaUrlSuccess: (captchaUrl: string | null) =>
+    ({
+      type: 'auth/GET_CAPTCHA_URL_SUCCESS',
+      payload: { captchaUrl },
+    } as const),
 };
-const stopSubmit = (message: string): StopSubmitActionType => ({
-  type: STOP_SUBMIT,
-  message,
-});
-
-type GetCaptchaUrlSuccessActionType = {
-  type: typeof GET_CAPTCHA_URL_SUCCESS;
-  payload: { captchaUrl: string | null };
-};
-const getCaptchaUrlSuccess = (
-  captchaUrl: string | null
-): GetCaptchaUrlSuccessActionType => ({
-  type: GET_CAPTCHA_URL_SUCCESS,
-  payload: { captchaUrl },
-});
-
-type ActionTypes =
-  | SetUserDataActionType
-  | StopSubmitActionType
-  | GetCaptchaUrlSuccessActionType;
 
 //Thunk creators
 export const getUserAuthData =
@@ -94,7 +60,7 @@ export const getUserAuthData =
     const data = await authAPI.me();
     if (data?.resultCode === ResultCodesEnum.Success) {
       let { id, email, login } = data.data;
-      dispatch(setUserData(id, email, login, true));
+      dispatch(actions.setUserData(id, email, login, true));
     }
   };
 
@@ -115,7 +81,7 @@ export const login =
       }
       const message =
         data.messages.length > 0 ? data.messages[0] : 'Some unknown error';
-      dispatch(stopSubmit(message));
+      dispatch(actions.stopSubmit(message));
     }
   };
 
@@ -123,14 +89,15 @@ export const getCaptchaUrl =
   (): ThunkActionType<ActionTypes> => async (dispatch) => {
     const response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.data.url;
-    dispatch(getCaptchaUrlSuccess(captchaUrl));
+    dispatch(actions.getCaptchaUrlSuccess(captchaUrl));
   };
 
 export const logout = (): ThunkActionType<ActionTypes> => async (dispatch) => {
   const data = await authAPI.logout();
   if (data.resultCode === ResultCodesEnum.Success) {
-    dispatch(setUserData(null, null, null, false));
+    dispatch(actions.setUserData(null, null, null, false));
   }
 };
 
-export default authReducer;
+type InitialStateType = typeof initialState;
+type ActionTypes = InferActionsTypes<typeof actions>;

@@ -2,13 +2,10 @@ import { DialogsPropsType } from 'components/Dialogs/DialogsContainer';
 import { memo } from 'react';
 import st from './Dialogs.module.css';
 import Dialog from './Dialog/Dialog.tsx';
-import { Navigate } from 'react-router-dom';
 import { Messages } from './Messages/Messages.tsx';
-import { Navigation } from '../../@types/navigation.ts';
 
 export const Dialogs = memo(
-  ({ messagesData, dialogsData, isAuth }: DialogsPropsType) => {
-    if (!isAuth) return <Navigate to={`${Navigation.Dialogs}`} />;
+  ({ messagesData, dialogsData }: DialogsPropsType) => {
 
     return (
       <div className={st.dialogs}>

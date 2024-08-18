@@ -1,12 +1,13 @@
 import { ValidatorType } from 'components/utils/validators/validators';
+import { Field, SupportedInputs } from 'react-final-form';
+import { FormControlProps } from './FormControls';
 import { FC } from 'react';
-import { Field } from 'react-final-form';
 
-export const createField = (
-  name: string,
+export const createField = <Name extends string>(
+  name: Name,
   id: string,
-  component: FC | 'input',
-  placeholder: string,
+  component: SupportedInputs | FC<FormControlProps>,
+  placeholder?: string,
   validators?: ValidatorType,
   props = {},
   text = ''

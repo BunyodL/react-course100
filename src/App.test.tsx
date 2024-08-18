@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
-import MainApp from './App';
+import { AppContainer } from './App';
 
 test('renders learn react link', () => {
-  render(<MainApp />);
+  render(<AppContainer />);
 });

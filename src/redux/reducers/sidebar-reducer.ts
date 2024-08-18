@@ -1,10 +1,6 @@
 import { FriendType } from '../../@types/types';
 
-type InitialStateType = {
-  friends: Array<FriendType>;
-};
-
-let initialState: InitialStateType = {
+const initialState = {
   friends: [
     {
       id: 1,
@@ -27,11 +23,14 @@ let initialState: InitialStateType = {
       image:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoldbXNMFuRVNmn4m9E5K4wb1h1CDH8b9daw&usqp=CAU',
     },
-  ],
+  ] as Array<FriendType>,
 };
 
-const sidebarReducer = (state = initialState, action: any) => {
+export const sidebarReducer = (
+  state = initialState,
+  action: any
+): InitialStateType => {
   return state;
 };
 
-export default sidebarReducer;
+type InitialStateType = typeof initialState;

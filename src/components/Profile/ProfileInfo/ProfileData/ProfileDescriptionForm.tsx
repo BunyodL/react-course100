@@ -1,7 +1,7 @@
 import { createField } from 'components/common/FormsControls/createField';
 import { FC } from 'react';
 import { Form } from 'react-final-form';
-import { ProfileType } from '../../../../@types/types.ts';
+import { GetStringKeys, ProfileType } from '../../../../@types/types.ts';
 import {
 	Input,
 	TextArea,
@@ -14,6 +14,8 @@ type Props = {
   onSubmit: (profile: ProfileType) => void;
 };
 
+type ProfileTypeKeys = GetStringKeys<ProfileType>;
+
 const ProfileDescriptionForm: FC<Props> = ({ profile, onSubmit }) => {
   return (
     <Form
@@ -24,7 +26,7 @@ const ProfileDescriptionForm: FC<Props> = ({ profile, onSubmit }) => {
           <div className={st.description}>
             <div className={st.info}>
               <button>Save changes</button>
-              {createField(
+              {createField<ProfileTypeKeys>(
                 'fullName',
                 'fullName',
                 Input,
@@ -33,7 +35,7 @@ const ProfileDescriptionForm: FC<Props> = ({ profile, onSubmit }) => {
                 { type: 'text' },
                 'Full Name'
               )}
-              {createField(
+              {createField<ProfileTypeKeys>(
                 'lookingForAJob',
                 'lookingForAJob',
                 Input,
@@ -42,7 +44,7 @@ const ProfileDescriptionForm: FC<Props> = ({ profile, onSubmit }) => {
                 { type: 'checkbox' },
                 'lookingForAJob'
               )}
-              {createField(
+              {createField<ProfileTypeKeys>(
                 'lookingForAJobDescription',
                 'lookingForAJobDescription',
                 TextArea,
@@ -51,7 +53,7 @@ const ProfileDescriptionForm: FC<Props> = ({ profile, onSubmit }) => {
                 { type: 'text' },
                 'My professional skills'
               )}
-              {createField(
+              {createField<ProfileTypeKeys>(
                 'aboutMe',
                 'aboutMe',
                 TextArea,

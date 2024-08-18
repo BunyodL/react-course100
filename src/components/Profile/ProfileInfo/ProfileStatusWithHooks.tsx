@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import st from './ProfileInfo.module.css';
 
 export type ProfileStatusPropsType = {

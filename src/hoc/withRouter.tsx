@@ -1,15 +1,17 @@
 import { ComponentType } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export const withRouter = (WrappedComponent: ComponentType) => (props: any) => {
-  const params = useParams();
-  const navigate = useNavigate();
+export function withRouter<WCP>(WrappedComponent: ComponentType<WCP>) {
+  return (props: WCP) => {
+    const params = useParams();
+    const navigate = useNavigate();
 
-  return (
-    <WrappedComponent
-      {...props}
-      params={params}
-      navigate={navigate}
-    />
-  );
-};
+    return (
+      <WrappedComponent
+        {...props}
+        params={params}
+        navigate={navigate}
+      />
+    );
+  };
+}

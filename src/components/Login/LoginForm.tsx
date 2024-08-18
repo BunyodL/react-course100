@@ -3,6 +3,8 @@ import { Form } from 'react-final-form';
 import { Input } from '../common/FormsControls/FormControls.tsx';
 import { required } from '../utils/validators/validators.ts';
 import st from './Login.module.css';
+import { memo } from 'react';
+import { GetStringKeys } from '../../@types/types.ts';
 
 type Props = {
   login: (
@@ -22,11 +24,11 @@ export type FormDataType = {
   captcha: string | null;
 };
 
-export type FieldNameTypes = Extract<keyof FormDataType, string>;
+export type FieldNameTypes = GetStringKeys<FormDataType>;
 
 // I didn't figure it out how to type Field component properly
 
-const LoginForm = ({ login, errorMessage, captchaUrl }: Props) => {
+const LoginForm = memo(({ login, errorMessage, captchaUrl }: Props) => {
   const onSubmit = ({
     email,
     password,
@@ -44,7 +46,7 @@ const LoginForm = ({ login, errorMessage, captchaUrl }: Props) => {
           className={st.loginForm}
           onSubmit={handleSubmit}
         >
-          {createField(
+          {createField<FieldNameTypes>(
             'email',
             'email',
             Input,
@@ -53,7 +55,7 @@ const LoginForm = ({ login, errorMessage, captchaUrl }: Props) => {
             { type: 'text' },
             'Email'
           )}
-          {createField(
+          {createField<FieldNameTypes>(
             'password',
             'password',
             Input,
@@ -74,7 +76,7 @@ const LoginForm = ({ login, errorMessage, captchaUrl }: Props) => {
             />
           )}
           {captchaUrl &&
-            createField(
+            createField<FieldNameTypes>(
               'captcha',
               '',
               Input,
@@ -84,11 +86,11 @@ const LoginForm = ({ login, errorMessage, captchaUrl }: Props) => {
             )}
 
           <div className={st.checkbox__submit}>
-            {createField(
+            {createField<FieldNameTypes>(
               'rememberMe',
               'rememberMe',
               'input',
-              '',
+              undefined,
               undefined,
               { type: 'checkbox' },
               'Remember me'
@@ -99,6 +101,6 @@ const LoginForm = ({ login, errorMessage, captchaUrl }: Props) => {
       )}
     />
   );
-};
+});
 
 export default LoginForm;

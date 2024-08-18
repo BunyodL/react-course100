@@ -29,10 +29,6 @@ const ProfileInfo: FC<Props> = ({
 }) => {
   const [editMode, setEditMode] = useState(false);
 
-  // useEffect(() => {
-  //   setEditMode(false);
-  // }, [])
-
   if (!profile) {
     return <Preloader />;
   }

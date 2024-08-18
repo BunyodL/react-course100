@@ -1,8 +1,8 @@
-import { Navigation } from '../@types/navigation';
-import { ComponentType, Component } from 'react';
+import { ComponentType, FC } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { RootState } from 'redux/redux-store';
+import { Navigation } from '../@types/navigation';
 
 type MapStateToPropsForRedirect = {
   isAuth: boolean;
@@ -12,19 +12,23 @@ const mapStateToPropsForRedirect = (state: RootState) => ({
   isAuth: state.auth.isAuth,
 });
 
-export const withAuthRedirect = (
-  MyComponent: ComponentType<MapStateToPropsForRedirect>
-) => {
-  class RedirectComponent extends Component<MapStateToPropsForRedirect, {}> {
-    render() {
-      if (!this.props.isAuth) return <Navigate to={`${Navigation.Login}`} />;
-      return <MyComponent {...this.props} />;
-    }
-  }
+export function withAuthRedirect<WCP extends JSX.IntrinsicAttributes>(
+  MyComponent: ComponentType<WCP>
+) {
+  const RedirectComponent: FC<MapStateToPropsForRedirect> = (props) => {
+    const { isAuth, ...restProps } = props;
 
-  let ConnectedAuthRedirectComponent = connect(mapStateToPropsForRedirect)(
-    RedirectComponent
-  );
+    if (!isAuth) return <Navigate to={`${Navigation.Login}`} />;
+
+    return <MyComponent {...(restProps as WCP)} />;
+  };
+
+  let ConnectedAuthRedirectComponent = connect<
+    MapStateToPropsForRedirect,
+    {},
+    WCP,
+    RootState
+  >(mapStateToPropsForRedirect)(RedirectComponent);
 
   return ConnectedAuthRedirectComponent;
-};
+}

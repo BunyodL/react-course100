@@ -2,17 +2,17 @@ import React, { ComponentType } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { RootState } from 'redux/redux-store';
+import { Navigation } from '../../@types/navigation.ts';
 import { ProfileType } from '../../@types/types.ts';
 import { withRouter } from '../../hoc/withRouter';
 import {
-  getUserProfile,
-  getUserStatus,
-  updatePhoto,
-  updateProfileData,
-  updateUserStatus,
+	getUserProfile,
+	getUserStatus,
+	updatePhoto,
+	updateProfileData,
+	updateUserStatus,
 } from '../../redux/reducers/profile-reducer.ts';
 import Profile from './Profile.tsx';
-import { Navigation } from '../../@types/navigation.ts';
 
 type MapStateToProps = {
   authorizedUserId: number | null;
@@ -95,7 +95,7 @@ const mapStateToProps = (state: RootState): MapStateToProps => ({
   errorMessage: state.profilePage.errorMessage,
 });
 
-export default compose(
+export default compose<ComponentType>(
   withRouter,
   connect<MapStateToProps, MapDispatchToProps, OwnProps, RootState>(
     mapStateToProps,
@@ -107,4 +107,4 @@ export default compose(
       updateProfileData,
     }
   )
-)(ProfileContainer) as ComponentType;
+)(ProfileContainer);

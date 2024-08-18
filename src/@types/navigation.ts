@@ -1,4 +1,4 @@
-export const enum Navigation {
+export enum Navigation {
   Home = '/',
   Profile = '/profile',
   Dialogs = '/dialogs',
