@@ -4,7 +4,7 @@ import {
   applyMiddleware,
   Action,
 } from 'redux';
-import ThunkMiddleware, { ThunkAction } from 'redux-thunk';
+import { ThunkAction, thunk } from 'redux-thunk';
 import {
   appReducer,
   authReducer,
@@ -36,12 +36,12 @@ export type ThunkActionType<T extends Action> = ThunkAction<
 
 // this is for typing actions (action creators)
 export type InferActionsTypes<T> = T extends {
-  [key: string]: (...args: any[]) => infer U
+  [key: string]: (...args: any[]) => infer U;
 }
   ? U
   : never;
 
-const store = legacy_createStore(rootReducer, applyMiddleware(ThunkMiddleware));
+const store = legacy_createStore(rootReducer as any, applyMiddleware(thunk));
 export default store;
 
 // @ts-ignore
