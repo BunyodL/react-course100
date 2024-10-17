@@ -1,3 +1,3 @@
-import Music from './Music.tsx';
+import Music from './Music';
 
 export { Music };

@@ -1,8 +1,8 @@
 import { ComponentType, FC } from 'react';
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { RootState } from '@/redux/redux-store';
-import { Navigation } from '@/@types/navigation';
+import { RootState } from 'redux/redux-store';
+import { Navigation } from '../@types/navigation';
 
 type MapStateToPropsForRedirect = {
   isAuth: boolean;

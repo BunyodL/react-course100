@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { RootState } from '@/redux/redux-store';
-import { login } from '@/redux/reducers/auth-reducer.ts';
+import { RootState } from 'redux/redux-store';
+import { login } from '../../redux/reducers/auth-reducer.ts';
 import { Login } from '.';
 
 type MapStateToProps = {

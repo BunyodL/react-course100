@@ -1,8 +1,8 @@
 import { DialogsPropsType } from './DialogsContainer';
 import { memo } from 'react';
 import st from './Dialogs.module.css';
-import { Dialog } from '@/components/dialogs/dialog';
-import { Messages } from '@/components/dialogs/messages';
+import { Dialog } from '../../components/dialogs/dialog';
+import { Messages } from '../../components/dialogs/messages';
 
 const Dialogs = memo(({ messagesData, dialogsData }: DialogsPropsType) => {
     return (

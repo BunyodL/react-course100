@@ -1,8 +1,8 @@
-import { createField } from '@/components/common/formsControls/createField.tsx';
+import { createField } from 'components/common/formsControls/createField.tsx';
 import { FC } from 'react';
 import { Form } from 'react-final-form';
-import { GetStringKeys, ProfileType } from '@/@types/types.ts';
-import { Input, TextArea } from '@/components/common/formsControls';
+import { GetStringKeys, ProfileType } from '../../../../../@types/types.ts';
+import { Input, TextArea } from '../../../../common/formsControls';
 import st from './ProfileDescriptionForm.module.css';
 import { ContactForm } from '../contactForm';
 

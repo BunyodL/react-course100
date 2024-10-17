@@ -1,5 +1,5 @@
 import { Message } from './message';
-import { MessageType } from '@/@types/types';
+import { MessageType } from '../../../@types/types';
 import st from './Messages.module.css';
 import { AddMessageContainer } from './addMessage';
 

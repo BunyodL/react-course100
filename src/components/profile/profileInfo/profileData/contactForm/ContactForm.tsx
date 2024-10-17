@@ -1,5 +1,5 @@
-import { createField } from '@/components/common/formsControls/createField.tsx';
-import { Input } from '@/components/common/formsControls';
+import { createField } from 'components/common/formsControls/createField.tsx';
+import { Input } from '../../../../common/formsControls';
 import st from './ContactForm.module.css';
 
 const ContactForm = ({ contactName }: { contactName: string }) => {

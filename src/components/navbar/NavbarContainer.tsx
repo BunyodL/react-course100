@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { RootState } from '@/redux/redux-store';
-import { FriendType } from '@/@types/types.ts';
+import { RootState } from 'redux/redux-store';
+import { FriendType } from '../../@types/types.ts';
 import { Navbar } from '.';
 
 type MapStateToProps = {

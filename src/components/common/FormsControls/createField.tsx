@@ -1,7 +1,7 @@
-import { ValidatorType } from '@/utils/validators';
-import { FC } from 'react';
+import { ValidatorType } from 'utils/validators';
 import { Field, SupportedInputs } from 'react-final-form';
 import { FormControlProps } from '.';
+import { FC } from 'react';
 
 export const createField = <Name extends string>(
     name: Name,
