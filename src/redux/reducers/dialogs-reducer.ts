@@ -1,5 +1,5 @@
-import { InferActionsTypes } from '@/redux/redux-store';
-import { DialogType, MessageType } from '@/@types/types';
+import { InferActionsTypes } from 'redux/redux-store';
+import { DialogType, MessageType } from '../../@types/types';
 
 const initialState = {
   dialogsData: [

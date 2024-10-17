@@ -1,5 +1,5 @@
 import { ChangeEvent, FC, useEffect, useState } from 'react';
-import st from '../ProfileInfo.module.css';
+import st from './ProfileInfo.module.css';
 
 export type ProfileStatusPropsType = {
   status: string

@@ -1,6 +1,6 @@
-import { authAPI, securityAPI } from '@/api';
-import { ResultCodeForCaptcha, ResultCodesEnum } from '@/api/types';
-import { InferActionsTypes, ThunkActionType } from '@/redux/redux-store';
+import { authAPI, securityAPI } from 'api';
+import { ResultCodeForCaptcha, ResultCodesEnum } from 'api/types';
+import { InferActionsTypes, ThunkActionType } from 'redux/redux-store';
 
 const initialState = {
   id: null as number | null,

@@ -1,4 +1,4 @@
-import { InferActionsTypes, ThunkActionType } from '@/redux/redux-store';
+import { InferActionsTypes, ThunkActionType } from 'redux/redux-store';
 import { getUserAuthData } from './auth-reducer.ts';
 
 const initialState = {

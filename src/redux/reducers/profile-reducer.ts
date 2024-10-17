@@ -1,7 +1,7 @@
-import { InferActionsTypes, ThunkActionType } from '@/redux/redux-store';
-import { PhotosType, PostType, ProfileType } from '@/@types/types.ts';
-import { profileAPI } from '@/api';
-import { ResultCodesEnum } from '@/api/types.ts';
+import { InferActionsTypes, ThunkActionType } from 'redux/redux-store';
+import { PhotosType, PostType, ProfileType } from '../../@types/types.ts';
+import { profileAPI } from 'api';
+import { ResultCodesEnum } from 'api/types.ts';
 
 const initialState = {
   postsData: [
