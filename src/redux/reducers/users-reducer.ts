@@ -1,8 +1,13 @@
-import { AppDispatch, InferActionsTypes, ThunkActionType } from 'redux/redux-store';
+import {
+  InferActionsTypes,
+  RootState,
+  ThunkActionType,
+} from 'redux/redux-store';
 import { UserType } from '../../@types/types.ts';
 import { updateObjectInArray } from '../../utils/object-helpers.ts';
 import { usersAPI } from 'api';
 import { ResponseType, ResultCodesEnum } from 'api/types.ts';
+import { ThunkDispatch } from 'redux-thunk';
 
 const initialState = {
   users: [] as Array<UserType | undefined>,
@@ -16,7 +21,7 @@ const initialState = {
 
 export const usersReducer = (
   state = initialState,
-  action: ActionTypes
+  action: ActionTypes,
 ): InitialStateType => {
   switch (action.type) {
     case 'users/FOLLOW': {
@@ -128,10 +133,10 @@ export const setUsersPage =
   };
 
 const _followUnfollowFlow = async (
-    dispatch: AppDispatch,
-    apiMethod: (userId: number) => Promise<ResponseType>,
-    actionCreator: (userId: number) => ActionTypes,
-    userId: number,
+  dispatch: ThunkDispatch<RootState, null, ActionTypes>,
+  apiMethod: (userId: number) => Promise<ResponseType>,
+  actionCreator: (userId: number) => ActionTypes,
+  userId: number,
 ) => {
   dispatch(actions.buttonIsDisabled(true, userId));
   let data = await apiMethod(userId);
@@ -148,7 +153,7 @@ export const unfollow =
       dispatch,
       usersAPI.unfollow.bind(usersAPI),
       actions.unfollowSuccess,
-      userId
+      userId,
     );
   };
 
@@ -159,7 +164,7 @@ export const follow =
       dispatch,
       usersAPI.follow.bind(usersAPI),
       actions.followSuccess,
-      userId
+      userId,
     );
   };
 
