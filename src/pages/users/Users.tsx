@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { UserType } from '../../@types/types.ts';
-import defaultUserPhoto from '../../images/default-photo.png';
+import defaultUserPhoto from '../../assets/images/default-photo.png';
 import { Paginator } from '../../components/common/paginator/index.ts';
 import { User } from '../../components/user';
 import st from './Users.module.css';

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ContactType, ProfileType } from '../../../../../@types/types';
-import CloseIcon from '../../../../images/icons/closeIcon.svg';
-import CheckIcon from '../../../../images/icons/doneIcon.svg';
+import CloseIcon from '../../../../../assets/icons/closeIcon.svg';
+import CheckIcon from '../../../../../assets/icons/doneIcon.svg';
 import st from './ProfileDescription.module.css';
 import { Contact } from '../contact';
 

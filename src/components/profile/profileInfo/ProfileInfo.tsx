@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { ProfileType } from '../../../@types/types.ts';
-import wallpaperImg from '../../../images/profile_wallpaper.jpg';
+import wallpaperImg from '../../../assets/images/profile_wallpaper.jpg';
 import { Preloader } from '../../common/preloader';
 import { ProfileDescription } from './profileData/profileDescription';
 import { ProfileDescriptionForm } from './profileData/profileDescriptionForm';
