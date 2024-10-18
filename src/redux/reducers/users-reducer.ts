@@ -5,7 +5,7 @@ import {
 } from 'redux/redux-store';
 import { UserType } from '../../@types/types.ts';
 import { updateObjectInArray } from '../../utils/object-helpers.ts';
-import { usersAPI } from 'api';
+import { usersAPI } from 'api/users-api';
 import { ResponseType, ResultCodesEnum } from 'api/types.ts';
 import { ThunkDispatch } from 'redux-thunk';
 
