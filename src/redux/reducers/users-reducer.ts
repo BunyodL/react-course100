@@ -168,5 +168,5 @@ export const follow =
     );
   };
 
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 type ActionTypes = InferActionsTypes<typeof actions>;

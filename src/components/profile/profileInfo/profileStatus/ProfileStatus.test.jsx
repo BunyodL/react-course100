@@ -21,18 +21,18 @@ describe('ProfileStatus component', () => {
     expect(() => root.findByType('input')).toThrow();
   });
 
-  test('span status should be correct', () => {
+  test('span status should be correct', async () => {
     const component = create(<ProfileStatus status={'samuraiJS.com'} updateUserStatus={updateUserStatus} />);
     const root = component.root;
     const instance = component.getInstance();
-    const span = root.findByType('span');
+    const span = await root.findByType('span');
     expect(span.children[0]).toBe(instance.state.status);
   });
 
-  test('after double click input should be displayed instead of span', () => {
+  test('after double click input should be displayed instead of span', async () => {
     const component = create(<ProfileStatus status={'samuraiJS.com'} updateUserStatus={updateUserStatus} />);
     const root = component.root;
-    const span = root.findByType('span');
+    const span = await root.findByType('span');
     span.props.onDoubleClick();
     expect(() => root.findByType('input')).toBeDefined();
   });
